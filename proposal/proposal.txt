@@ -1,0 +1,13 @@
+PROPOSAL DIRECTORY DESCRIPTION
+
+proposal.pdf - document containing the written explanations for the proposal
+
+user.jpg - the screen displayed to the user upon login
+
+your ads.jpg - screen displayed to user of just the user's ads
+
+
+
+
+
+
