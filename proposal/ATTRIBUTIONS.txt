@@ -1,0 +1,5 @@
+The sketches were compiled using multiple image sources including:
+-WordPress
+-http://www.tusbe.com/
+
+They do not reflect the state of the project and are used purely as an aid to help the TAs visualize our proposal better. No copyrighted content will be used when developing the actual website. 
