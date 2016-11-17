@@ -2,6 +2,9 @@
  * Start Bootstrap - Simple Sidebar (http://startbootstrap.com/)
  * Copyright 2013-2016 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
+ *
+ *
+ * Modified by Timothy for use with CSC309 Group 10 Project
  */
 
  body {
@@ -32,6 +35,7 @@
     overflow-y: auto;
     background: #262b2e;
     transition: all 0.5s ease;
+    box-shadow: inset -80px -1px 49px -83px rgba(0,0,0,0.75);
 }
 
 #wrapper.toggled #sidebar-wrapper {
@@ -50,6 +54,27 @@
 }
 
 /* Sidebar Styles */
+/* Bottom */
+.sidebar-bottom {
+    position: absolute;
+    bottom: 0;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-bottom li {
+    text-indent: 20px;
+    line-height: 40px;
+    box-shadow: inset -80px -1px 49px -83px rgba(0,0,0,0.75);
+}
+
+.sidebar-bottom li a {
+    display: block;
+    text-decoration: none;
+    color: #FFF;
+}
 
 .sidebar-nav {
     position: absolute;
@@ -63,6 +88,7 @@
 .sidebar-nav li {
     text-indent: 20px;
     line-height: 40px;
+    box-shadow: inset -80px -1px 49px -83px rgba(0,0,0,0.75);
 }
 
 .sidebar-nav li a {
@@ -73,6 +99,12 @@
 
 /* Modified to support sub and category */
 .sidebar-nav li a:hover:not(.category) {
+    text-decoration: none;
+    color: #fff;
+    background: #1b1f21;
+}
+
+.sidebar-bottom li a:hover:not(.category) {
     text-decoration: none;
     color: #fff;
     background: #1b1f21;
@@ -101,10 +133,12 @@
 /* Customizations */
 .category {
     background-color: #0071a4;
+    box-shadow: inset -80px -1px 49px -83px rgba(0,0,0,0.75);
 }
 
 .sub {
     background-color: #323a3e;
+    box-shadow: inset -80px -1px 49px -83px rgba(0,0,0,0.75);
 }
 
 @media(min-width:768px) {
