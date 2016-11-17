@@ -1,0 +1,35 @@
+PROPOSAL DIRECTORY DESCRIPTION
+
+PROPOSAL.pdf - document containing the written explanations for the proposal
+
+loginpage - login page for site
+
+user.jpg - the screen displayed to the user upon login
+
+your ads.jpg - screen displayed to user of just the user's ads, accepting a bid provides you with the highest bidder's email and deletes the listing
+
+your profile.jpg - the user's view of their profile
+
+admin add user.jpg - screen for an admin to add a new user
+
+admin search user.jpg - screen for an admin to search for a user (result of search will be same screen with filtered results)
+
+admin click on user.jpg - screen if an admin clicks on a user
+
+admin.jpg - screen displayed to admin upon login
+
+admin view listing.jpeg - screen where admin can modify or delete a posting, same screen for a user who owns the listing
+
+user view listing.jpg - the user's view of any listing (that isn't theirs)
+
+user post listing.jpg - screen for user to add a listing
+
+
+
+
+
+
+
+
+
+
