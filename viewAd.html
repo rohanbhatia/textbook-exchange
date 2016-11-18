@@ -1,0 +1,156 @@
+<!-- Here be dragons -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>NO NAME - CHANGE THIS TO ADD NAME</title>
+
+	<!-- Bootstrap Core -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="assets/css/sidebar.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+
+    <!-- Jquery -->
+    <script src="assets/js/jquery-3.1.1.min.js"></script>  
+
+</head>
+
+<body>
+	<div id="wrapper">
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="#">NO NAME</a>
+            </li>
+            <li>
+                <a class="category">Postings</a>
+            </li>
+            <li>
+                <a class="sub" href="allAds.html">View Ads</a>
+            </li>
+            <li>
+                <a class="sub" href="yourAds.html">Your Ads</a>
+            </li>
+            <li>
+                <a class="category">Your Profile</a>
+            </li>
+            <li>
+                <a class="sub" href="profile.html">Edit Profile</a>
+            </li>
+        </ul>
+        <ul class="sidebar-bottom">
+            <li>
+                <a class="sub" href="#">Logout</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+        	<!-- header -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Title -->
+                    <h1>View Ad</h1>
+                </div>
+            </div>
+            <!-- table -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <table class="table">
+				    <thead>
+				      <tr>
+				        <th id="bookname">REPLACE WITH BOOKNAME VIA JAVASCRIPT</th>
+				      </tr>
+				    </thead>
+				    <tbody>
+				      <tr>
+				        <td>
+                            <div>
+                                <div id="overview" class="row">
+                                    <!-- Insert Price and whatnot here (get rid of this comment too!) -->
+                                    Blah blah
+                                </div>
+                                <div class="row">
+                                    <!-- Bid -->
+                                    <div class="col-lg-4">
+                                        <table class="table">
+                                            <thead>
+                                              <tr>
+                                                <th>Bid</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              <tr style="background-color: #c1c1c1;">
+                                                <td>
+                                                    <!-- The form -->
+                                                    <form>
+                                                        <input type="number" min="1" step="any" class="form-control" placeholder="50.00" />
+                                                        <input type="submit" class="btn btn-primary" value="Bid">
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        
+                                    </div>
+                                    <!-- Comments -->
+                                    <div class="col-lg-8">
+                                        <table class="table">
+                                            <thead>
+                                              <tr>
+                                                <th>Comment</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              <tr style="background-color: #c1c1c1;">
+                                                <td>
+                                                    <div id="comments">
+                                                        <!-- insert comments here -->
+                                                    </div>
+                                                    <!-- The form -->
+                                                    <form>
+                                                        <textarea class="form-control" rows="4" placeholder="Cheaper than the bookstore!"></textarea>
+                                                        <input type="submit" class="btn btn-primary" value="Comment">
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                      </tr>
+				    </tbody>
+				  </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+    </div>
+
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+</body>
