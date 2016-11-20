@@ -1,0 +1,36 @@
+// Dont put arguments pls
+
+
+
+
+
+navigationBar()
+
+getAds(title (optional), courseCode (optional))
+
+getDetailedAd(ID)
+
+addListing(title, author, price, description, isbn, course code)
+
+deleteListing(id)
+
+getComments(ID)
+
+postBid(ID, bid)
+
+acceptBid(ID)
+
+postComment(ID, comment, email)
+
+signup(firstname, lastname, email, email, password)
+
+updateProfile(firstname, lastname, email, email, password)
+
+login(email, passowrd)
+
+logout() 
+
+
+// Admin specific functions
+deleteUser(email)
+
