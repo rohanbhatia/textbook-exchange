@@ -1,0 +1,36 @@
+// Dont put arguments pls
+
+// For ads, I wrapped them in a DIV called id="AdsTable". Delete the table and have the js remake the table inside of the div
+
+
+
+navigationBar()
+
+getAds(title (optional), courseCode (optional))
+
+getDetailedAd(ID)
+
+addListing(title, author, price, description, isbn, course code)
+
+deleteListing(id)
+
+getComments(ID)
+
+postBid(ID, bid)
+
+acceptBid(ID)
+
+postComment(ID, comment, email)
+
+signup(firstname, lastname, email, email, password)
+
+updateProfile(firstname, lastname, email, email, password)
+
+login(email, passowrd)
+
+logout() 
+
+
+// Admin specific functions
+deleteUser(email)
+
