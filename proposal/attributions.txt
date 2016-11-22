@@ -1,0 +1,5 @@
+All code linked below has been used under license from the developers
+
+
+Bootstrap             - http://getbootstrap.com/
+Sidebar modified from - https://github.com/BlackrockDigital/startbootstrap-simple-sidebar
