@@ -1,7 +1,7 @@
 
 var express = require('express');
-var routes = require('./user');
-var routes = require('./ads');
+var users = require('./userRoutes');
+var ads = require('./adRoutes');
 var bodyParser = require('body-parser');
 
 var app = express();
@@ -18,11 +18,11 @@ app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
 
 
 
-app.post('/login', user.login);  // login
-app.post('/signup', user.user);  // signup
-app.get('/user', user.editUser); // Get user info / object
-app.post('/editUser', user.editUser);  // Post new user edit
-app.post('/removeUser', user.removeUser);  // Remove user
+app.post('/login', users.login);  // login
+app.post('/signup', users.user);  // signup
+app.get('/user', users.editUser); // Get user info / object
+app.post('/editUser', users.editUser);  // Post new user edit
+app.post('/removeUser', users.removeUser);  // Remove user
 
 app.get('/ads', ads.getads);  // Get all the post objects - also get individual post via fname
 app.post('/bid', ads.bid);        // Bid
