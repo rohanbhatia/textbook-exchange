@@ -1,0 +1,1 @@
+var Ad = require('../models/ad');
