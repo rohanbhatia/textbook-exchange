@@ -1,7 +1,7 @@
 
 var express = require('express');
-var users = require('./userRoutes');
-var ads = require('./adRoutes');
+var users = require('./routes/userRoutes');
+var ads = require('./routes/adRoutes');
 var bodyParser = require('body-parser');
 
 var app = express();
@@ -17,21 +17,17 @@ app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
 }));
 
 
-
-app.post('/login', users.login);  // login
-app.post('/signup', users.user);  // signup
-app.get('/user', users.editUser); // Get user info / object
-app.post('/editUser', users.editUser);  // Post new user edit
+app.post('/signup', users.createUser);  // signup
+app.post('/login', users.userLogin);  // login
+app.get('/user', users.getUserInfo); // Get user info / object
+app.post('/editUser', users.editUserInfo);  // Post new user edit
 app.post('/removeUser', users.removeUser);  // Remove user
 
-app.get('/ads', ads.getads);  // Get all the post objects - also get individual post via fname
-app.post('/bid', ads.bid);        // Bid
+app.get('/ads', ads.getAds);  // Get all the post objects - also get individual post via fname
+app.post('/bid', ads.postBid);        // Bid
 app.delete('/deleteAd', ads.deleteAd); // Delete
-app.post('/newAd', ads.newAd);     // Bid
-app.post('/editAd', ads.editAd);   // Edit ads
-
-
-
+app.post('/newAd', ads.createNewAd);     // Create New Ad
+app.post('/editAd', ads.editAd);   // Edit ad
 
 app.listen(process.env.PORT || 3000);
 console.log('Listening on port 3000');
