@@ -1,0 +1,27 @@
+{
+  "name": "group10",
+  "version": "1.0.0",
+  "description": "Temporary testin links: - View index: http://timothylock.ca/csc309 - Browse as user: http://timothylock.ca/csc309/allAds.html - Browse as admin: We'll do it once we figure out how to cookie",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rohanbhatia/group10.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rohanbhatia/group10/issues"
+  },
+  "homepage": "https://github.com/rohanbhatia/group10#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "mongodb": "^2.2.11",
+    "mongoose": "^4.6.8",
+    "nodemon": "^1.11.0"
+  }
+}
