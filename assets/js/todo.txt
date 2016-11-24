@@ -1,6 +1,6 @@
 // Dont put arguments pls
 
-
+// For ads, I wrapped them in a DIV called id="AdsTable". Delete the table and have the js remake the table inside of the div
 
 
 

@@ -1,6 +1,6 @@
-#page-content-wrapper {
+body {
 	background-color: #e5e5e5;
-	height: 100vh;
+	height: 100%;
 }
 
 th {

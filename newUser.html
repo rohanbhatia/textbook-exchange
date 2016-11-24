@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>New Listing - UofTextbook Exchange</title>
+    <title>New User - UofTextbook Exchange</title>
 
 	<!-- Bootstrap Core -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
@@ -71,21 +71,18 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col-lg-12">
                     <!-- Title -->
-                    <h1>New Listing</h1>
-                </div>
-                <div class="col-lg-8" style="display: inline-block;">
-                    <h3>Add a new listing by filling in the form below</h3>
+                    <h1>Add User</h1>
                 </div>
             </div>
-            <!-- table -->
+            <!-- Personal Info -->
             <div class="row">
                 <div class="col-lg-12">
-                    <table class="table">
+                    <table class="table table-hover">
 				    <thead>
 				      <tr>
-				        <th>New Listing</th>
+				        <th>Details</th>
 				      </tr>
 				    </thead>
 				    <tbody>
@@ -93,23 +90,19 @@
 				        <td>
                             <!-- The form -->
                             <form>
-                                <h2>Title</h2>
-                                <input type="text" class="form-control" placeholder="How To Computer 2nd Ed" required/>
-                                <h2>Author</h2>
-                                <input type="text" class="form-control" placeholder="Timothy Lock" />
-				<h2>ISBN</h2>
-                                <input type="number" class="form-control" placeholder="1234546789" />
-                                <h2>Starting Price</h2>
-                                <input type="number" min="1" step="any" class="form-control" placeholder="$50.00" required/>
-				<h2>Course Code (Optional)</h2>
-                                <input type="text" class="form-control" placeholder="CSC1331" />
-                                <h2>Description</h2>
-                                <textarea class="form-control" rows="4" placeholder="Great condition! Hardcover and no markings. Cheaper than the bookstore!"></textarea>
+                                <h2>First Name</h2>
+                                <input type="text" class="form-control"/>
+                                <h2>last Name</h2>
+                                <input type="text" class="form-control"/>
+                                <h2>Email</h2>
+                                <input type="email" class="form-control"/>
+                                <h2>Password</h2>
+                                <input type="password" class="form-control"/>
                                 <br>
-                                <input type="submit" class="btn btn-primary" value="Submit">
+                                <input type="submit" class="btn btn-primary" value="Add User">
                             </form>
                         </td>
-                      </tr>
+				      </tr>
 				    </tbody>
 				  </table>
                 </div>
@@ -125,4 +118,4 @@
         $("#wrapper").toggleClass("toggled");
     });
     </script>
-</body�>
+</body>
