@@ -142,15 +142,19 @@ function getads(req, res) {
     return res.json(result);
 }
 
+function deleteAd(req, res){
+    return res.send("Success");
+}
+
 //app.post('/login', user.login);  // login
 //app.post('/signup', user.user);  // signup
 //app.get('/user', user.editUser); // Get user info / object
 //app.post('/editUser', user.editUser);  // Post new user edit
-//app.post('/removeUser', user.removeUser);  // Remove user
+//app.delete('/removeUser', user.removeUser);  // Remove user
 
 app.get('/ads', getads);  // Get all the post objects - also get individual post via fname
 //app.post('/bid', ads.bid);        // Bid
-//app.delete('/deleteAd', ads.deleteAd); // Delete
+app.delete('/deleteAd', deleteAd); // Delete
 //app.post('/newAd', ads.newAd);     // Bid
 //app.post('/editAd', ads.editAd);   // Edit ads
 

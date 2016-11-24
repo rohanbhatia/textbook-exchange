@@ -22,6 +22,12 @@ addListing(title, author, price, description, isbn, course code)
 
 DONE -- deleteListing(id)
 
+DONE -- getCookie(cname)
+
+DONE -- setCookie(cname,cvalue,exdays)
+
+DONE -- checkCookie()
+
 getComments(ID)
 
 postBid(ID, bid)
