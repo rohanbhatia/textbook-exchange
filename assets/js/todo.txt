@@ -8,7 +8,7 @@ navigationBar()
 
 getAds(title (optional), courseCode (optional))
 
-getDetailedAd(ID)
+DONE -- getDetailedAd(ID)
 
 addListing(title, author, price, description, isbn, course code)
 
