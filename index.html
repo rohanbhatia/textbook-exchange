@@ -19,7 +19,8 @@
     <link href="assets/css/style.css" rel="stylesheet">
 
     <!-- Jquery -->
-    <script src="assets/js/jquery-3.1.1.min.js"></script>  
+    <script src="assets/js/jquery-3.1.1.min.js"></script>
+    <script src="assets/js/index.js"></script>
 
     <!-- Login/signup specific styles -->
     <style>
@@ -55,7 +56,7 @@
     <div class="wrapper">
         <div class="jumbotron text-center">
           <h1>UofTextbook Exchange</h1>
-          <p>Buy and sell your textbooks for a good bargain!</p> 
+          <p>Buy and sell your textbooks for a good bargain!</p>
         </div>
         <div class="container">
             <div class="row">
@@ -63,11 +64,11 @@
                     <div class="col-lg-6">
                         <h1>Already have an account?</h1>
                         <!-- The form -->
-                        <form>
+                        <form id="loginForm">
                             <h3>Email</h3>
-                            <input type="email" class="form-control"/>
+                            <input type="email" name="email" class="form-control"/>
                             <h3>Password</h3>
-                            <input type="password" class="form-control"/>
+                            <input type="password" name="password" class="form-control"/>
                             <br>
                             <input type="submit" class="btn btn-primary" value="Login">
                         </form>
@@ -75,15 +76,15 @@
                     <div class="col-lg-6" style="padding-right:20px; border-left: 1px solid #ccc;">
                         <h1>Signup</h1>
                         <!-- The form -->
-                        <form>
+                        <form id="signUpForm">
                             <h3>First Name</h3>
-                            <input type="text" class="form-control"/>
+                            <input type="text" name="firstName" class="form-control"/>
                             <h3>Last Name</h3>
-                            <input type="text" class="form-control"/>
+                            <input type="text" name="lastName" class="form-control"/>
                             <h3>Email</h3>
-                            <input type="email" class="form-control"/>
+                            <input type="email" name="email" class="form-control"/>
                             <h3>Password</h3>
-                            <input type="password" class="form-control"/>
+                            <input type="password" name="password" class="form-control"/>
                             <br>
                             <input type="submit" class="btn btn-primary" value="Signup">
                         </form>
