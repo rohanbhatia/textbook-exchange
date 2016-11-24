@@ -17,6 +17,9 @@ function getDetailedAd(id) {
 
           // Bid
           $("#currentbid").html("Current Bid: $" + response["ads"][0]["bid"]);
+      },
+      error: function(response) {
+        displayError("Book ID not found");
       }
   });
 }
@@ -26,14 +29,106 @@ function getAllAds() {
       url: '/ads',
       type: 'GET',
       success: function(response) {
-          var table = ('<table class="table table-hover"><thead><tr><th>Title</th><th>Author</th><th>Description</th><th>Posted Date</th><th>Current Bid</th><th>View</th></tr></thead><tbody>');
-          for (ad in response["ads"]){
-            // Details
-            table += ("<tr><td>" + response["ads"][ad]["title"] + "</td><td>" + response["ads"][ad]["author"] + "</td><td>" + response["ads"][ad]["description"] + "</td><td>" + response["ads"][ad]["posteddate"] + "</td><td>$" + response["ads"][ad]["bid"]+ "</td><td><a href='viewAd.html?id=" + response["ads"][ad]["id"] + "' class='btn btn-primary'>View</a></td></tr>");
-            console.log(response["ads"][ad]["title"]);
-          }
-          table += "</table>";
-          $("#AdsTable").html(table);
+        // Start table
+        var table = ('<table class="table table-hover"><thead><tr><th>Title</th><th>Author</th><th>Description</th><th>Posted Date</th><th>Current Bid</th><th>View</th></tr></thead><tbody>');
+        
+        // Fill in rows
+        for (ad in response["ads"]){
+          // Details
+          table += ("<tr><td>" + response["ads"][ad]["title"] + "</td><td>" + response["ads"][ad]["author"] + "</td><td>" + response["ads"][ad]["description"] + "</td><td>" + response["ads"][ad]["posteddate"] + "</td><td>$" + response["ads"][ad]["bid"]+ "</td><td><a href='viewAd.html?id=" + response["ads"][ad]["id"] + "' class='btn btn-primary'>View</a></td></tr>");
+          console.log(response["ads"][ad]["title"]);
+        }
+
+        // End table
+        table += "</table>";
+
+        // Draw to screen
+        $("#AdsTable").html(table);
       }
   });
+}
+
+function getAdsByEmail(email) {
+  $.ajax({
+      url: '/ads?email=' + email,
+      type: 'GET',
+      success: function(response) {
+        // Start table
+        var table = ('<table class="table table-hover"><thead><tr><th>Title</th><th>Author</th><th>Description</th><th>Posted Date</th><th>Current Bid</th><th>View</th><th>Delete</th></tr></thead><tbody>');
+        
+        // Fill in rows
+        for (ad in response["ads"]){
+          // Details
+          table += ("<tr><td>" + response["ads"][ad]["title"] + "</td><td>" + response["ads"][ad]["author"] + "</td><td>" + response["ads"][ad]["description"] + "</td><td>" + response["ads"][ad]["posteddate"] + "</td><td>$" + response["ads"][ad]["bid"]+ "</td><td><a href='viewAd.html?id=" + response["ads"][ad]["id"] + "' class='btn btn-primary'>View</a></td><td><a class='btn btn-danger' onclick='deleteListing(" + response["ads"][ad]["id"] + ")'>Delete</a></td></tr>");
+        }
+
+        // End table
+        table += "</table>";
+
+        // Draw to screen
+        $("#AdsTable").html(table);
+      }
+  });
+}
+
+function getAdsByCourse(code) {
+  $.ajax({
+      url: '/ads?course=' + code,
+      type: 'GET',
+      success: function(response) {
+        // Start table
+        var table = ('<table class="table table-hover"><thead><tr><th>Title</th><th>Author</th><th>Description</th><th>Posted Date</th><th>Current Bid</th><th>View</th></tr></thead><tbody>');
+        
+        // Fill in rows
+        for (ad in response["ads"]){
+          // Details
+          table += ("<tr><td>" + response["ads"][ad]["title"] + "</td><td>" + response["ads"][ad]["author"] + "</td><td>" + response["ads"][ad]["description"] + "</td><td>" + response["ads"][ad]["posteddate"] + "</td><td>$" + response["ads"][ad]["bid"]+ "</td><td><a href='viewAd.html?id=" + response["ads"][ad]["id"] + "' class='btn btn-primary'>View</a></td></tr>");
+          console.log(response["ads"][ad]["title"]);
+        }
+
+        // End table
+        table += "</table>";
+
+        // Draw to screen
+        $("#AdsTable").html(table);
+      }
+  });
+}
+
+function postBid(id, bid) {
+  $.ajax({
+      url: '/ads?email=' + email,
+      type: 'GET',
+      success: function(response) {
+        // Start table
+        var table = ('<table class="table table-hover"><thead><tr><th>Title</th><th>Author</th><th>Description</th><th>Posted Date</th><th>Current Bid</th><th>View</th><th>Delete</th></tr></thead><tbody>');
+        
+        // Fill in rows
+        for (ad in response["ads"]){
+          // Details
+          table += ("<tr><td>" + response["ads"][ad]["title"] + "</td><td>" + response["ads"][ad]["author"] + "</td><td>" + response["ads"][ad]["description"] + "</td><td>" + response["ads"][ad]["posteddate"] + "</td><td>$" + response["ads"][ad]["bid"]+ "</td><td><a href='viewAd.html?id=" + response["ads"][ad]["id"] + "' class='btn btn-primary'>View</a></td><td><a class='btn btn-danger' onclick='deleteListing(" + response["ads"][ad]["id"] + ")'>Delete</a></td></tr>");
+        }
+
+        // End table
+        table += "</table>";
+
+        // Draw to screen
+        $("#AdsTable").html(table);
+      }
+  });
+}
+
+// TODO: How do we send cookie
+function deleteListing(id) {
+  if (confirm("You are about to delete a listing. Are you sure?")){
+    // Send the info to server
+    $.ajax({
+        url: '/deleteAd?id=' + id,
+        type: 'DELETE',
+        success: function(response) {
+            alert(response);
+            location.reload(); // Refresh to page to reflect changes
+        }
+    });
+  }
 }
