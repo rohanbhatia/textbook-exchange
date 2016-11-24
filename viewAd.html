@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>CHANGE THIS TO ADD NAME - UofTextbook Exchange</title>
+    <title>View Ad - UofTextbook Exchange</title>
 
 	<!-- Bootstrap Core -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
@@ -21,6 +21,10 @@
 
     <!-- Jquery -->
     <script src="assets/js/jquery-3.1.1.min.js"></script>  
+
+    <script src="assets/js/ads.js"></script>  
+    <script src="assets/js/scripts.js"></script>  
+    <script src="assets/js/cookies.js"></script>  
 
 </head>
 
@@ -89,9 +93,10 @@
 				      <tr>
 				        <td>
                             <div>
-                                <div id="overview" class="row">
-                                    <!-- Insert Price and whatnot here (get rid of this comment too!) -->
-                                    Blah blah
+                                <div class="row">
+                                    <div id="overview" class="col-lg-12" style="margin-top: 20px; margin-bottom: 20px;">
+                                        <!-- DETAILS -->
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <!-- Bid -->
@@ -107,7 +112,8 @@
                                                 <td>
                                                     <!-- The form -->
                                                     <form>
-                                                        <input type="number" min="1" step="any" class="form-control" placeholder="50.00" />
+                                                        <h3 id="currentbid">Current Bid: N/A</h3>
+                                                        <input type="number" min="1" step="any" class="form-control" placeholder="50.00" required/>
                                                         <input type="submit" class="btn btn-primary" value="Bid">
                                                     </form>
                                                 </td>
@@ -158,5 +164,22 @@
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
+
+    // Gets the parameters passed in
+    $.parameters = function(name){
+        var res = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+        try{
+            return res[1];
+        }catch(err) {
+            return null;
+        }
+    }
+
+    // Make the correct calls according to parameters
+    if($.parameters('id') != null){
+        getDetailedAd($.parameters('id'));
+    }else{
+        displayError("Malformed link. Missing parameters");
+    }
     </script>
 </body>

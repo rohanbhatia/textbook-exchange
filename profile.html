@@ -20,7 +20,8 @@
     <link href="assets/css/style.css" rel="stylesheet">
 
     <!-- Jquery -->
-    <script src="assets/js/jquery-3.1.1.min.js"></script>  
+    <script src="assets/js/jquery-3.1.1.min.js"></script>
+    <script src="assets/js/profile.js"></script>
 
 </head>
 
@@ -89,15 +90,15 @@
 				      <tr>
 				        <td>
                             <!-- The form -->
-                            <form>
+                            <form id="profileForm">
                                 <h2>First Name</h2>
-                                <input type="text" class="form-control"/>
+                                <input type="text" name="firstName" class="form-control"/>
                                 <h2>Last Name</h2>
-                                <input type="text" class="form-control"/>
+                                <input type="text" name="lastName" class="form-control"/>
                                 <h2>Email</h2>
-                                <input type="email" class="form-control"/>
+                                <input type="email" name="email" class="form-control"/>
                                 <h2>Password</h2>
-                                <input type="password" class="form-control"/>
+                                <input type="password" name="password" class="form-control"/>
                                 <br>
                                 <input type="submit" class="btn btn-primary" value="Update Profile">
                             </form>
