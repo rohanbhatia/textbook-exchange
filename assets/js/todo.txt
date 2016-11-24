@@ -6,7 +6,8 @@
 
 navigationBar()
 
-getAds(title (optional), courseCode (optional))
+//getAds(title (optional), courseCode (optional))
+DONE -- getAllAds()
 
 DONE -- getDetailedAd(ID)
 

@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>CHANGE THIS TO ADD NAME - UofTextbook Exchange</title>
+    <title>View Ad - UofTextbook Exchange</title>
 
 	<!-- Bootstrap Core -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
@@ -23,6 +23,7 @@
     <script src="assets/js/jquery-3.1.1.min.js"></script>  
 
     <script src="assets/js/ads.js"></script>  
+    <script src="assets/js/scripts.js"></script>  
 
 </head>
 
@@ -162,6 +163,22 @@
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
-    getDetailedAd(1234);
+
+    // Gets the parameters passed in
+    $.parameters = function(name){
+        var res = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+        try{
+            return res[1];
+        }catch(err) {
+            return null;
+        }
+    }
+
+    // Make the correct calls according to parameters
+    if($.parameters('id') != null){
+        getDetailedAd($.parameters('id'));
+    }else{
+        displayError("Malformed link. Missing parameters");
+    }
     </script>
 </body>
