@@ -11,11 +11,17 @@ var userSchema = new Schema(
         password: {
             type: String, required: true
         },
-        firstname: {
+        first_name: {
             type: String, required: true
         },
-        lastname: {
+        last_name: {
             type: String, required: true
+        },
+        admin_status: {
+            type: Boolean, required: true
+        },
+        selling_ad_ids: {
+            type: [Number], default: []
         }
     },
     {
@@ -24,7 +30,7 @@ var userSchema = new Schema(
 );
 
 // Doc for Mongoose Connections: http://mongoosejs.com/docs/connections
-mongoose.connect('mongodb://localhost/usersdb');
+var con3 = mongoose.createConnection('mongodb://localhost/usersdb');
 
 // Doc for Mongoose Models: http://mongoosejs.com/docs/models
-module.exports = mongoose.model('User', userSchema);
+module.exports = con3.model('User', userSchema);

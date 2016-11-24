@@ -1,4 +1,5 @@
 var Ad = require('../models/ad');
+var User = require('../models/user');
 
 
 // app.get('/ads', ads.getAds);  
@@ -8,7 +9,7 @@ exports.getAds = function(req, res) {
 };
 
 // app.post('/bid', ads.postBid);        
-// Post  A Bid
+// Post A Bid
 exports.postBid = function(req, res) {
 
 };

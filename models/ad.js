@@ -1,11 +1,10 @@
 var mongoose = require('mongoose');
 
 // Doc for Mongoose Schemas: http://mongoosejs.com/docs/guide
-var Schema = mongoose.Schema;
 
-var adSchema = new Schema(
+var adSchema = new mongoose.Schema(
     {
-        adId: {
+        ad_id: {
             type: Number, required: true, unique: true
         },
         title: {
@@ -17,7 +16,7 @@ var adSchema = new Schema(
         description: {
             type: String, required: true
         },
-        posteddate: {
+        posted_date: {
             type: Date, required: true, default: Date.now
         },
         bid: {
@@ -26,7 +25,7 @@ var adSchema = new Schema(
         isbn: {
             type: String, required: true
         },
-        course: {
+        course_code: {
             type: String, required: true
         }
     },
@@ -36,7 +35,7 @@ var adSchema = new Schema(
 );
 
 // Doc for Mongoose Connections: http://mongoosejs.com/docs/connections
-mongoose.connect('mongodb://localhost/adsdb');
+var con2 = mongoose.createConnection('mongodb://localhost/adsdb');
 
 // Doc for Mongoose Models: http://mongoosejs.com/docs/models
-module.exports = mongoose.model('Ad', adSchema);
+module.exports = con2.model('Ad', adSchema);
