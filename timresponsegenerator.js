@@ -22,7 +22,9 @@ function getads(req, res) {
 
     // Specific queries
     if(req.query.id != null){
-    	if (id==1234){
+    	console.log("1");
+    	console.log(req.query.id);
+    	if (req.query.id==1234){
     		var testBook = new Object();
 	        testBook["title"] = "Mary, Did You Know?";
 	        testBook["id"] = "1234";
@@ -34,7 +36,7 @@ function getads(req, res) {
 	        testBook["courses"] = ["csc101", "apl235", "ece234"];
 	        list.push(testBook);
 	        result["ads"] = list;
-    	}else if(id==4632){
+    	}else if(req.query.id==4632){
     		var testBook = new Object();
 	        testBook["title"] = "Go Tell It On the Mountain";
 	        testBook["id"] = "4632";
@@ -46,7 +48,7 @@ function getads(req, res) {
 	        testBook["courses"] = ["lol001"];
 	        list.push(testBook);
 	        result["ads"] = list;
-    	}else if(id=1294){
+    	}else if(req.query.id==1294){
     		var testBook = new Object();
 	        testBook["title"] = "Carol of the Bells";
 	        testBook["id"] = "1294";
@@ -58,7 +60,44 @@ function getads(req, res) {
 	        testBook["courses"] = [];
 	        list.push(testBook);
 	        result["ads"] = list;
+    	}else{
+    		console.log("not found");
+    		var testBook = new Object();
+	        testBook["title"] = "Book Not Found";
+	        testBook["id"] = "Book Not Found";
+	        testBook["author"] = "Book Not Found";
+	        testBook["description"] = "Book Not Found";
+	        testBook["posteddate"] = "Book Not Found";
+	        testBook["bid"] = "N/A";
+	        testBook["isbn"] = "Book Not Found";
+	        list.push(testBook);
+	        result["ads"] = list;
     	}
+    }else if(req.query.email != null){
+    	// Hardcoded to return results regardless of email
+        var testBook = new Object();
+        testBook["title"] = "Go Tell It On the Mountain";
+        testBook["id"] = "4632";
+        testBook["author"] = "Pentatonix";
+        testBook["description"] = "Short Desc";
+        testBook["posteddate"] = "11-21-2054";
+        testBook["bid"] = "50";
+        testBook["isbn"] = "77823428";
+        testBook["courses"] = ["lol001"];
+        list.push(testBook);
+        result["ads"] = list;
+
+        var testBook = new Object();
+        testBook["title"] = "Carol of the Bells";
+        testBook["id"] = "1294";
+        testBook["author"] = "Pentatonix";
+        testBook["description"] = "your baby boy will save our sons and daughters?your baby boy will save our sons and daughters?your baby boy will save our sons and daughters?your baby boy will save our sons and daughters?your baby boy will save our sons and daughters?your baby boy will save our sons and daughters?";
+        testBook["posteddate"] = "99-99-7063";
+        testBook["bid"] = "99999999";
+        testBook["isbn"] = "78238024";
+        testBook["courses"] = [];
+        list.push(testBook);
+        result["ads"] = list;
     }else{
     	// Get all the ads
     	// Hardcoded for ID 1234 for testing

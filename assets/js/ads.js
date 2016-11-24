@@ -17,6 +17,9 @@ function getDetailedAd(id) {
 
           // Bid
           $("#currentbid").html("Current Bid: $" + response["ads"][0]["bid"]);
+      },
+      error: function(response) {
+        displayError("Book ID not found");
       }
   });
 }
@@ -30,6 +33,24 @@ function getAllAds() {
           for (ad in response["ads"]){
             // Details
             table += ("<tr><td>" + response["ads"][ad]["title"] + "</td><td>" + response["ads"][ad]["author"] + "</td><td>" + response["ads"][ad]["description"] + "</td><td>" + response["ads"][ad]["posteddate"] + "</td><td>$" + response["ads"][ad]["bid"]+ "</td><td><a href='viewAd.html?id=" + response["ads"][ad]["id"] + "' class='btn btn-primary'>View</a></td></tr>");
+            console.log(response["ads"][ad]["title"]);
+          }
+          table += "</table>";
+          $("#AdsTable").html(table);
+      }
+  });
+}
+
+function getAdsByEmail(email) {
+  $.ajax({
+      url: '/ads?email=' + email,
+      type: 'GET',
+      success: function(response) {
+        console.log("wow");
+          var table = ('<table class="table table-hover"><thead><tr><th>Title</th><th>Author</th><th>Description</th><th>Posted Date</th><th>Current Bid</th><th>View</th><th>Delete</th></tr></thead><tbody>');
+          for (ad in response["ads"]){
+            // Details
+            table += ("<tr><td>" + response["ads"][ad]["title"] + "</td><td>" + response["ads"][ad]["author"] + "</td><td>" + response["ads"][ad]["description"] + "</td><td>" + response["ads"][ad]["posteddate"] + "</td><td>$" + response["ads"][ad]["bid"]+ "</td><td><a href='viewAd.html?id=" + response["ads"][ad]["id"] + "' class='btn btn-primary'>View</a></td><td><a class='btn btn-danger'>Delete</a></td></tr>");
             console.log(response["ads"][ad]["title"]);
           }
           table += "</table>";

@@ -4,6 +4,11 @@
 
 
 
+Cookies Tutorial: http://www.w3schools.com/js/js_cookies.asp
+
+
+
+
 navigationBar()
 
 //getAds(title (optional), courseCode (optional))
@@ -11,9 +16,11 @@ DONE -- getAllAds()
 
 DONE -- getDetailedAd(ID)
 
+DONE -- getAdsByEmail(email)
+
 addListing(title, author, price, description, isbn, course code)
 
-deleteListing(id)
+DONE -- deleteListing(id)
 
 getComments(ID)
 
