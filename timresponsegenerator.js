@@ -98,6 +98,19 @@ function getads(req, res) {
         testBook["courses"] = [];
         list.push(testBook);
         result["ads"] = list;
+    }else if(req.query.course != null){
+        // Hardcoded to return results regardless of course
+        var testBook = new Object();
+        testBook["title"] = "Go Tell It On the Mountain";
+        testBook["id"] = "4632";
+        testBook["author"] = "Pentatonix";
+        testBook["description"] = "Short Desc";
+        testBook["posteddate"] = "11-21-2054";
+        testBook["bid"] = "50";
+        testBook["isbn"] = "77823428";
+        testBook["courses"] = ["lol001"];
+        list.push(testBook);
+        result["ads"] = list;
     }else{
     	// Get all the ads
     	// Hardcoded for ID 1234 for testing
