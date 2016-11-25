@@ -54,13 +54,24 @@ function addLogin() {
  */
 function signUpHandler(evt) {
   let signUpData = constructFormJson(evt, "signUpForm");
-  //console.log(JSON.stringify(signUpData));
+  console.log(JSON.stringify(signUpData));
+
   $.ajax({
     url: "/signup",
     type: "POST",
     data: signUpData,
-    success: function() {
-      alert("Thank you for joining us. Please login to get started!");
+    success: function(response) {
+      console.log("GOt here");
+      console.log(response);
+      if (response == "Thank you for joining us. Please login to get started!"){
+        window.location.reload();
+        alert(response);
+      }
+      else {
+        alert(response);
+        window.location.reload();
+      }
+
     },
     error: function() {
       // TODO: Change this to relevant error handling.

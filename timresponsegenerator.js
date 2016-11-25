@@ -180,34 +180,69 @@ var userListing = {"users": [
 ]  };
 
 function login(req, res) {
+  var users = JSON.parse(JSON.stringify(userListing));
   let email = req.body.email;
   let password = req.body.password;
-  for (let i in userListing["users"]) {
-    let user = userListing["users"][i];
+  let validEmail = false;
+  let validPword = false;
+  for (let i in users["users"]) {
+    let user = users["users"][i];
     if (user["email"] == email && user["password"] == password) {
+      validEmail = true;
+      validPword = true;
       // generate a token and send it, along with admin status
       // below is hardcoded for testing purposes
       var token = "A23XD4FG";
-      if (user["email"] == "lukedanes@starshollow.com") {
-        token = "B79KW5YI";
-      }
       // Add token to the user for tracking.
       user["token"] = token;
-      res.json({"token": token, "adminStatus": user["adminStatus"]});
+      return res.json({"token": token, "adminStatus": user["adminStatus"]});
     }
     else if (user["email"] == email) {
-      res.send("Incorrect password, please try again!");
-    }
-    else {
-      res.send("Email not found, please try again!");
+      validEmail = true;
+      break;
     }
   }
+
+  if (validEmail) {
+    return res.send("Incorrect password, please try again!");
+  }
+  else {
+    return res.send("Email not found, please try again!");
+  }
+}
+
+
+function signup(req, res) {
+  let uniqueEmail = true;
+  while (uniqueEmail) {
+    for (let i in userListing["users"]) {
+      let user = userListing["users"][i];
+      if (user["email"] == req.body.email) {
+        uniqueEmail = false;
+      }
+    }
+    break;
+  }
+  if (uniqueEmail) {
+    let newUser = {"firstName": req.body.firstName, "lastName": req.body.lastName,
+                    "password": req.body.password, "email": req.body.email,
+                    "adminStatus": "user"};
+    userListing["users"].push(newUser);
+    // TODO Also need to write the new user to the db!
+    //console.log(JSON.stringify(userListing));
+    res.send("Thank you for joining us. Please login to get started!");
+  }
+  else {
+    res.send((req.body.email + " is already in use."));
+  }
+
 }
 
 
 //app.post('/login', user.login);  // actual
 app.post('/login', login); // Login
-//app.post('/signup', user.user);  // signup
+//app.post('/signup', user.signup);  // actual
+app.post('/signup', signup);  // signup
 //app.get('/user', user.editUser); // Get user info / object
 //app.post('/editUser', user.editUser);  // Post new user edit
 //app.delete('/removeUser', user.removeUser);  // Remove user
