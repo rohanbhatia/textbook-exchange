@@ -6,7 +6,7 @@
 
 Cookies Tutorial: http://www.w3schools.com/js/js_cookies.asp
 
-
+// TO-DO: implement search bar
 
 
 IP -- navigationBar()
@@ -35,7 +35,7 @@ getComments(ID)
 
 postBid(ID, bid)
 
-acceptBid(ID)
+acceptBid(ID) - req to server, server has to delete the post and send emails (poster, bidder)
 
 postComment(ID, comment, email)
 
@@ -46,8 +46,12 @@ IP -- updateProfile(firstname, lastname, email, email, password)
 IP -- login(email, passowrd)
 
 logout() 
-
+// To tell Rohan/Derek: add logout post request. Logout post request, delete cookie redirect to login page.
 
 // Admin specific functions
+nav bar hidden buttons for admin --> go 
+	
+admin view page
+
 deleteUser(email)
 
