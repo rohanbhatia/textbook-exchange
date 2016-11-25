@@ -1,4 +1,3 @@
-
 var express = require('express');
 var bodyParser = require('body-parser');
 
@@ -111,6 +110,19 @@ function getads(req, res) {
         testBook["courses"] = ["lol001"];
         list.push(testBook);
         result["ads"] = list;
+    }else if(req.query.title != null){
+        // Hardcoded to return results regardless of title
+        var testBook = new Object();
+            testBook["title"] = "Mary, Did You Know?";
+            testBook["id"] = "1234";
+            testBook["author"] = "Pentatonix";
+            testBook["description"] = "Mary did you know that your baby boy will one day walk on water? Mary did you know that your baby boy will save our sons and daughters?";
+            testBook["posteddate"] = "11-21-2014";
+            testBook["bid"] = "53";
+            testBook["isbn"] = "77858024";
+            testBook["courses"] = ["csc101", "apl235", "ece234"];
+            list.push(testBook);
+            result["ads"] = list;
     }else{
     	// Get all the ads
     	// Hardcoded for ID 1234 for testing

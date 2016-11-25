@@ -19,7 +19,7 @@ DONE -- getAdsByEmail(email)
 
 DONE -- getAdsByCourse(code)
 
-getAdsByTitle(title)
+DONE -- getAdsByTitle(title)
 
 addListing(title, author, price, description, isbn, course code)
 
