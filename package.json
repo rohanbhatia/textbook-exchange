@@ -1,15 +1,26 @@
 {
-  "name": "chat_server",
+  "name": "group10",
   "version": "1.0.0",
-  "description": "An example chat server for students",
-  "main": "chatserver.js",
+  "description": "Temporary testin links:\r - View index: http://timothylock.ca/csc309\r - Browse as user: http://timothylock.ca/csc309/allAds.html\r - Browse as admin: We'll do it once we figure out how to cookie",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "mongoose": "^4.7.0"
+  },
+  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CSC309-Fall-2016/group10.git"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "body-parser": "^1.15.2",
-    "express": "^4.14.0"
-  }
+  "bugs": {
+    "url": "https://github.com/CSC309-Fall-2016/group10/issues"
+  },
+  "homepage": "https://github.com/CSC309-Fall-2016/group10#readme"
 }
