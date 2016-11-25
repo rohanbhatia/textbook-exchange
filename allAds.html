@@ -81,13 +81,21 @@
                 <div class="col-lg-8" style="display: inline-block;">
                     <!-- Search Bar -->
                     <div class="input-group col-md-12">
-                        <input type="text" class="search-query form-control" placeholder="Search Ads" />
+                        <input type="text" class="search-query form-control" id="searchbar" placeholder="Search Ads" />
                         <span class="input-group-btn">
-                            <button class="btn btn-primary" type="button">
+                            <button class="btn btn-primary" type="button" onclick="search()">
                                 <span class=" glyphicon glyphicon-search"></span>
                             </button>
                         </span>
                     </div>
+                    <form>
+                        <label class="radio-inline">
+                          <input type="radio" name="optradio" id="searchTitle" checked>Search by title
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="optradio" id="searchCourse">Search by course
+                        </label>
+                    </form>
                 </div>
             </div>
             <!-- table -->
