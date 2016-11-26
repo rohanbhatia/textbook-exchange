@@ -74,3 +74,46 @@ exports.addComment = function(req, res) {
 	res.send("Success\n");
 };
 
+// app.get('/getAdComments', comments.getAdComments); 
+// send all comment ids for 1 ad
+exports.getAdComments = function(req, res) {
+
+	console.log("getAdComments");
+
+	//NEED TO TEST
+	Ad.find({ad_id: req.query.ad_id}, function(err, ad) {
+
+		if (err) throw err;
+
+		//ad found
+		if(ad[0]) {
+			res.send(ad[0].comment_ids);
+		}
+		else {
+			res.send("Failure\n");
+		}
+	});
+};
+
+// app.get('/getComment', comments.getComment); 
+// send all info for 1 comment
+
+exports.getComment = function(req, res) {
+
+	console.log("getComment");
+
+	Comment.find({comment_id: req.query.comment_id}, function(err, comment) {
+
+		if (err) throw err;
+
+		//comment found
+		if(comment[0]) {
+			res.send(comment[0]);
+		}
+		else {
+			res.send("Failure\n");
+		}
+	});
+};
+
+
