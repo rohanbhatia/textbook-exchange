@@ -10,6 +10,13 @@ function adminStuff(){
 	}
 }
 
+// Kick out if not admin
+function adminStatusCheck(){
+	if(getCookie("adminStatus") != "admin"){
+		displayError("This page is restricted for admins only!");
+	}
+}
+
 /**
  * Helper function for form buttons to construct a JSON from the fields.
  *

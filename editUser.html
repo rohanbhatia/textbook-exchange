@@ -1,0 +1,159 @@
+<!-- Here be dragons -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Edit User - UofTextbook Exchange</title>
+
+	<!-- Bootstrap Core -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="assets/css/sidebar.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+
+    <!-- Jquery -->
+    <script src="assets/js/jquery-3.1.1.min.js"></script>
+    <script src="assets/js/profile.js"></script>
+    <script src="assets/js/cookies.js"></script>  
+    <script src="assets/js/ads.js"></script>  
+    <script src="assets/js/scripts.js"></script>
+
+</head>
+
+<body>
+	<div id="wrapper">
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="allAds.html">UofTextbook Exchange</a>
+            </li>
+            <li>
+                <a class="category">Postings</a>
+            </li>
+            <li>
+                <a class="sub" href="allAds.html">View Ads</a>
+            </li>
+            <li>
+                <a class="sub" href="yourAds.html">Your Ads</a>
+            </li>
+            <li>
+                <a class="category">User</a>
+            </li>
+            <li>
+                <a class="sub" href="profile.html">Edit Profile</a>
+            </li>
+            <li>
+                <a class="sub admin" href="addUser.html" style="visibility: hidden;">Add User</a>
+            </li>
+            <li>
+                <a class="sub admin" href="searchUser.html" style="visibility: hidden;">List/Search User(s)</a>
+            </li>
+        </ul>
+        <ul class="sidebar-bottom">
+            <li>
+                <a class="sub" href="#">Logout</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+        	<!-- header -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Title -->
+                    <h1>Edit User</h1>
+                </div>
+            </div>
+            <!-- Personal Info -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <table class="table table-hover">
+				    <thead>
+				      <tr>
+				        <th>Details</th>
+				      </tr>
+				    </thead>
+				    <tbody>
+				      <tr>
+				        <td>
+                            <!-- The form -->
+                            <form id="profileForm">
+                                <h2>First Name</h2>
+                                <input type="text" id="firstName" class="form-control"/>
+                                <h2>Last Name</h2>
+                                <input type="text" id="lastName" class="form-control"/>
+                                <h2>Email</h2>
+                                <input type="email" id="email" class="form-control" disabled/>
+                                <h2>Password</h2>
+                                <input type="password" id="password" class="form-control"/>
+                                <br>
+                                <input type="submit" class="btn btn-primary" value="Update Profile">
+                            </form>
+                        </td>
+				      </tr>
+				    </tbody>
+				  </table>
+                </div>
+            </div>
+            <!-- Postings -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Title -->
+                    <h1>Your Ads</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div id="AdsTable" class="col-lg-12">
+                    <!-- JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+    </div>
+
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+
+    // Admin Check
+    adminStuff();
+    adminStatusCheck();
+
+    // Gets the parameters passed in
+    $.parameters = function(name){
+        var res = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+        try{
+            return res[1];
+        }catch(err) {
+            return null;
+        }
+    }
+
+    // Make the correct calls according to parameters
+    if($.parameters('email') != null){
+        getAdsByEmail($.parameters('email'));
+        populateForm($.parameters('email'));
+    }else{
+        displayError("Malformed link. Missing parameters");
+    }    
+    </script>
+</body>

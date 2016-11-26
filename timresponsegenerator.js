@@ -29,6 +29,25 @@ function getUser(req, res) {
         testUser["adminStatus"] = "user";
         list.push(testUser);
         result["users"] = list;
+    }else{
+      // ALL Users
+      var testUser = new Object();
+        testUser["firstName"] = "Hardcoded User";
+        testUser["lastName"] = "Best Last Name";
+        testUser["password"] = "12345";
+        testUser["email"] = "test@test.ca";
+        testUser["adminStatus"] = "user";
+        list.push(testUser);
+        result["users"] = list;
+
+        var testUser = new Object();
+        testUser["firstName"] = "N00b";
+        testUser["lastName"] = "chezburger";
+        testUser["password"] = "12345";
+        testUser["email"] = "noob@test.ca";
+        testUser["adminStatus"] = "admin";
+        list.push(testUser);
+        result["users"] = list;
     }
     return res.json(result);
 }
