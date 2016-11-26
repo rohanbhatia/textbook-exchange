@@ -133,8 +133,9 @@
                                             <tbody>
                                               <tr style="background-color: #c1c1c1;">
                                                 <td>
-                                                    <div id="comments">
-                                                        <!-- insert comments here -->
+                                                    <div>
+                                                        <textarea class="form-control" rows="6" id="comments" style="resize: none;"></textarea>
+                                                        <br>
                                                     </div>
                                                     <!-- The form -->
                                                     <form>
@@ -178,9 +179,11 @@
     // Admin Check
     adminStuff();
 
+
     // Make the correct calls according to parameters
     if($.parameters('id') != null){
         getDetailedAd($.parameters('id'));
+        getComments($.parameters('id'));
     }else{
         displayError("Malformed link. Missing parameters");
     }

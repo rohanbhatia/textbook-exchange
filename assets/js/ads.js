@@ -43,6 +43,9 @@ function getAllAds() {
 
         // Draw to screen
         $("#AdsTable").html(table);
+      },
+      error: function() {
+        displayError("Communication with the server has failed. Please try again later");
       }
   });
 }
@@ -66,6 +69,9 @@ function getAdsByEmail(email) {
 
         // Draw to screen
         $("#AdsTable").html(table);
+      },
+      error: function() {
+        displayError("Communication with the server has failed. Please try again later");
       }
   });
 }
@@ -82,7 +88,6 @@ function getAdsByCourse(code) {
         for (ad in response["ads"]){
           // Details
           table += ("<tr><td>" + response["ads"][ad]["title"] + "</td><td>" + response["ads"][ad]["author"] + "</td><td>" + response["ads"][ad]["description"] + "</td><td>" + response["ads"][ad]["posteddate"] + "</td><td>$" + response["ads"][ad]["bid"]+ "</td><td><a href='viewAd.html?id=" + response["ads"][ad]["id"] + "' class='btn btn-primary'>View</a></td></tr>");
-          console.log(response["ads"][ad]["title"]);
         }
 
         // End table
@@ -90,6 +95,9 @@ function getAdsByCourse(code) {
 
         // Draw to screen
         $("#AdsTable").html(table);
+      },
+      error: function() {
+        displayError("Communication with the server has failed. Please try again later");
       }
   });
 }
@@ -106,7 +114,6 @@ function getAdsByTitle(code) {
         for (ad in response["ads"]){
           // Details
           table += ("<tr><td>" + response["ads"][ad]["title"] + "</td><td>" + response["ads"][ad]["author"] + "</td><td>" + response["ads"][ad]["description"] + "</td><td>" + response["ads"][ad]["posteddate"] + "</td><td>$" + response["ads"][ad]["bid"]+ "</td><td><a href='viewAd.html?id=" + response["ads"][ad]["id"] + "' class='btn btn-primary'>View</a></td></tr>");
-          console.log(response["ads"][ad]["title"]);
         }
 
         // End table
@@ -114,34 +121,30 @@ function getAdsByTitle(code) {
 
         // Draw to screen
         $("#AdsTable").html(table);
+      },
+      error: function() {
+        displayError("Communication with the server has failed. Please try again later");
       }
   });
 }
 
-function postBid(id, bid) {
+function getComments(id) {
   $.ajax({
-      url: '/ads?email=' + email,
+      url: '/comments?id=' + id,
       type: 'GET',
       success: function(response) {
-        // Start table
-        var table = ('<table class="table table-hover"><thead><tr><th>Title</th><th>Author</th><th>Description</th><th>Posted Date</th><th>Current Bid</th><th>View</th><th>Delete</th></tr></thead><tbody>');
-        
-        // Fill in rows
-        for (ad in response["ads"]){
-          // Details
-          table += ("<tr><td>" + response["ads"][ad]["title"] + "</td><td>" + response["ads"][ad]["author"] + "</td><td>" + response["ads"][ad]["description"] + "</td><td>" + response["ads"][ad]["posteddate"] + "</td><td>$" + response["ads"][ad]["bid"]+ "</td><td><a href='viewAd.html?id=" + response["ads"][ad]["id"] + "' class='btn btn-primary'>View</a></td><td><a class='btn btn-danger' onclick='deleteListing(" + response["ads"][ad]["id"] + ")'>Delete</a></td></tr>");
+
+        for (i in response["comments"]){
+          $("#comments").val($("#comments").val() + response["comments"][i]["posteddatetime"] + " - " + response["comments"][i]["email"] + " - " + response["comments"][i]["comments"] + "\n");
         }
-
-        // End table
-        table += "</table>";
-
-        // Draw to screen
-        $("#AdsTable").html(table);
+      },
+      error: function() {
+        displayError("Communication with the server has failed. Please try again later");
       }
   });
 }
 
-// TODO: How do we send cookie
+
 function deleteListing(id) {
   if (confirm("You are about to delete a listing. Are you sure?")){
     // Send the info to server
@@ -151,6 +154,9 @@ function deleteListing(id) {
         success: function(response) {
             alert(response);
             location.reload(); // Refresh to page to reflect changes
+        },
+        error: function() {
+          displayError("Communication with the server has failed. Please try again later");
         }
     });
   }

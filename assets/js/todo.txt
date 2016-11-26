@@ -21,8 +21,6 @@ DONE -- getAdsByCourse(code)
 
 DONE -- getAdsByTitle(title)
 
-addListing(title, author, price, description, isbn, course code)
-
 DONE -- deleteListing(id)
 
 DONE -- getCookie(cname)
@@ -31,7 +29,17 @@ DONE -- setCookie(cname,cvalue,exdays)
 
 DONE -- checkCookie()
 
-getComments(ID)
+DONE -- getProfile(email)
+
+DONE -- signup(firstname, lastname, email, email, password)
+
+DONE -- getComments(ID)
+
+IP -- updateProfile(firstname, lastname, email, email, password)
+
+IP -- login(email, passowrd)
+
+addListing(title, author, price, description, isbn, course code)
 
 postBid(ID, bid)
 
@@ -39,18 +47,9 @@ acceptBid(ID) - req to server, server has to delete the post and send emails (po
 
 postComment(ID, comment, email)
 
-DONE -- signup(firstname, lastname, email, email, password)
-
-IP -- updateProfile(firstname, lastname, email, email, password)
-
-IP -- login(email, passowrd)
-
 logout() 
-// To tell Rohan/Derek: add logout post request. Logout post request, delete cookie redirect to login page.
-
-// Admin specific functions
-nav bar hidden buttons for admin --> go 
 	
+
 admin view page
 
 deleteUser(email)

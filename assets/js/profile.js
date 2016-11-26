@@ -29,6 +29,9 @@ function populateForm(email) {
         $("#lastName").val(response["users"][0]["lastName"]);
         $("#email").val(response["users"][0]["email"]);
         $("#password").val(response["users"][0]["password"]);
+      },
+      error: function() {
+        displayError("Communication with the server has failed. Please try again later");
       }
   });
 }

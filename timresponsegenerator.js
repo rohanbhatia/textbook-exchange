@@ -41,8 +41,6 @@ function getads(req, res) {
 
     // Specific queries
     if(req.query.id != null){
-    	console.log("1");
-    	console.log(req.query.id);
     	if (req.query.id==1234){
     		var testBook = new Object();
 	        testBook["title"] = "Mary, Did You Know?";
@@ -80,7 +78,6 @@ function getads(req, res) {
 	        list.push(testBook);
 	        result["ads"] = list;
     	}else{
-    		console.log("not found");
     		var testBook = new Object();
 	        testBook["title"] = "Book Not Found";
 	        testBook["id"] = "Book Not Found";
@@ -187,6 +184,31 @@ function getads(req, res) {
     return res.json(result);
 }
 
+function getComments(req, res){
+  // Shared by all queries. Construct structure
+    var result = new Object();
+    var list = [];
+
+    // Specific queries
+    if(req.query.id != null){
+        var testComment = new Object();
+          testComment["posteddatetime"] = "12-13-2016";
+          testComment["email"] = "jameds@hotmail.com";
+          testComment["comments"] = "Hi mom!";
+          list.push(testComment);
+
+
+          var testComment = new Object();
+          testComment["posteddatetime"] = "12-11-2016";
+          testComment["email"] = "mememaster@hotmail.com";
+          testComment["comments"] = "What a dank book";
+          list.push(testComment);
+          result["comments"] = list;
+    }
+    return res.json(result);
+
+}
+
 function deleteAd(req, res){
     return res.send("Success");
 }
@@ -274,7 +296,7 @@ app.get('/ads', getads);  // Get all the post objects - also get individual post
 app.delete('/deleteAd', deleteAd); // Delete
 //app.post('/newAd', ads.newAd);     // Bid
 //app.post('/editAd', ads.editAd);   // Edit ads
-
+app.get('/comments', getComments);
 
 
 
