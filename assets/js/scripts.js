@@ -3,6 +3,13 @@ function displayError(err){
 	$("#page-content-wrapper").html("<h1>An error has occured. Details: " + err + "</h2>");
 }
 
+// Admin view modificaitons
+function adminStuff(){
+	if(getCookie("adminStatus") == "admin"){
+		$(".admin").css('visibility','visible');
+	}
+}
+
 /**
  * Helper function for form buttons to construct a JSON from the fields.
  *
@@ -20,3 +27,4 @@ function constructFormJson(evt, formID) {
   }
   return dataSet;
 }
+

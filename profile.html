@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Your Ads - UofTextbook Exchange</title>
+    <title>Profile - UofTextbook Exchange</title>
 
 	<!-- Bootstrap Core -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
@@ -24,6 +24,7 @@
     <script src="assets/js/profile.js"></script>
     <script src="assets/js/cookies.js"></script>  
     <script src="assets/js/ads.js"></script>  
+    <script src="assets/js/scripts.js"></script>
 
 </head>
 
@@ -51,10 +52,10 @@
                 <a class="sub" href="profile.html">Edit Profile</a>
             </li>
             <li>
-                <a class="sub" href="addUser.html" style="visibility: hidden;">Add User</a>
+                <a class="sub admin" href="addUser.html" style="visibility: hidden;">Add User</a>
             </li>
             <li>
-                <a class="sub" href="searchUser.html" style="visibility: hidden;">Search User</a>
+                <a class="sub admin" href="searchUser.html" style="visibility: hidden;">List/Search User(s)</a>
             </li>
         </ul>
         <ul class="sidebar-bottom">
@@ -94,13 +95,13 @@
                             <!-- The form -->
                             <form id="profileForm">
                                 <h2>First Name</h2>
-                                <input type="text" name="firstName" class="form-control"/>
+                                <input type="text" id="firstName" class="form-control"/>
                                 <h2>Last Name</h2>
-                                <input type="text" name="lastName" class="form-control"/>
+                                <input type="text" id="lastName" class="form-control"/>
                                 <h2>Email</h2>
-                                <input type="email" name="email" class="form-control"/>
+                                <input type="email" id="email" class="form-control" disabled/>
                                 <h2>Password</h2>
-                                <input type="password" name="password" class="form-control"/>
+                                <input type="password" id="password" class="form-control"/>
                                 <br>
                                 <input type="submit" class="btn btn-primary" value="Update Profile">
                             </form>
@@ -133,7 +134,12 @@
         $("#wrapper").toggleClass("toggled");
     });
 
+    // Admin Check
+    adminStuff();
+
+    // Populat ads
     email = getCookie("email");
     getAdsByEmail(email);
+    populateForm(email);
     </script>
 </body>

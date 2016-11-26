@@ -13,7 +13,27 @@ app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
     extended: true
 }));
 
-// Returns a list of applicants
+// Returns a user
+function getUser(req, res) {
+    // Shared by all queries. Construct structure
+    var result = new Object();
+    var list = [];
+
+    // Single User
+    if(req.query.email != null){
+        var testUser = new Object();
+        testUser["firstName"] = "Hardcoded User";
+        testUser["lastName"] = "Best Last Name";
+        testUser["password"] = "12345";
+        testUser["email"] = "test@test.ca";
+        testUser["adminStatus"] = "user";
+        list.push(testUser);
+        result["users"] = list;
+    }
+    return res.json(result);
+}
+
+// Returns a list of ads
 function getads(req, res) {
     // Shared by all queries. Construct structure
     var result = new Object();
@@ -243,7 +263,7 @@ function signup(req, res) {
 app.post('/login', login); // Login
 //app.post('/signup', user.signup);  // actual
 app.post('/signup', signup);  // signup
-//app.get('/user', user.editUser); // Get user info / object
+app.get('/user', getUser); // Get user info / object
 //app.post('/editUser', user.editUser);  // Post new user edit
 //app.delete('/removeUser', user.removeUser);  // Remove user
 

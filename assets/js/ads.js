@@ -36,7 +36,6 @@ function getAllAds() {
         for (ad in response["ads"]){
           // Details
           table += ("<tr><td>" + response["ads"][ad]["title"] + "</td><td>" + response["ads"][ad]["author"] + "</td><td>" + response["ads"][ad]["description"] + "</td><td>" + response["ads"][ad]["posteddate"] + "</td><td>$" + response["ads"][ad]["bid"]+ "</td><td><a href='viewAd.html?id=" + response["ads"][ad]["id"] + "' class='btn btn-primary'>View</a></td></tr>");
-          console.log(response["ads"][ad]["title"]);
         }
 
         // End table

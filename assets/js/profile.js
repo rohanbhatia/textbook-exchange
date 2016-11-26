@@ -19,11 +19,18 @@ function constructFormJson(evt, formID) {
 }
 
 
-// TODO: use cookie passed, GET req /user for userinfo
-//        fill the form fields with their info
-function populateForm() {
-
-
+// Get user info from server and populate
+function populateForm(email) {
+  $.ajax({
+      url: '/user?email=' + email,
+      type: 'GET',
+      success: function(response) {
+        $("#firstName").val(response["users"][0]["firstName"]);
+        $("#lastName").val(response["users"][0]["lastName"]);
+        $("#email").val(response["users"][0]["email"]);
+        $("#password").val(response["users"][0]["password"]);
+      }
+  });
 }
 
 //TODO are we allowing changes to email?
@@ -64,6 +71,11 @@ function addUpdateProfile() {
 // populate table, add onclick of VIEW = getDetailedAd (access decisions)
 // add onclick of delete = deleteListing
 function populateMyAds() {
+
+}
+
+// Get the user info and populate
+function getUser(email){
 
 }
 
