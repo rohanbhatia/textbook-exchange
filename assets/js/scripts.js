@@ -3,6 +3,20 @@ function displayError(err){
 	$("#page-content-wrapper").html("<h1>An error has occured. Details: " + err + "</h2>");
 }
 
+// Admin view modificaitons
+function adminStuff(){
+	if(getCookie("adminStatus") == "admin"){
+		$(".admin").css('visibility','visible');
+	}
+}
+
+// Kick out if not admin
+function adminStatusCheck(){
+	if(getCookie("adminStatus") != "admin"){
+		displayError("This page is restricted for admins only!");
+	}
+}
+
 /**
  * Helper function for form buttons to construct a JSON from the fields.
  *
@@ -20,3 +34,4 @@ function constructFormJson(evt, formID) {
   }
   return dataSet;
 }
+

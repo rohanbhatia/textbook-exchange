@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>New User - UofTextbook Exchange</title>
+    <title>All Users - UofTextbook Exchange</title>
 
 	<!-- Bootstrap Core -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
@@ -21,8 +21,10 @@
 
     <!-- Jquery -->
     <script src="assets/js/jquery-3.1.1.min.js"></script>  
+    <script src="assets/js/cookies.js"></script>  
+    <script src="assets/js/ads.js"></script>  
     <script src="assets/js/scripts.js"></script>
-    <script src="assets/js/cookies.js"></script>
+    <script src="assets/js/profile.js"></script>
 
 </head>
 
@@ -73,40 +75,34 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-4">
                     <!-- Title -->
-                    <h1>Add User</h1>
+                    <h1>Your Ads</h1>
+                </div>
+                <div class="col-lg-4">
+                    <a href="newListing.html" class="btn btn-primary"><span class=" glyphicon glyphicon-plus"></span> Add New Listing</a>
+                </div>
+                <div class="col-lg-4" style="display: inline-block;">
+                    <!-- Search Bar -->
+                    <div class="input-group col-md-12">
+                        <input type="text" class="search-query form-control" id="searchbar" placeholder="Search Disabled by System Operator" disabled />
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button">
+                                <span class=" glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                    <form>
+                        <label class="radio-inline">
+                          <input type="radio" name="optradio" id="searchTitle" checked>Search by email
+                        </label>
+                    </form>
                 </div>
             </div>
-            <!-- Personal Info -->
+            <!-- table -->
             <div class="row">
-                <div class="col-lg-12">
-                    <table class="table table-hover">
-				    <thead>
-				      <tr>
-				        <th>Details</th>
-				      </tr>
-				    </thead>
-				    <tbody>
-				      <tr>
-				        <td>
-                            <!-- The form -->
-                            <form>
-                                <h2>First Name</h2>
-                                <input type="text" class="form-control"/>
-                                <h2>last Name</h2>
-                                <input type="text" class="form-control"/>
-                                <h2>Email</h2>
-                                <input type="email" class="form-control"/>
-                                <h2>Password</h2>
-                                <input type="password" class="form-control"/>
-                                <br>
-                                <input type="submit" class="btn btn-primary" value="Add User">
-                            </form>
-                        </td>
-				      </tr>
-				    </tbody>
-				  </table>
+                <div id="UsersTable" class="col-lg-12">
+                    <!-- js fill -->
                 </div>
             </div>
         </div>
@@ -120,6 +116,9 @@
         $("#wrapper").toggleClass("toggled");
     });
 
+    // Admin Check
     adminStuff();
+    adminStatusCheck();
+    getAllUsers();
     </script>
 </body>

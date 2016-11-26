@@ -19,8 +19,10 @@ function loginHandler(evt) {
     type: "POST",
     data: loginData,
     success: function(response) {
+      console.log("signed in");
       if ((typeof response) == "object") {
-        setCookie("token", response.token, 1);
+        setCookie("token", response.token, 10000);
+        setCookie("adminStatus", response.adminStatus, 10000);
         //redirect
         window.location.href = "allAds.html";
       }

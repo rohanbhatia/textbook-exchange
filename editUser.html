@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>New User - UofTextbook Exchange</title>
+    <title>Edit User - UofTextbook Exchange</title>
 
 	<!-- Bootstrap Core -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
@@ -20,9 +20,11 @@
     <link href="assets/css/style.css" rel="stylesheet">
 
     <!-- Jquery -->
-    <script src="assets/js/jquery-3.1.1.min.js"></script>  
+    <script src="assets/js/jquery-3.1.1.min.js"></script>
+    <script src="assets/js/profile.js"></script>
+    <script src="assets/js/cookies.js"></script>  
+    <script src="assets/js/ads.js"></script>  
     <script src="assets/js/scripts.js"></script>
-    <script src="assets/js/cookies.js"></script>
 
 </head>
 
@@ -75,7 +77,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <!-- Title -->
-                    <h1>Add User</h1>
+                    <h1>Edit User</h1>
                 </div>
             </div>
             <!-- Personal Info -->
@@ -91,22 +93,34 @@
 				      <tr>
 				        <td>
                             <!-- The form -->
-                            <form>
+                            <form id="profileForm">
                                 <h2>First Name</h2>
-                                <input type="text" class="form-control"/>
-                                <h2>last Name</h2>
-                                <input type="text" class="form-control"/>
+                                <input type="text" id="firstName" class="form-control"/>
+                                <h2>Last Name</h2>
+                                <input type="text" id="lastName" class="form-control"/>
                                 <h2>Email</h2>
-                                <input type="email" class="form-control"/>
+                                <input type="email" id="email" class="form-control" disabled/>
                                 <h2>Password</h2>
-                                <input type="password" class="form-control"/>
+                                <input type="password" id="password" class="form-control"/>
                                 <br>
-                                <input type="submit" class="btn btn-primary" value="Add User">
+                                <input type="submit" class="btn btn-primary" value="Update Profile">
                             </form>
                         </td>
 				      </tr>
 				    </tbody>
 				  </table>
+                </div>
+            </div>
+            <!-- Postings -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Title -->
+                    <h1>Your Ads</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div id="AdsTable" class="col-lg-12">
+                    <!-- JS -->
                 </div>
             </div>
         </div>
@@ -120,6 +134,26 @@
         $("#wrapper").toggleClass("toggled");
     });
 
+    // Admin Check
     adminStuff();
+    adminStatusCheck();
+
+    // Gets the parameters passed in
+    $.parameters = function(name){
+        var res = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+        try{
+            return res[1];
+        }catch(err) {
+            return null;
+        }
+    }
+
+    // Make the correct calls according to parameters
+    if($.parameters('email') != null){
+        getAdsByEmail($.parameters('email'));
+        populateForm($.parameters('email'));
+    }else{
+        displayError("Malformed link. Missing parameters");
+    }    
     </script>
 </body>

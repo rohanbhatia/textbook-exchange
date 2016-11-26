@@ -22,6 +22,9 @@
     <!-- Jquery -->
     <script src="assets/js/jquery-3.1.1.min.js"></script>
 
+    <script src="assets/js/scripts.js"></script>
+    <script src="assets/js/cookies.js"></script>
+
 </head>
 
 <body>
@@ -48,10 +51,10 @@
                 <a class="sub" href="profile.html">Edit Profile</a>
             </li>
             <li>
-                <a class="sub" href="addUser.html" style="visibility: hidden;">Add User</a>
+                <a class="sub admin" href="addUser.html" style="visibility: hidden;">Add User</a>
             </li>
             <li>
-                <a class="sub" href="searchUser.html" style="visibility: hidden;">Search User</a>
+                <a class="sub admin" href="searchUser.html" style="visibility: hidden;">List/Search User(s)</a>
             </li>
         </ul>
         <ul class="sidebar-bottom">
@@ -124,5 +127,7 @@
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
+
+    adminStuff();
     </script>
 </body�>
