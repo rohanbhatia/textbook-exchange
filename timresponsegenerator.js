@@ -171,14 +171,86 @@ function deleteAd(req, res){
     return res.send("Success");
 }
 
-//app.post('/login', user.login);  // login
-//app.post('/signup', user.user);  // signup
+var userListing = {"users": [
+  {"firstName": "Luke", "lastName": "Danes", "password": "coffee",
+    "email": "lukedanes@starshollow.com", "adminStatus": "user"
+	},   {"firstName": "Taylor", "lastName": "Doose", "password": "festival",
+      "email": "taylordoose@starshollow.com", "adminStatus": "admin"
+  	}
+]  };
+
+function login(req, res) {
+  var users = JSON.parse(JSON.stringify(userListing));
+  let email = req.body.email;
+  let password = req.body.password;
+  let validEmail = false;
+  let validPword = false;
+  for (let i in users["users"]) {
+    let user = users["users"][i];
+    if (user["email"] == email && user["password"] == password) {
+      validEmail = true;
+      validPword = true;
+      // generate a token and send it, along with admin status
+      // below is hardcoded for testing purposes
+      var token = "A23XD4FG";
+      // Add token to the user for tracking.
+      user["token"] = token;
+      return res.json({"token": token, "adminStatus": user["adminStatus"]});
+    }
+    else if (user["email"] == email) {
+      validEmail = true;
+      break;
+    }
+  }
+
+  if (validEmail) {
+    return res.send("Incorrect password, please try again!");
+  }
+  else {
+    return res.send("Email not found, please try again!");
+  }
+}
+
+
+function signup(req, res) {
+  let uniqueEmail = true;
+  while (uniqueEmail) {
+    for (let i in userListing["users"]) {
+      let user = userListing["users"][i];
+      if (user["email"] == req.body.email) {
+        uniqueEmail = false;
+      }
+    }
+    break;
+  }
+  if (uniqueEmail) {
+    let newUser = {"firstName": req.body.firstName, "lastName": req.body.lastName,
+                    "password": req.body.password, "email": req.body.email,
+                    "adminStatus": "user"};
+    userListing["users"].push(newUser);
+    // TODO Also need to write the new user to the db!
+    //console.log(JSON.stringify(userListing));
+    res.send("Thank you for joining us. Please login to get started!");
+  }
+  else {
+    res.send((req.body.email + " is already in use."));
+  }
+
+}
+
+
+//app.post('/login', user.login);  // actual
+app.post('/login', login); // Login
+//app.post('/signup', user.signup);  // actual
+app.post('/signup', signup);  // signup
 //app.get('/user', user.editUser); // Get user info / object
 //app.post('/editUser', user.editUser);  // Post new user edit
 //app.delete('/removeUser', user.removeUser);  // Remove user
 
+//app.get('/ads', ads.getads); // actual
 app.get('/ads', getads);  // Get all the post objects - also get individual post via fname
 //app.post('/bid', ads.bid);        // Bid
+//app.delete('/deleteAd', ads.deleteAd); // actual
 app.delete('/deleteAd', deleteAd); // Delete
 //app.post('/newAd', ads.newAd);     // Bid
 //app.post('/editAd', ads.editAd);   // Edit ads
