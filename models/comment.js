@@ -11,11 +11,11 @@ var commentSchema = new Schema(
         ad_id: {
             type: Number, required: true
         },
-        email: {
+        poster_email: {
             type: String, required: true
         },
         posted_date: {
-            type: Date, required: true, default: Date.now
+            type: Date, default: Date.now
         },
         comment: {
             type: String, required: true

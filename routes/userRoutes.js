@@ -13,7 +13,7 @@ exports.createUser = function(req, res) {
 		password: req.body["password"],
 		first_name: req.body["first_name"],
 		last_name: req.body["last_name"],
-		admin_status: req.body["admin_status"],
+		admin_status: req.body["admin_status"]
 	});
 
 	//save new user to db
@@ -48,10 +48,18 @@ exports.userLogin = function(req, res) {
 			//correct password
 			if (given_password == real_password) {
 				
-				//generate token
-				var token = "" + Math.random();
-				user[0].session_token = token;
-				res.send(user[0].session_token);
+				//user is not already logged in
+				if (!user[0].logged_in) {
+					//generate token
+					var token = "" + Math.random();
+					user[0].session_token = token;
+					user[0].logged_in = true;
+					res.send(user[0].session_token);
+				}
+				//user already logged in
+				else {
+					res.send("Failure: User is already logged in\n");
+				}
 			}
 			//wrong password
 			else {
@@ -106,6 +114,7 @@ exports.editUserInfo = function(req, res) {
 		
 		if (err) throw err;
 		
+		user[0].email = req.body["new_email"];
 		user[0].first_name = req.body["first_name"];
 		user[0].last_name = req.body["last_name"];
 		user[0].password = req.body["password"];

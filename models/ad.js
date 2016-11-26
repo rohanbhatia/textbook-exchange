@@ -17,7 +17,7 @@ var adSchema = new mongoose.Schema(
             type: String, required: true
         },
         posted_date: {
-            type: Date, required: true, default: Date.now
+            type: Date, default: Date.now
         },
         bid: {
             type: Number, required: true
@@ -26,7 +26,13 @@ var adSchema = new mongoose.Schema(
             type: String, required: true
         },
         course_code: {
+            type: String, default: ""
+        },
+        owner_email: {
             type: String, required: true
+        },
+        comment_ids: {
+            type: [Number], default: []
         }
     },
     {
