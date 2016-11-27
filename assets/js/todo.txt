@@ -31,15 +31,15 @@ DONE -- checkCookie()
 
 DONE -- getProfile(email)
 
-DONE -- signup(firstname, lastname, email, email, password)
+DONE -- signup(firstname, lastname, email, password)
 
 DONE -- getComments(ID)
 
-IP -- updateProfile(firstname, lastname, email, email, password)
+DONE -- updateProfile(firstname, lastname, email, password)
 
-IP -- login(email, passowrd)
+DONE -- login(email, password)
 
-addListing(title, author, price, description, isbn, course code)
+DONE -- addListing(title, author, price, description, isbn, course code)
 
 postBid(ID, bid)
 
@@ -47,7 +47,7 @@ acceptBid(ID) - req to server, server has to delete the post and send emails (po
 
 postComment(ID, comment, email)
 
-logout() 
+DONE -- logout() 
 	
 
 admin view page
