@@ -4,8 +4,7 @@ var Comment = require('../models/comment');
 
 
 // app.post('/newComment', comments.addComment); 
-// post a new comment
-
+// post a new commentsss
 exports.addComment = function(req, res) {
 	
 	console.log("addComment");
@@ -97,7 +96,6 @@ exports.getAdComments = function(req, res) {
 
 // app.get('/getComment', comments.getComment); 
 // get all info for 1 comment
-
 exports.getComment = function(req, res) {
 
 	console.log("getComment");
