@@ -111,9 +111,9 @@
                                               <tr style="background-color: #c1c1c1;">
                                                 <td>
                                                     <!-- The form -->
-                                                    <form>
+                                                    <form id="bidForm">
                                                         <h3 id="currentbid">Current Bid: N/A</h3>
-                                                        <input type="number" min="1" step="any" class="form-control" placeholder="50.00" required/>
+                                                        <input type="number" min="1" step="any" name="bid" class="form-control" placeholder="50.00" required/>
                                                         <input type="submit" class="btn btn-primary" value="Bid">
                                                     </form>
                                                 </td>
@@ -139,8 +139,8 @@
                                                     </div>
                                                     <!-- The form -->
                                                     <form>
-                                                        <textarea class="form-control" rows="4" placeholder="Cheaper than the bookstore!"></textarea>
-                                                        <input type="submit" class="btn btn-primary" value="Comment">
+                                                        <textarea class="form-control" id="comment" rows="4" placeholder="Cheaper than the bookstore!"></textarea>
+                                                        <button id="commentBtn" type="button" class="btn btn-primary">Comment</button>
                                                     </form>
                                                 </td>
                                             </tr>

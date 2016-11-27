@@ -41,11 +41,11 @@ DONE -- login(email, password)
 
 DONE -- addListing(title, author, price, description, isbn, course code)
 
-postBid(ID, bid)
+DONE -- postBid(ID, bid)
 
 acceptBid(ID) - req to server, server has to delete the post and send emails (poster, bidder)
 
-postComment(ID, comment, email)
+DONE -- postComment(ID, comment, email)
 
 DONE -- logout() 
 	
@@ -53,4 +53,9 @@ DONE -- logout()
 admin view page
 
 deleteUser(email)
+editAd
 
+Clean lines:
+validation of input (like name etc) to prevent injection
+strip whitespace around inputs
+get comments box to autoscroll to the most recent (i.e. the bottom)

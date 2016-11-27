@@ -31,7 +31,7 @@ function getAllAds() {
       success: function(response) {
         // Start table
         var table = ('<table class="table table-hover"><thead><tr><th>Title</th><th>Author</th><th>Description</th><th>Posted Date</th><th>Current Bid</th><th>View</th></tr></thead><tbody>');
-        
+
         // Fill in rows
         for (ad in response["ads"]){
           // Details
@@ -57,7 +57,7 @@ function getAdsByEmail(email) {
       success: function(response) {
         // Start table
         var table = ('<table class="table table-hover"><thead><tr><th>Title</th><th>Author</th><th>Description</th><th>Posted Date</th><th>Current Bid</th><th>View</th><th>Delete</th></tr></thead><tbody>');
-        
+
         // Fill in rows
         for (ad in response["ads"]){
           // Details
@@ -83,7 +83,7 @@ function getAdsByCourse(code) {
       success: function(response) {
         // Start table
         var table = ('<table class="table table-hover"><thead><tr><th>Title</th><th>Author</th><th>Description</th><th>Posted Date</th><th>Current Bid</th><th>View</th></tr></thead><tbody>');
-        
+
         // Fill in rows
         for (ad in response["ads"]){
           // Details
@@ -109,7 +109,7 @@ function getAdsByTitle(code) {
       success: function(response) {
         // Start table
         var table = ('<table class="table table-hover"><thead><tr><th>Title</th><th>Author</th><th>Description</th><th>Posted Date</th><th>Current Bid</th><th>View</th></tr></thead><tbody>');
-        
+
         // Fill in rows
         for (ad in response["ads"]){
           // Details
@@ -129,6 +129,7 @@ function getAdsByTitle(code) {
 }
 
 function getComments(id) {
+  $("textarea").val("");
   $.ajax({
       url: '/comments?id=' + id,
       type: 'GET',
@@ -171,3 +172,60 @@ function search(){
     getAdsByCourse($("#searchbar").val());
   }
 }
+
+function postBidHandler(evt) {
+  let bidData = constructFormJson(evt, "bidForm");
+  let query = window.location.search.substring(1);
+  let queryPieces = query.split("=");
+  bidData[queryPieces[0]] = queryPieces[1];
+  bidData["token"] = getCookie("token");
+  //console.log(bidData);
+  $.ajax({
+    url: "/bid",
+    type: "POST",
+    data: bidData,
+    success: function(response) {
+        alert(response);
+        window.location.reload();
+    },
+    error: function() {
+      displayError("Communication with the server has failed. Please try again later.");
+    }
+  });
+}
+
+function addBid() {
+  let bidElem = $("#bidForm");
+  bidElem.submit(postBidHandler);
+}
+
+function addComment() {
+  let commentBtn = $("#commentBtn");
+  let query = window.location.search.substring(1);
+  let queryPieces = query.split("=");
+  let id = queryPieces[1];
+  let commentData = {"id": id, "email": getCookie("email")};
+  commentBtn.click(function() {
+      let commentText = $("#comment").val();
+      commentData["comment"] = commentText;
+      $.ajax({
+        url: "/addComment",
+        type: "POST",
+        data: commentData,
+        success: function() {
+            $("#comment").val("");
+            getComments(id);
+        },
+        error: function() {
+          displayError("Communication with the server has failed. Please try again later.");
+        }
+      });
+  });
+
+}
+
+
+$(document).ready(function() {
+  addBid();
+  addComment();
+});
