@@ -26,7 +26,6 @@ exports.createNewAd = function(req, res) {
 
 	console.log("createNewAd");
 
-	
 	Ad.find({}, function(err, ads) {
 
 		if (err) throw err;
@@ -52,7 +51,6 @@ exports.createNewAd = function(req, res) {
 
 		//add to user database
 
-		//add comment to User database
 		var user_email = req.body["email"];
 		User.find({email: user_email}, function(err, user) {
 		
@@ -67,12 +65,12 @@ exports.createNewAd = function(req, res) {
 		
 					if (err) throw err;
 				});
+
 			}
 		});
 	});
 
 	res.send("Success\n");
-
 
 };
 
