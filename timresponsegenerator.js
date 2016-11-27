@@ -311,6 +311,17 @@ function editUser(req, res) {
 
 }
 
+
+function newAd(req, res) {
+  if (req.body.token == "A23XD4FG"){
+        return res.send("Success");
+  }
+  else {
+    return res.send("Failure");
+  }
+
+}
+
 //app.post('/login', user.login);  // actual
 app.post('/login', login); // Login
 //app.post('/signup', user.signup);  // actual
@@ -324,7 +335,7 @@ app.get('/ads', getads);  // Get all the post objects - also get individual post
 //app.post('/bid', ads.bid);        // Bid
 //app.delete('/deleteAd', ads.deleteAd); // actual
 app.delete('/deleteAd', deleteAd); // Delete
-//app.post('/newAd', ads.newAd);     // Bid
+app.post('/newAd', newAd);     // Bid
 //app.post('/editAd', ads.editAd);   // Edit ads
 app.get('/comments', getComments);
 

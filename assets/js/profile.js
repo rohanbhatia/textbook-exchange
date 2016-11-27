@@ -53,7 +53,7 @@ function getAllUsers() {
 function updateProfileHandler(evt) {
   let updatedData = constructFormJson(evt, "profileForm");
   updatedData["token"] = getCookie("token");
-  console.log(JSON.stringify(updatedData));
+  //console.log(JSON.stringify(updatedData));
 
   // First line of defense against unauthorised changes
   if (getCookie("email") == updatedData["email"] ||
