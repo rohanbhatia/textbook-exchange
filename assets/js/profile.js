@@ -1,24 +1,5 @@
 'use strict';
 
-/**
- * Helper function for form buttons to construct a JSON from the fields.
- *
- * @param {object} click event
- * @param {string} formID
- * @return {object} dataSet
- *
- */
-function constructFormJson(evt, formID) {
-  evt.preventDefault();
-  let formData = $(("#"+formID)).serializeArray();
-  let dataSet = {};
-  for (let i = 0; i < formData.length; i++) {
-    dataSet[(formData[i])["name"]] = (formData[i])["value"];
-  }
-  return dataSet;
-}
-
-
 // Get user info from server and populate
 function populateForm(email) {
   $.ajax({
@@ -31,7 +12,7 @@ function populateForm(email) {
         $("#password").val(response["users"][0]["password"]);
       },
       error: function() {
-        displayError("Communication with the server has failed. Please try again later");
+        displayError("Communication with the server has failed. Please try again later.");
       }
   });
 }
@@ -58,12 +39,11 @@ function getAllUsers() {
         $("#UsersTable").html(table);
       },
       error: function() {
-        displayError("Communication with the server has failed. Please try again later");
+        displayError("Communication with the server has failed. Please try again later.");
       }
   });
 }
 
-//TODO are we allowing changes to email?
 /**
  * Update Profile submit button event handler callback.
  *
@@ -72,19 +52,37 @@ function getAllUsers() {
  */
 function updateProfileHandler(evt) {
   let updatedData = constructFormJson(evt, "profileForm");
-  console.log(JSON.stringify(updatedData));
-  $.ajax({
-    url: "/editUser",
-    type: "POST",
-    data: updatedData,
-    success: function() {
-      alert("Profile updated successfully!");
-    },
-    error: function() {
-      // TODO: Change this to relevant error handling.
-      alert("Thar be an error round these parts.");
-    }
-  });
+  updatedData["token"] = getCookie("token");
+  //console.log(JSON.stringify(updatedData));
+
+  // First line of defense against unauthorised changes
+  if (getCookie("email") == updatedData["email"] ||
+                              getCookie("adminStatus") == "admin") {
+    $.ajax({
+      url: "/editUser",
+      type: "POST",
+      data: updatedData,
+      success: function(response) {
+        if (response == "Success") {
+          alert("Profile updated successfully!");
+          window.location.reload();
+        }
+        else {
+          alert("Changes were not saved.");
+          window.location.reload();
+        }
+
+      },
+      error: function() {
+        displayError("Communication with the server has failed. Please try again later.");
+      }
+    });
+  }
+  else {
+    alert("Access denied!");
+    window.location.reload();
+  }
+
 }
 
 /**
