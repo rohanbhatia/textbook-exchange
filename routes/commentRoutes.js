@@ -75,7 +75,7 @@ exports.addComment = function(req, res) {
 };
 
 // app.get('/getAdComments', comments.getAdComments); 
-// send all comment ids for 1 ad
+// get all comment ids for 1 ad
 exports.getAdComments = function(req, res) {
 
 	console.log("getAdComments");
@@ -96,7 +96,7 @@ exports.getAdComments = function(req, res) {
 };
 
 // app.get('/getComment', comments.getComment); 
-// send all info for 1 comment
+// get all info for 1 comment
 
 exports.getComment = function(req, res) {
 
