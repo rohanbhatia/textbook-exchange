@@ -256,7 +256,8 @@ function login(req, res) {
       var token = "A23XD4FG";
       // Add token to the user for tracking.
       user["token"] = token;
-      return res.json({"token": token, "adminStatus": user["adminStatus"]});
+      return res.json({"token": token, "adminStatus": user["adminStatus"],
+                        "email": user["email"]});
     }
     else if (user["email"] == email) {
       validEmail = true;
@@ -300,12 +301,22 @@ function signup(req, res) {
 }
 
 
+function editUser(req, res) {
+  if (req.body.token == "A23XD4FG"){
+        return res.send("Success");
+  }
+  else {
+    return res.send("Failure");
+  }
+
+}
+
 //app.post('/login', user.login);  // actual
 app.post('/login', login); // Login
 //app.post('/signup', user.signup);  // actual
 app.post('/signup', signup);  // signup
 app.get('/user', getUser); // Get user info / object
-//app.post('/editUser', user.editUser);  // Post new user edit
+app.post('/editUser', editUser);  // Post new user edit
 //app.delete('/removeUser', user.removeUser);  // Remove user
 
 //app.get('/ads', ads.getads); // actual
