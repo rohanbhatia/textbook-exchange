@@ -355,7 +355,6 @@ function addComment(req, res) {
   let commentObj = {"id": req.body.id, "posteddatetime": datetime, "email": req.body.email,
                     "comments": req.body.comment};
   comments["comments"].push(commentObj);
-  console.log(JSON.stringify(comments));
   res.send("Success");
 }
 

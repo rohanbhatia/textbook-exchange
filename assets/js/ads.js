@@ -237,7 +237,6 @@ function addAcceptBid() {
       success: function(response) {
           // Check if person viewing is the owner of the ad
           let email = response["ads"][0]["email"];
-          console.log(email);
           if (getCookie("email") == email) {
             let acceptBtn = $("<button type=\"button\" class=\"btn btn-primary\">Accept Bid</button>");
             $("#bidForm").append(acceptBtn);
@@ -267,12 +266,37 @@ function addAcceptBid() {
         displayError("Communication with the server has failed. Please try again later.");
       }
   });
+}
 
-
+function addModifyBtn() {
+  let query = window.location.search.substring(1);
+  let queryPieces = query.split("=");
+  let id = queryPieces[1];
+  $.ajax({
+      url: '/ads?id=' + id,
+      type: 'GET',
+      success: function(response) {
+          // Check if person viewing is the owner of the ad or an admin
+          let email = response["ads"][0]["email"];
+          if (getCookie("email") == email || getCookie("adminStatus") == "admin") {
+            let modifyBtn = $("<button type=\"button\" class=\"btn btn-primary\">Make Modifications</button>");
+            $("#overview").append($("<br>"));
+            $("#overview").append(modifyBtn);
+            modifyBtn.click(function() {
+              setCookie("id", id, 10000);
+              window.location.href = "editListing.html";
+            });
+          }
+      },
+      error: function() {
+        displayError("Communication with the server has failed. Please try again later.");
+      }
+  });
 }
 
 $(document).ready(function() {
   addBid();
   addComment();
   addAcceptBid();
+  addModifyBtn();
 });
