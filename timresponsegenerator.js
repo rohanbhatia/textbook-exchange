@@ -62,6 +62,7 @@ function getads(req, res) {
     if(req.query.id != null){
     	if (req.query.id==1234){
     		var testBook = new Object();
+          testBook["email"] = "lukedanes@starshollow.com";
 	        testBook["title"] = "Mary, Did You Know?";
 	        testBook["id"] = "1234";
 	        testBook["author"] = "Pentatonix";
@@ -354,7 +355,12 @@ function addComment(req, res) {
   let commentObj = {"id": req.body.id, "posteddatetime": datetime, "email": req.body.email,
                     "comments": req.body.comment};
   comments["comments"].push(commentObj);
-  console.log(JSON.stringify(comments));
+  res.send("Success");
+}
+
+
+function acceptBid(req, res) {
+  // server has to verify with token, send emails (poster, bidder) and delete the post
   res.send("Success");
 }
 
@@ -372,7 +378,7 @@ app.post('/newAd', newAd);     // Bid
 //app.post('/editAd', ads.editAd);   // Edit ads
 app.get('/comments', getComments);
 app.post('/addComment', addComment);
-
+app.post('/acceptBid', acceptBid);
 
 
 app.listen(process.env.PORT || 3000);

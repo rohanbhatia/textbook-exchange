@@ -41,19 +41,26 @@ DONE -- login(email, password)
 
 DONE -- addListing(title, author, price, description, isbn, course code)
 
-DONE -- postBid(ID, bid)
+DONE -- postBid(ID, bid) TODO: also send along email
 
-acceptBid(ID) - req to server, server has to delete the post and send emails (poster, bidder)
+DONE -- acceptBid(ID) - req to server, server has to delete the post and send emails (poster, bidder)
 
 DONE -- postComment(ID, comment, email)
 
 DONE -- logout() 
+
+DONE -- addModifyBtn() - dynamically add Modify btn
+
+DONE -- populateAdForm() - for editing a listing
+
+IP -- saveChangesHandler() - for editing a listing
 	
 
 admin view page
 
-deleteUser(email)
-editAd
+TODO: deleteUser(email)
+
+DONE -- editListing - make this page 
 
 Clean lines:
 validation of input (like name etc) to prevent injection
