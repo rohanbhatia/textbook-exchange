@@ -179,6 +179,7 @@ function postBidHandler(evt) {
   let queryPieces = query.split("=");
   bidData[queryPieces[0]] = queryPieces[1];
   bidData["token"] = getCookie("token");
+  bidData["bid_owner"] = getCookie("email");
   //console.log(bidData);
   $.ajax({
     url: "/bid",
@@ -204,7 +205,7 @@ function addComment() {
   let query = window.location.search.substring(1);
   let queryPieces = query.split("=");
   let id = queryPieces[1];
-  let commentData = {"id": id, "email": getCookie("email")};
+  let commentData = {"ad_id": id, "email": getCookie("email")};
   commentBtn.click(function() {
       let commentText = $("#comment").val();
       commentData["comment"] = commentText;
@@ -225,7 +226,53 @@ function addComment() {
 }
 
 
+function addAcceptBid() {
+  let query = window.location.search.substring(1);
+  let queryPieces = query.split("=");
+  let id = queryPieces[1];
+  let acceptData = {"id": id, "token": getCookie("token")};
+  $.ajax({
+      url: '/ads?id=' + id,
+      type: 'GET',
+      success: function(response) {
+          // Check if person viewing is the owner of the ad
+          let email = response["ads"][0]["email"];
+          console.log(email);
+          if (getCookie("email") == email) {
+            let acceptBtn = $("<button type=\"button\" class=\"btn btn-primary\">Accept Bid</button>");
+            $("#bidForm").append(acceptBtn);
+            acceptBtn.click(function() {
+              $.ajax({
+                url: '/acceptBid',
+                type: 'POST',
+                data: acceptData,
+                success: function(res) {
+                  if (res == "Success") {
+                    alert("Bid accepted successfully!");
+                    window.location.href = "yourAds.html";
+                  }
+                  else {
+                    alert("Bid not accepted. Please try again.");
+                    window.location.reload();
+                  }
+                },
+                error: function() {
+                  displayError("Communication with the server has failed. Please try again later.");
+                }
+              });
+            });
+          }
+      },
+      error: function() {
+        displayError("Communication with the server has failed. Please try again later.");
+      }
+  });
+
+
+}
+
 $(document).ready(function() {
   addBid();
   addComment();
+  addAcceptBid();
 });
