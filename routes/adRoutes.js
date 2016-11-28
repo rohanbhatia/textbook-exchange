@@ -72,8 +72,31 @@ exports.getAds = function(req, res) {
 
 // app.post('/bid', ads.postBid);        
 // Post A Bid
+//NOT WORKING
 exports.postBid = function(req, res) {
 
+	console.log("postBid");
+
+	Ad.find({ad_id: req.body["ad_id"]}, function(err, ads) {
+
+		if (err) throw err;
+
+		//only modify if new bid is higher
+		if (ads[0].bid < req.body["bid"]) {
+
+			ads[0].bid = req.body["bid"];
+			ads[0].bid_owner = req.body["bid_owner"];
+			ads[0].save(function(err) {
+			
+				if (err) throw err;
+
+				res.send("Success\n");
+			});
+		}
+		else {
+			res.send("Failure: Bid unsuccessful\n");
+		}
+	});
 };
 
 // app.delete('/deleteAd', ads.deleteAd); 
@@ -82,6 +105,27 @@ exports.deleteAd = function(req, res) {
 
 	console.log("deleteAd");
 
+	Ad.find({ad_id: req.body["ad_id"]}, function(err, ads) {
+
+		if (err) throw err;
+
+		//ad found
+		if (ads[0]) {
+			
+			ads[0].remove(function(err) {
+
+				if (err) throw err;
+
+				res.send("Success\n");
+
+			});
+		}
+		//ad not found
+		else {
+			res.send("Failure\n");
+		}
+
+	});
 };
 
 // app.post('/newAd', ads.createNewAd);     
@@ -100,7 +144,7 @@ exports.createNewAd = function(req, res) {
 			ad_id: ads.length,
 			title: req.body["book_title"],
 			author: req.body["author"],
-			description: req.body["description"],
+			desc: req.body["desc"],
 			bid: req.body["bid"],
 			isbn: req.body["isbn"],
 			course_code: req.body["course_code"],
@@ -138,4 +182,26 @@ exports.createNewAd = function(req, res) {
 // Edit ad
 exports.editAd = function(req, res) {
 
+	console.log("editAd");
+
+	Ad.find({ad_id: req.body["ad_id"]}, function(err, ads) {
+
+		if (err) throw err;
+
+		ads[0].book_title = req.body["book_title"];
+		ads[0].author = req.body["author"];
+		ads[0].desc = req.body["desc"];
+		ads[0].bid = req.body["bid"]; //potential bug here
+		ads[0].isbn = req.body["isbn"];
+		ads[0].course_code = req.body["course_code"];
+
+		ads[0].save(function(err)	{
+			
+			if (err) throw err;
+
+			res.send("Success\n");
+		});
+
+	});
 };
+

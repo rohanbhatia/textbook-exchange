@@ -24,7 +24,6 @@ exports.createUser = function(req, res) {
 	});
 
 	res.send("Success\n");
-
 };
 
 // app.post('/login', users.userLogin);  
@@ -72,7 +71,6 @@ exports.userLogin = function(req, res) {
 		}
 		
 	});
-
 };
 
 // app.get('/user', users.getUserInfo); 
@@ -99,7 +97,6 @@ exports.getUserInfo = function(req, res) {
 		}
 		
 	});
-
 };
 
 // app.post('/editUser', users.editUserInfo);  
@@ -157,21 +154,6 @@ exports.removeUser = function(req, res) {
 		}
 
 	});
-
 };
-
-
-
-
-	//print db to see if user added
-	//User.find({}, function (err, users) {
-		
-	//	if (err) throw err;
-	//	
-	//	console.log(users);
-	//});
-
-
-
 
 

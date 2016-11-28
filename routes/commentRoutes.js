@@ -4,7 +4,7 @@ var Comment = require('../models/comment');
 
 
 // app.post('/newComment', comments.addComment); 
-// post a new commentsss
+// post a new comments
 exports.addComment = function(req, res) {
 	
 	console.log("addComment");
