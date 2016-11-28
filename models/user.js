@@ -22,6 +22,15 @@ var userSchema = new Schema(
         },
         selling_ad_ids: {
             type: [Number], default: []
+        },
+        session_token: {
+            type: String, default: ""
+        },
+        logged_in: {
+            type: Boolean, default: false
+        },
+        comment_ids: {
+            type: [Number], default: []
         }
     },
     {
