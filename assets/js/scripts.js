@@ -32,6 +32,7 @@ function constructFormJson(evt, formID) {
   for (let i = 0; i < formData.length; i++) {
     dataSet[(formData[i])["name"]] = (formData[i])["value"];
   }
+  console.log(dataSet);
   return dataSet;
 }
 

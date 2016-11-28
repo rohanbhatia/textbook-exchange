@@ -13,7 +13,7 @@ exports.createUser = function(req, res) {
 		password: req.body["password"],
 		first_name: req.body["first_name"],
 		last_name: req.body["last_name"],
-		admin_status: req.body["admin_status"]
+		admin_status: "False"
 	});
 
 	//save new user to db
@@ -23,7 +23,7 @@ exports.createUser = function(req, res) {
 		console.log("User created");
 	});
 
-	res.send("Success\n");
+	res.send("Success");
 };
 
 // app.post('/login', users.userLogin);  
@@ -53,7 +53,9 @@ exports.userLogin = function(req, res) {
 					var token = "" + Math.random();
 					user[0].session_token = token;
 					user[0].logged_in = true;
-					res.send(user[0].session_token);
+					// admin_status Always returning true for some reason
+					return res.json({"token": user[0].session_token, "adminStatus": user[0].admin_status,
+                        "email": user[0].email});
 				}
 				//user already logged in
 				else {
@@ -87,9 +89,20 @@ exports.getUserInfo = function(req, res) {
 		
 		if (err) throw err;
 
+		var result = new Object();
+		var list = [];
+
 		//user found
 		if (user[0]) {
-			res.send(user[0]);
+			var testUser = new Object();
+	        testUser["firstName"] = user[0].first_name;
+	        testUser["lastName"] = user[0].last_name;
+	        testUser["password"] = user[0].password;
+	        testUser["email"] = user[0].email;
+	        testUser["adminStatus"] = user[0].admin_status; // Always returning true for some reason
+	        list.push(testUser);
+	        result["users"] = list;
+	    	return res.json(result);
 		}
 		//user not found
 		else {
@@ -110,11 +123,14 @@ exports.editUserInfo = function(req, res) {
 	User.find({email: user_email}, function(err, user) {
 		
 		if (err) throw err;
+
+		console.log(req.body.token);
+		console.log(req.body.email);
 		
-		user[0].email = req.body["new_email"];
-		user[0].first_name = req.body["first_name"];
-		user[0].last_name = req.body["last_name"];
-		user[0].password = req.body["password"];
+		user[0].email = req.body.email;
+		user[0].first_name = req.body.firstName;
+		user[0].last_name = req.body.lastName;
+		user[0].password = req.body.password;
 		user[0].save(function(err)	{
 			
 			if (err) throw err;

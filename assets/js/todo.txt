@@ -1,8 +1,12 @@
-// Dont put arguments pls
+// What Tim Did While You Were Sleeping (not creepy at all)
+1. Modify login function (both server and front)
+2. Constructformjson not returning valid data. Manually overrode
+3. Admin "add user" page set to call signup function rather than updateProfileHandler
+4. PROBLEM - Line 239 in ads. Open up a page (e.g. your ads) and check console for more info
+5. PROBLEM - Call stack error on newListing page. That means some function keeps calling itself (recursive)
 
-// For ads, I wrapped them in a DIV called id="AdsTable". Delete the table and have the js remake the table inside of the div
-
-
+// Questions
+1. Should admins be ableto create admins? Huge difficulty with current implementation (security flaw since admin's add user uses the same signup function as signup) so it is skiped. 
 
 Cookies Tutorial: http://www.w3schools.com/js/js_cookies.asp
 

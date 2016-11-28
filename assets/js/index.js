@@ -15,9 +15,17 @@ function loginHandler(evt) {
     type: "POST",
     data: loginData,
     success: function(response) {
+
       if ((typeof response) == "object") {
         setCookie("token", response.token, 10000);
-        setCookie("adminStatus", response.adminStatus, 10000);
+
+        alert(response.adminStatus);
+        // Convert T / F to admin / user to maintain compatibility with existing front end code
+        if(response.adminStatus == "True"){
+          setCookie("adminStatus", "admin", 10000);
+        }else{
+          setCookie("adminStatus", "user", 10000);
+        }
         setCookie("email", response.email, 10000);
         //redirect
         window.location.href = "allAds.html";
@@ -50,7 +58,11 @@ function addLogin() {
  *
  */
 function signUpHandler(evt) {
-  let signUpData = constructFormJson(evt, "signUpForm");
+  let signUpData = new Object();
+  signUpData["first_name"] = $('#firstName').val();
+  signUpData["last_name"] = $('#lastName').val();
+  signUpData["email"] = $('#email').val();
+  signUpData["password"] = $('#password').val();
 
   $.ajax({
     url: "/signup",

@@ -51,9 +51,12 @@ function getAllUsers() {
  *
  */
 function updateProfileHandler(evt) {
-  let updatedData = constructFormJson(evt, "profileForm");
+  let updatedData = new Object();
   updatedData["token"] = getCookie("token");
-  //console.log(JSON.stringify(updatedData));
+  updatedData["first_name"] = $('#firstName').val();
+  updatedData["last_name"] = $('#lastName').val();
+  updatedData["email"] = $('#email').val();
+  updatedData["password"] = $('#password').val();
 
   // First line of defense against unauthorised changes
   if (getCookie("email") == updatedData["email"] ||
@@ -86,12 +89,39 @@ function updateProfileHandler(evt) {
 }
 
 /**
+ * Sign Up submit button event handler callback.
+ *
+ * @param {object} click event
+ *
+ */
+function signUpHandler(evt) {
+  let signUpData = new Object();
+  signUpData["first_name"] = $('#firstName').val();
+  signUpData["last_name"] = $('#lastName').val();
+  signUpData["email"] = $('#email').val();
+  signUpData["password"] = $('#password').val();
+
+  $.ajax({
+    url: "/signup",
+    type: "POST",
+    data: signUpData,
+    success: function(response) {
+        window.location.reload();
+        alert(response);
+    },
+    error: function() {
+      displayError("Communication with the server has failed. Please try again later.");
+    }
+  });
+}
+
+/**
  * Add Update Profile Handler to login button.
  *
  */
 function addUpdateProfile() {
   let updateProfileElem = $("#profileForm");
-  updateProfileElem.submit(updateProfileHandler);
+  updateProfileElem.submit(signUpHandler);
 }
 
 
