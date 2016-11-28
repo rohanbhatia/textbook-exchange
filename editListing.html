@@ -1,0 +1,130 @@
+<!-- Here be dragons -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Edit Listing - UofTextbook Exchange</title>
+
+	<!-- Bootstrap Core -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="assets/css/sidebar.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+
+    <!-- Jquery -->
+    <script src="assets/js/jquery-3.1.1.min.js"></script>
+    <script src="assets/js/editListing.js"></script>
+    <script src="assets/js/scripts.js"></script>
+    <script src="assets/js/cookies.js"></script>
+
+</head>
+
+<body>
+	<div id="wrapper">
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="allAds.html">UofTextbook Exchange</a>
+            </li>
+            <li>
+                <a class="category">Postings</a>
+            </li>
+            <li>
+                <a class="sub" href="allAds.html">View Ads</a>
+            </li>
+            <li>
+                <a class="sub" href="yourAds.html">Your Ads</a>
+            </li>
+            <li>
+                <a class="category">User</a>
+            </li>
+            <li>
+                <a class="sub" href="profile.html">Edit Profile</a>
+            </li>
+            <li>
+                <a class="sub admin" href="addUser.html" style="visibility: hidden;">Add User</a>
+            </li>
+            <li>
+                <a class="sub admin" href="searchUser.html" style="visibility: hidden;">List/Search User(s)</a>
+            </li>
+        </ul>
+        <ul class="sidebar-bottom">
+            <li>
+                <a class="sub" onclick="logout()">Logout</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+        	<!-- header -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <!-- Title -->
+                    <h1>Edit Listing</h1>
+                </div>
+            </div>
+            <!-- table -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <table class="table">
+				    <thead>
+				      <tr>
+				        <th>Edit Listing</th>
+				      </tr>
+				    </thead>
+				    <tbody>
+				      <tr>
+				        <td>
+                            <!-- The form -->
+                            <form id="listingForm">
+                                <h2>Title</h2>
+                                <input type="text" id="title" name="title" class="form-control" placeholder="How To Computer 2nd Ed" required/>
+                                <h2>Author</h2>
+                                <input type="text" id="author" name="author" class="form-control" placeholder="Timothy Lock" />
+				                        <h2>ISBN</h2>
+                                <input type="text" id="isbn" name="isbn" class="form-control" placeholder="1234546789" pattern="^\d{10,13}$"/>
+                                <h2>Starting Price</h2>
+                                <input type="number" id="bid" name="bid" min="1" step="0.01" class="form-control" placeholder="50.00" required/>
+				                        <h2>Course Code (Optional)</h2>
+                                <input type="text" id="courses" name="courses" class="form-control" placeholder="CSC1331" />
+                                <h2>Description</h2>
+                                <textarea id="description" name="description" class="form-control" rows="4" placeholder="Great condition! Hardcover and no markings. Cheaper than the bookstore!"></textarea>
+                                <br>
+                                <input type="submit" class="btn btn-primary" value="Save Changes">
+                            </form>
+                        </td>
+                      </tr>
+				    </tbody>
+				  </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+    </div>
+
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+
+    adminStuff();
+    </script>
+</body�>
