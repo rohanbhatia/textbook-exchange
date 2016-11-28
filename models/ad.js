@@ -7,26 +7,35 @@ var adSchema = new mongoose.Schema(
         ad_id: {
             type: Number, required: true, unique: true
         },
-        title: {
+        book_title: {
             type: String, required: true
         },
         author: {
             type: String, required: true
         },
-        description: {
+        desc: {
             type: String, required: true
         },
         posted_date: {
-            type: Date, required: true, default: Date.now
+            type: Date, default: Date.now
         },
         bid: {
             type: Number, required: true
+        },
+        bid_owner: {
+            type: String, default: ""
         },
         isbn: {
             type: String, required: true
         },
         course_code: {
+            type: String, default: ""
+        },
+        owner_email: {
             type: String, required: true
+        },
+        comment_ids: {
+            type: [Number], default: []
         }
     },
     {

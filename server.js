@@ -2,6 +2,7 @@
 var express = require('express');
 var users = require('./routes/userRoutes');
 var ads = require('./routes/adRoutes');
+var comments = require('./routes/commentRoutes');
 var bodyParser = require('body-parser');
 
 var app = express();
@@ -21,7 +22,11 @@ app.post('/signup', users.createUser);  // signup
 app.post('/login', users.userLogin);  // login
 app.get('/user', users.getUserInfo); // Get user info / object
 app.post('/editUser', users.editUserInfo);  // Post new user edit
-app.post('/removeUser', users.removeUser);  // Remove user
+app.delete('/removeUser', users.removeUser);  // Remove user
+
+app.post('/newComment', comments.addComment); // post a new comment
+app.get('/getAdComments', comments.getAdComments); //send all comment ids for 1 ad
+app.get('/getComment', comments.getComment); //send all info for 1 comment
 
 app.get('/ads', ads.getAds);  // Get all the post objects - also get individual post via fname
 app.post('/bid', ads.postBid);        // Bid
