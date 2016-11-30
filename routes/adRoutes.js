@@ -99,7 +99,7 @@ exports.deleteAd = function(req, res) {
 
 	console.log("deleteAd");
 
-	Ad.find({ad_id: req.body["ad_id"]}, function(err, ads) {
+	Ad.find({ad_id: req.query.ad_id}, function(err, ads) {
 
 		if (err) throw err;
 

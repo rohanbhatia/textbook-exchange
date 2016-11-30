@@ -113,9 +113,10 @@
                                                     <!-- The form -->
                                                     <form id="bidForm">
                                                         <h3 id="currentbid">Current Bid: N/A</h3>
-                                                        <input type="number" min="1" step="any" name="bid" class="form-control" placeholder="50.00" required/>
-                                                        <input type="submit" class="btn btn-primary" value="Bid">
+                                                        <input type="number" min="1" step="any" name="bid" class="form-control nonowneronly" placeholder="50.00" required/>
+                                                        <input type="submit" class="btn btn-primary nonowneronly" value="Bid">
                                                     </form>
+                                                    <a href="#menu-toggle" class="btn btn-primary owneronly" style="visibility: hidden;" onclick="acceptBid();">Accept Bid</a>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -134,7 +135,7 @@
                                               <tr style="background-color: #c1c1c1;">
                                                 <td>
                                                     <div>
-                                                        <textarea class="form-control" rows="6" id="comments" style="resize: none;"></textarea>
+                                                        <textarea class="form-control" rows="6" id="comments" style="resize: none;" disabled></textarea>
                                                         <br>
                                                     </div>
                                                     <!-- The form -->
@@ -181,9 +182,9 @@
 
 
     // Make the correct calls according to parameters
-    if($.parameters('id') != null){
-        getDetailedAd($.parameters('id'));
-        getComments($.parameters('id'));
+    if($.parameters('ad_id') != null){
+        getDetailedAd($.parameters('ad_id'));
+        getComments($.parameters('ad_id'));
     }else{
         displayError("Malformed link. Missing parameters");
     }
