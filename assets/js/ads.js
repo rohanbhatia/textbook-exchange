@@ -1,15 +1,15 @@
 function getDetailedAd(id) {
   $.ajax({
-      url: '/ads?id=' + id,
+      url: '/ads?ad_id=' + id,
       type: 'GET',
       success: function(response) {
           // Details
-          $("#bookname").html(response["ads"][0]["title"]);
-          $("#overview").html("<b>Book Name: </b>" + response["ads"][0]["title"]);
+          $("#bookname").html(response["ads"][0]["book_title"]);
+          $("#overview").html("<b>Book Name: </b>" + response["ads"][0]["book_title"]);
           $("#overview").append("<br><b>Author: </b>" + response["ads"][0]["author"]);
-          $("#overview").append("<br><b>Description: </b>" + response["ads"][0]["description"]);
+          $("#overview").append("<br><b>desc: </b>" + response["ads"][0]["desc"]);
           $("#overview").append("<br><b>ISBN: </b>" + response["ads"][0]["isbn"]);
-          $("#overview").append("<br><b>Posted Date: </b>" + response["ads"][0]["posteddate"]);
+          $("#overview").append("<br><b>Posted Date: </b>" + response["ads"][0]["posted_date"]);
           $("#overview").append("<br><b>Courses: </b>");
           for (c in response["ads"][0]["courses"]){
             $("#overview").append(response["ads"][0]["courses"][c] + "  ");
@@ -35,7 +35,7 @@ function getAllAds() {
         // Fill in rows
         for (ad in response["ads"]){
           // Details
-          table += ("<tr><td>" + response["ads"][ad]["title"] + "</td><td>" + response["ads"][ad]["author"] + "</td><td>" + response["ads"][ad]["description"] + "</td><td>" + response["ads"][ad]["posteddate"] + "</td><td>$" + response["ads"][ad]["bid"]+ "</td><td><a href='viewAd.html?id=" + response["ads"][ad]["id"] + "' class='btn btn-primary'>View</a></td></tr>");
+          table += ("<tr><td>" + response["ads"][ad]["book_title"] + "</td><td>" + response["ads"][ad]["author"] + "</td><td>" + response["ads"][ad]["desc"] + "</td><td>" + response["ads"][ad]["posted_date"] + "</td><td>$" + response["ads"][ad]["bid"]+ "</td><td><a href='viewAd.html?ad_id=" + response["ads"][ad]["ad_id"] + "' class='btn btn-primary'>View</a></td></tr>");
         }
 
         // End table
@@ -61,7 +61,7 @@ function getAdsByEmail(email) {
         // Fill in rows
         for (ad in response["ads"]){
           // Details
-          table += ("<tr><td>" + response["ads"][ad]["title"] + "</td><td>" + response["ads"][ad]["author"] + "</td><td>" + response["ads"][ad]["description"] + "</td><td>" + response["ads"][ad]["posteddate"] + "</td><td>$" + response["ads"][ad]["bid"]+ "</td><td><a href='viewAd.html?id=" + response["ads"][ad]["id"] + "' class='btn btn-primary'>View</a></td><td><a class='btn btn-danger' onclick='deleteListing(" + response["ads"][ad]["id"] + ")'>Delete</a></td></tr>");
+          table += ("<tr><td>" + response["ads"][ad]["book_title"] + "</td><td>" + response["ads"][ad]["author"] + "</td><td>" + response["ads"][ad]["desc"] + "</td><td>" + response["ads"][ad]["posted_date"] + "</td><td>$" + response["ads"][ad]["bid"]+ "</td><td><a href='viewAd.html?ad_id=" + response["ads"][ad]["ad_id"] + "' class='btn btn-primary'>View</a></td><td><a class='btn btn-danger' onclick='deleteListing(" + response["ads"][ad]["id"] + ")'>Delete</a></td></tr>");
         }
 
         // End table
@@ -87,7 +87,7 @@ function getAdsByCourse(code) {
         // Fill in rows
         for (ad in response["ads"]){
           // Details
-          table += ("<tr><td>" + response["ads"][ad]["title"] + "</td><td>" + response["ads"][ad]["author"] + "</td><td>" + response["ads"][ad]["description"] + "</td><td>" + response["ads"][ad]["posteddate"] + "</td><td>$" + response["ads"][ad]["bid"]+ "</td><td><a href='viewAd.html?id=" + response["ads"][ad]["id"] + "' class='btn btn-primary'>View</a></td></tr>");
+          table += ("<tr><td>" + response["ads"][ad]["book_title"] + "</td><td>" + response["ads"][ad]["author"] + "</td><td>" + response["ads"][ad]["desc"] + "</td><td>" + response["ads"][ad]["posted_date"] + "</td><td>$" + response["ads"][ad]["bid"]+ "</td><td><a href='viewAd.html?ad_id=" + response["ads"][ad]["ad_id"] + "' class='btn btn-primary'>View</a></td></tr>");
         }
 
         // End table
@@ -104,7 +104,7 @@ function getAdsByCourse(code) {
 
 function getAdsByTitle(code) {
   $.ajax({
-      url: '/ads?title=' + code,
+      url: '/ads?book_title=' + code,
       type: 'GET',
       success: function(response) {
         // Start table
@@ -113,7 +113,7 @@ function getAdsByTitle(code) {
         // Fill in rows
         for (ad in response["ads"]){
           // Details
-          table += ("<tr><td>" + response["ads"][ad]["title"] + "</td><td>" + response["ads"][ad]["author"] + "</td><td>" + response["ads"][ad]["description"] + "</td><td>" + response["ads"][ad]["posteddate"] + "</td><td>$" + response["ads"][ad]["bid"]+ "</td><td><a href='viewAd.html?id=" + response["ads"][ad]["id"] + "' class='btn btn-primary'>View</a></td></tr>");
+          table += ("<tr><td>" + response["ads"][ad]["book_title"] + "</td><td>" + response["ads"][ad]["author"] + "</td><td>" + response["ads"][ad]["desc"] + "</td><td>" + response["ads"][ad]["posted_date"] + "</td><td>$" + response["ads"][ad]["bid"]+ "</td><td><a href='viewAd.html?ad_id=" + response["ads"][ad]["ad_id"] + "' class='btn btn-primary'>View</a></td></tr>");
         }
 
         // End table
@@ -131,7 +131,7 @@ function getAdsByTitle(code) {
 function getComments(id) {
   $("textarea").val("");
   $.ajax({
-      url: '/comments?id=' + id,
+      url: '/comments?ad_id=' + id,
       type: 'GET',
       success: function(response) {
 
@@ -150,7 +150,7 @@ function deleteListing(id) {
   if (confirm("You are about to delete a listing. Are you sure?")){
     // Send the info to server
     $.ajax({
-        url: '/deleteAd?id=' + id,
+        url: '/deleteAd?ad_id=' + id,
         type: 'DELETE',
         success: function(response) {
             alert(response);
@@ -230,9 +230,9 @@ function addAcceptBid() {
   let query = window.location.search.substring(1);
   let queryPieces = query.split("=");
   let id = queryPieces[1];
-  let acceptData = {"id": id, "token": getCookie("token")};
+  let acceptData = {"ad_id": id, "token": getCookie("token")};
   $.ajax({
-      url: '/ads?id=' + id,
+      url: '/ads?ad_id=' + id,
       type: 'GET',
       success: function(response) {
           // Check if person viewing is the owner of the ad
@@ -273,7 +273,7 @@ function addModifyBtn() {
   let queryPieces = query.split("=");
   let id = queryPieces[1];
   $.ajax({
-      url: '/ads?id=' + id,
+      url: '/ads?ad_id=' + id,
       type: 'GET',
       success: function(response) {
           // Check if person viewing is the owner of the ad or an admin
@@ -297,6 +297,6 @@ function addModifyBtn() {
 $(document).ready(function() {
   addBid();
   addComment();
-  addAcceptBid();
-  addModifyBtn();
+//  addAcceptBid();
+//  addModifyBtn();
 });

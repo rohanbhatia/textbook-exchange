@@ -4,20 +4,20 @@
         "password": "helloworld",
         "first_name": "John",
         "last_name": "Doe",
-        "admin_status": "True"
+        "admin_status": true
     },
     {
     	"email": "user2@gmail.com",
         "password": "helloworld",
         "first_name": "Jane",
         "last_name": "Doe",
-        "admin_status": "False"
+        "admin_status": false
     },
     {
     	"email": "user3@gmail.com",
         "password": "helloworld",
         "first_name": "Jake",
         "last_name": "Doe",
-        "admin_status": "False"  
+        "admin_status": false  
     }
 ]

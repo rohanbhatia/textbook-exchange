@@ -6,8 +6,8 @@ function populateForm(email) {
       url: '/user?email=' + email,
       type: 'GET',
       success: function(response) {
-        $("#firstName").val(response["users"][0]["firstName"]);
-        $("#lastName").val(response["users"][0]["lastName"]);
+        $("#firstName").val(response["users"][0]["first_name"]);
+        $("#lastName").val(response["users"][0]["last_name"]);
         $("#email").val(response["users"][0]["email"]);
         $("#password").val(response["users"][0]["password"]);
       },
@@ -51,12 +51,8 @@ function getAllUsers() {
  *
  */
 function updateProfileHandler(evt) {
-  let updatedData = new Object();
+  let updatedData = constructFormJson(evt, "profileForm");
   updatedData["token"] = getCookie("token");
-  updatedData["first_name"] = $('#firstName').val();
-  updatedData["last_name"] = $('#lastName').val();
-  updatedData["email"] = $('#email').val();
-  updatedData["password"] = $('#password').val();
 
   // First line of defense against unauthorised changes
   if (getCookie("email") == updatedData["email"] ||
@@ -88,26 +84,40 @@ function updateProfileHandler(evt) {
 
 }
 
+
 /**
- * Sign Up submit button event handler callback.
+ * Add Update Profile Handler to login button.
+ *
+ */
+function addUpdateProfile() {
+  let updateProfileElem = $("#profileForm");
+  updateProfileElem.submit(updateProfileHandler);
+}
+
+
+/**
+ * Admin create user submit button event handler callback.
  *
  * @param {object} click event
  *
  */
-function signUpHandler(evt) {
-  let signUpData = new Object();
-  signUpData["first_name"] = $('#firstName').val();
-  signUpData["last_name"] = $('#lastName').val();
-  signUpData["email"] = $('#email').val();
-  signUpData["password"] = $('#password').val();
+function createUserHandler(evt) {
+  let createUserData = constructFormJson(evt, "createUserForm");
 
   $.ajax({
     url: "/signup",
     type: "POST",
-    data: signUpData,
+    data: createUserData,
     success: function(response) {
-        window.location.reload();
+      if (response == "Thank you for joining us. Please login to get started!"){
+        alert("User created successfully!");
+        window.location.href = "searchUser.html";
+      }
+      else {
         alert(response);
+        window.location.reload();
+      }
+
     },
     error: function() {
       displayError("Communication with the server has failed. Please try again later.");
@@ -116,12 +126,12 @@ function signUpHandler(evt) {
 }
 
 /**
- * Add Update Profile Handler to login button.
+ * Add Sign Up Handler to login button.
  *
  */
-function addUpdateProfile() {
-  let updateProfileElem = $("#profileForm");
-  updateProfileElem.submit(signUpHandler);
+function addCreateProfile() {
+  let createUserElem = $("#createUserForm");
+  createUserElem.submit(createUserHandler);
 }
 
 
@@ -130,6 +140,7 @@ function addUpdateProfile() {
  */
 function init() {
   addUpdateProfile();
+  addCreateProfile();
  }
 
 $(document).ready(function() {

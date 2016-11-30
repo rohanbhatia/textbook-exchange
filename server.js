@@ -23,6 +23,7 @@ app.post('/login', users.userLogin);  // login
 app.get('/user', users.getUserInfo); // Get user info / object
 app.post('/editUser', users.editUserInfo);  // Post new user edit
 app.delete('/removeUser', users.removeUser);  // Remove user
+//app.post('/logout', users.userLogout); // NEW! logout - TODO complete in routes
 
 app.post('/newComment', comments.addComment); // post a new comment
 app.get('/getAdComments', comments.getAdComments); //send all comment ids for 1 ad

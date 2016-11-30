@@ -8,16 +8,10 @@
  */
 
 function submitHandler(evt) {
-  let submitData = new Object();
+  let submitData = constructFormJson(evt, "newListingForm");
   submitData["email"] = getCookie("email");
   submitData["token"] = getCookie("token");
-  submitData["book_title"] = $("#title");
-  submitData["author"] = $("#author");
-  submitData["isbn"] = $("#isbn");
-  submitData["bid"] = $("#bid");
-  submitData["course_code"] = $("#courses");
-  submitData["desc"] = $("#description");
-  //console.log(JSON.stringify(submitData));
+
   $.ajax({
     url: "/newAd",
     type: "POST",
