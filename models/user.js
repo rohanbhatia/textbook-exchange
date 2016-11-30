@@ -39,6 +39,7 @@ var userSchema = new Schema(
 );
 
 // Doc for Mongoose Connections: http://mongoosejs.com/docs/connections
+mongoose.Promise = global.Promise;
 var con3 = mongoose.createConnection('mongodb://localhost/usersdb');
 
 // Doc for Mongoose Models: http://mongoosejs.com/docs/models

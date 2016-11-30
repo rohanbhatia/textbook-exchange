@@ -11,10 +11,10 @@ var adSchema = new mongoose.Schema(
             type: String, required: true
         },
         author: {
-            type: String, required: true
+            type: String, default: ""
         },
         desc: {
-            type: String, required: true
+            type: String, default: ""
         },
         posted_date: {
             type: Date, default: Date.now
@@ -26,7 +26,7 @@ var adSchema = new mongoose.Schema(
             type: String, default: ""
         },
         isbn: {
-            type: String, required: true
+            type: String, default: ""
         },
         course_code: {
             type: String, default: ""
@@ -44,6 +44,7 @@ var adSchema = new mongoose.Schema(
 );
 
 // Doc for Mongoose Connections: http://mongoosejs.com/docs/connections
+mongoose.Promise = global.Promise;
 var con2 = mongoose.createConnection('mongodb://localhost/adsdb');
 
 // Doc for Mongoose Models: http://mongoosejs.com/docs/models
