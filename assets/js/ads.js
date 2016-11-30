@@ -17,6 +17,12 @@ function getDetailedAd(id) {
 
           // Bid
           $("#currentbid").html("Current Bid: $" + response["ads"][0]["bid"]);
+
+          // Owner check
+          if(getCookie("email") == response["ads"][0]["owner_email"]){
+              $(".owneronly").css('visibility','visible');
+              $(".nonowneronly").css('visibility','hidden');
+          }
       },
       error: function(response) {
         displayError("Book ID not found");
@@ -61,7 +67,7 @@ function getAdsByEmail(email) {
         // Fill in rows
         for (ad in response["ads"]){
           // Details
-          table += ("<tr><td>" + response["ads"][ad]["book_title"] + "</td><td>" + response["ads"][ad]["author"] + "</td><td>" + response["ads"][ad]["desc"] + "</td><td>" + response["ads"][ad]["posted_date"] + "</td><td>$" + response["ads"][ad]["bid"]+ "</td><td><a href='viewAd.html?ad_id=" + response["ads"][ad]["ad_id"] + "' class='btn btn-primary'>View</a></td><td><a class='btn btn-danger' onclick='deleteListing(" + response["ads"][ad]["id"] + ")'>Delete</a></td></tr>");
+          table += ("<tr><td>" + response["ads"][ad]["book_title"] + "</td><td>" + response["ads"][ad]["author"] + "</td><td>" + response["ads"][ad]["desc"] + "</td><td>" + response["ads"][ad]["posted_date"] + "</td><td>$" + response["ads"][ad]["bid"]+ "</td><td><a href='viewAd.html?ad_id=" + response["ads"][ad]["ad_id"] + "' class='btn btn-primary'>View</a></td><td><a class='btn btn-danger' onclick='deleteListing(" + response["ads"][ad]["ad_id"] + ")'>Delete</a></td></tr>");
         }
 
         // End table
@@ -78,7 +84,7 @@ function getAdsByEmail(email) {
 
 function getAdsByCourse(code) {
   $.ajax({
-      url: '/ads?course=' + code,
+      url: '/ads?course_code=' + code,
       type: 'GET',
       success: function(response) {
         // Start table
@@ -131,16 +137,25 @@ function getAdsByTitle(code) {
 function getComments(id) {
   $("textarea").val("");
   $.ajax({
-      url: '/comments?ad_id=' + id,
+      url: '/getAdComments?ad_id=' + id,
       type: 'GET',
       success: function(response) {
-
-        for (i in response["comments"]){
-          $("#comments").val($("#comments").val() + response["comments"][i]["posteddatetime"] + " - " + response["comments"][i]["email"] + " - " + response["comments"][i]["comments"] + "\n");
+        for (i in response){
+          $.ajax({
+              url: '/getComment?comment_id=' + response[i],
+              type: 'GET',
+              success: function(response) {
+                  $("#comments").val($("#comments").val() + response["posted_date"] + " - " + response["poster_email"] + " - " + response["comment"] + "\n");
+                  $('#comments').scrollTop($('#comments')[0].scrollHeight);
+              },
+              error: function() {
+                displayError("Communication with the server has failed. Please try again later. Could not retrieve comments");
+              }
+          });
         }
       },
       error: function() {
-        displayError("Communication with the server has failed. Please try again later");
+        displayError("Communication with the server has failed. Please try again later. Could not retrieve comments");
       }
   });
 }
@@ -148,6 +163,7 @@ function getComments(id) {
 
 function deleteListing(id) {
   if (confirm("You are about to delete a listing. Are you sure?")){
+    alert(id);
     // Send the info to server
     $.ajax({
         url: '/deleteAd?ad_id=' + id,
@@ -210,7 +226,7 @@ function addComment() {
       let commentText = $("#comment").val();
       commentData["comment"] = commentText;
       $.ajax({
-        url: "/addComment",
+        url: "/newComment",
         type: "POST",
         data: commentData,
         success: function() {
@@ -225,8 +241,10 @@ function addComment() {
 
 }
 
-
-function addAcceptBid() {
+// TODO: Lizzie, can you modify this? I already handle when the button should pop up or not. 
+// WHen this function is called, assume that the user has already been checked (locally) and that
+// THey want to accept this bid
+function acceptBid() {
   let query = window.location.search.substring(1);
   let queryPieces = query.split("=");
   let id = queryPieces[1];
@@ -267,6 +285,9 @@ function addAcceptBid() {
       }
   });
 }
+
+
+
 
 function addModifyBtn() {
   let query = window.location.search.substring(1);

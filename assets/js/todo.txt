@@ -1,29 +1,25 @@
 TODO:
 N.B. Change front end var names to match back end - any fns that call the constructformjson -> change the name attribute in the corresponding html to match back end and the data passed will match what backend is expecting
-1. ad_ids that are generated are vulnerable. Imagine a list of 4 ads numbered 0 through 3. We delete the ad with ad_id 2 (so we have 0, 1, 3). Now add a new ad...ads.length gives 3 but this ad_id already exists.
-2. view button for an ad doesn't work, nor does delete. I commented out modify and accept bid buttons (I suspect there's an issue with our requests)
-3. Test postBid
+
+2b. I commented out modify and accept bid buttons (I suspect there's an issue with our requests)
 4. Need logout & acceptBid functions server side
 5. editListing.js to be completed (Liz)
 
+FIXED - 3. Test postBid
+FIXED - 2. view button for an ad doesn't work, nor does delete. 
+MOVED - 1. ad_ids that are generated are vulnerable. Imagine a list of 4 ads numbered 0 through 3. We delete the ad with ad_id 2 (so we have 0, 1, 3). Now add a new ad...ads.length gives 3 but this ad_id already exists.
 
 
-// What Tim Did While You Were Sleeping (not creepy at all)
-1. Modify login function (both server and front)
-2. Constructformjson not returning valid data. Manually overrode
-3. Admin "add user" page set to call signup function rather than updateProfileHandler
-4. PROBLEM - Line 239 in ads. Open up a page (e.g. your ads) and check console for more info
-5. PROBLEM - Call stack error on newListing page. That means some function keeps calling itself (recursive)
 
-// Questions
-1. Should admins be ableto create admins? Huge difficulty with current implementation (security flaw since admin's add user uses the same signup function as signup) so it is skiped. 
+
+
 
 Cookies Tutorial: http://www.w3schools.com/js/js_cookies.asp
 
-// TO-DO: implement search bar
+DONE -- implement search bar
 
 
-IP -- navigationBar()
+DONE -- navigationBar()
 
 DONE -- getAllAds()
 
@@ -76,7 +72,8 @@ TODO: deleteUser(email)
 
 DONE -- editListing - make this page 
 
+DONE -- get comments box to autoscroll to the most recent (i.e. the bottom)
+
 Clean lines:
 validation of input (like name etc) to prevent injection
 strip whitespace around inputs
-get comments box to autoscroll to the most recent (i.e. the bottom)
