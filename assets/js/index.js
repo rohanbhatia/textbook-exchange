@@ -18,10 +18,8 @@ function loginHandler(evt) {
 
       if ((typeof response) == "object") {
         setCookie("token", response.token, 10000);
-
-        alert(response.adminStatus);
         // Convert T / F to admin / user to maintain compatibility with existing front end code
-        if(response.adminStatus == "True"){
+        if(response.adminStatus){
           setCookie("adminStatus", "admin", 10000);
         }else{
           setCookie("adminStatus", "user", 10000);
@@ -58,11 +56,7 @@ function addLogin() {
  *
  */
 function signUpHandler(evt) {
-  let signUpData = new Object();
-  signUpData["first_name"] = $('#firstName').val();
-  signUpData["last_name"] = $('#lastName').val();
-  signUpData["email"] = $('#email').val();
-  signUpData["password"] = $('#password').val();
+  let signUpData = constructFormJson(evt, "signUpForm");
 
   $.ajax({
     url: "/signup",

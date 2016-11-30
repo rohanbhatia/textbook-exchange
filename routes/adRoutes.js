@@ -2,7 +2,7 @@ var Ad = require('../models/ad');
 var User = require('../models/user');
 
 
-// app.get('/ads', ads.getAds);  
+// app.get('/ads', ads.getAds);
 // Get all the post objects - also get individual post via fname
 // gets ALL ads
 exports.getAds = function(req, res) {
@@ -16,8 +16,7 @@ exports.getAds = function(req, res) {
 
 			if (err) throw err;
 
-			var fin = JSON.stringify("{ Ads: " + ads + " }");
-			res.send(JSON.parse(fin));
+			res.json({"ads": ads});
 		});
 
 	}
@@ -28,8 +27,7 @@ exports.getAds = function(req, res) {
 
 			if (err) throw err;
 
-			var fin = JSON.stringify("{ Ads: " + ads + " }");
-			res.send(JSON.parse(fin));
+			res.json({"ads": ads});
 		});
 
 	}
@@ -40,8 +38,7 @@ exports.getAds = function(req, res) {
 
 			if (err) throw err;
 
-			var fin = JSON.stringify("{ Ads: " + ads + " }");
-			res.send(JSON.parse(fin));
+			res.json({"ads": ads});
 		});
 
 	}
@@ -52,8 +49,7 @@ exports.getAds = function(req, res) {
 
 			if (err) throw err;
 
-			var fin = JSON.stringify("{ Ads: " + ads + " }");
-			res.send(JSON.parse(fin));
+			res.json({"ads": ads});
 		});
 
 	}
@@ -63,16 +59,14 @@ exports.getAds = function(req, res) {
 		Ad.find({}, function(err, ads) {
 
 			if (err) throw err;
-
-			var fin = JSON.stringify("{ Ads: " + ads + " }");
-			res.send(JSON.parse(fin));
-		});	
+			res.json({"ads": ads});
+		});
 	}
 };
 
-// app.post('/bid', ads.postBid);        
+// app.post('/bid', ads.postBid);
 // Post A Bid
-//NOT WORKING
+//NOT WORKING - TEST
 exports.postBid = function(req, res) {
 
 	console.log("postBid");
@@ -87,19 +81,19 @@ exports.postBid = function(req, res) {
 			ads[0].bid = req.body["bid"];
 			ads[0].bid_owner = req.body["bid_owner"];
 			ads[0].save(function(err) {
-			
+
 				if (err) throw err;
 
-				res.send("Success\n");
+				res.send("Bid submitted!");
 			});
 		}
 		else {
-			res.send("Failure: Bid unsuccessful\n");
+			res.send("Bid entered is too low!");
 		}
 	});
 };
 
-// app.delete('/deleteAd', ads.deleteAd); 
+// app.delete('/deleteAd', ads.deleteAd);
 // Delete
 exports.deleteAd = function(req, res) {
 
@@ -111,7 +105,7 @@ exports.deleteAd = function(req, res) {
 
 		//ad found
 		if (ads[0]) {
-			
+
 			ads[0].remove(function(err) {
 
 				if (err) throw err;
@@ -128,7 +122,7 @@ exports.deleteAd = function(req, res) {
 	});
 };
 
-// app.post('/newAd', ads.createNewAd);     
+// app.post('/newAd', ads.createNewAd);
 // Create New Ad
 exports.createNewAd = function(req, res) {
 
@@ -137,12 +131,11 @@ exports.createNewAd = function(req, res) {
 	Ad.find({}, function(err, ads) {
 
 		if (err) throw err;
-
 		//add to ad database
 		var newAd = Ad({
 
 			ad_id: ads.length,
-			title: req.body["book_title"],
+			book_title: req.body["book_title"],
 			author: req.body["author"],
 			desc: req.body["desc"],
 			bid: req.body["bid"],
@@ -156,29 +149,28 @@ exports.createNewAd = function(req, res) {
 			if (err) throw err;
 		});
 
-		//add to user database
+		//add new ad to its owner's list of ads in the user database
 		var user_email = req.body["email"];
 		User.find({email: user_email}, function(err, user) {
-		
+
 			if (err) throw err;
-			
+
 			//user found
 			if (user[0]) {
-
 				(user[0].selling_ad_ids).push(ads.length);
 
 				user[0].save(function(err)	{
-		
+
 					if (err) throw err;
 				});
 			}
 		});
 	});
 
-	res.send("Success\n");
+	res.send("Success");
 };
 
-// app.post('/editAd', ads.editAd);   
+// app.post('/editAd', ads.editAd);
 // Edit ad
 exports.editAd = function(req, res) {
 
@@ -196,12 +188,11 @@ exports.editAd = function(req, res) {
 		ads[0].course_code = req.body["course_code"];
 
 		ads[0].save(function(err)	{
-			
+
 			if (err) throw err;
 
-			res.send("Success\n");
+			res.send("Success");
 		});
 
 	});
 };
-

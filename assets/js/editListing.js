@@ -3,7 +3,7 @@
 function populateAdForm() {
   let id = getCookie("id");
   $.ajax({
-      url: '/ads?id=' + id,
+      url: '/ads?ad_id=' + id,
       type: 'GET',
       success: function(response) {
         $("th").text(response["ads"][0]["title"]);
@@ -27,7 +27,7 @@ function populateAdForm() {
 function saveChangesHandler(evt) {
   let updatedListingData = constructFormJson(evt, "listingForm");
   updatedListingData["token"] = getCookie("token");
-  
+
 }
 
 function addSaveChangesBtn() {
