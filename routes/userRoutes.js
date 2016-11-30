@@ -107,15 +107,7 @@ exports.getUserInfo = function(req, res) {
 
 		//user found
 		if (user[0]) {
-			var testUser = new Object();
-	        testUser["firstName"] = user[0].first_name;
-	        testUser["lastName"] = user[0].last_name;
-	        testUser["password"] = user[0].password;
-	        testUser["email"] = user[0].email;
-	        testUser["adminStatus"] = user[0].admin_status; // Always returning true for some reason
-	        list.push(testUser);
-	        result["users"] = list;
-	    	return res.json(result);
+	    	return res.json({"users": user[0]});
 		}
 		//user not found
 		else {
@@ -141,14 +133,14 @@ exports.editUserInfo = function(req, res) {
 		console.log(req.body.email);
 
 		user[0].email = req.body.email;
-		user[0].first_name = req.body.firstName;
-		user[0].last_name = req.body.lastName;
+		user[0].first_name = req.body.first_name;
+		user[0].last_name = req.body.last_name;
 		user[0].password = req.body.password;
 		user[0].save(function(err)	{
 
 			if (err) throw err;
 
-			res.send("Success\n");
+			res.send("Success");
 		});
 
 	});

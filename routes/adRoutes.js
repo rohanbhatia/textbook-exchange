@@ -16,7 +16,7 @@ exports.getAds = function(req, res) {
 
 			if (err) throw err;
 
-			res.send({"ads": ads});
+			res.json({"ads": ads});
 		});
 
 	}
@@ -27,7 +27,7 @@ exports.getAds = function(req, res) {
 
 			if (err) throw err;
 
-			res.send({"ads": ads});
+			res.json({"ads": ads});
 		});
 
 	}
@@ -38,7 +38,7 @@ exports.getAds = function(req, res) {
 
 			if (err) throw err;
 
-			res.send({"ads": ads});
+			res.json({"ads": ads});
 		});
 
 	}
@@ -49,7 +49,7 @@ exports.getAds = function(req, res) {
 
 			if (err) throw err;
 
-			res.send({"ads": ads});
+			res.json({"ads": ads});
 		});
 
 	}
@@ -60,7 +60,7 @@ exports.getAds = function(req, res) {
 
 			if (err) throw err;
 			console.log(JSON.stringify(ads));
-			res.send({"ads": ads});
+			res.json({"ads": ads});
 		});
 	}
 };
