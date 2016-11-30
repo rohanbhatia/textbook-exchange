@@ -53,7 +53,6 @@ exports.userLogin = function(req, res) {
 
 		//user found
 		if (user[0]) {
-
 			var given_password = req.body["password"];
 			var real_password = user[0].password;
 
@@ -102,12 +101,9 @@ exports.getUserInfo = function(req, res) {
 
 		if (err) throw err;
 
-		var result = new Object();
-		var list = [];
-
 		//user found
 		if (user[0]) {
-	    	return res.json({"users": user[0]});
+	    	return res.json({"users": [user[0]]});
 		}
 		//user not found
 		else {

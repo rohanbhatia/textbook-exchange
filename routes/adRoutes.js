@@ -59,7 +59,6 @@ exports.getAds = function(req, res) {
 		Ad.find({}, function(err, ads) {
 
 			if (err) throw err;
-			console.log(JSON.stringify(ads));
 			res.json({"ads": ads});
 		});
 	}
@@ -67,7 +66,7 @@ exports.getAds = function(req, res) {
 
 // app.post('/bid', ads.postBid);
 // Post A Bid
-//NOT WORKING
+//NOT WORKING - TEST
 exports.postBid = function(req, res) {
 
 	console.log("postBid");
