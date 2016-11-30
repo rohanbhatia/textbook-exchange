@@ -146,6 +146,7 @@ function getComments(id) {
               type: 'GET',
               success: function(response) {
                   $("#comments").val($("#comments").val() + response["posted_date"] + " - " + response["poster_email"] + " - " + response["comment"] + "\n");
+                  $('#comments').scrollTop($('#comments')[0].scrollHeight);
               },
               error: function() {
                 displayError("Communication with the server has failed. Please try again later. Could not retrieve comments");
