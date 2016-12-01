@@ -17,6 +17,14 @@ function adminStatusCheck(){
 	}
 }
 
+// Kick out if not logged in
+function loginCheck(){
+	if(getCookie("adminStatus") == ""){
+		alert("You must be logged in to view this page. ");
+		window.location.href = "index.html";
+	}
+}
+
 /**
  * Helper function for form buttons to construct a JSON from the fields.
  *
