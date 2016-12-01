@@ -78,7 +78,7 @@ exports.userLogin = function(req, res) {
 				}
 				//user already logged in
 				else {
-					return res.json({"token": user[0].session_token,
+				return res.json({"token": user[0].session_token,
 														"adminStatus": user[0].admin_status,
 														"email": user[0].email});
 				}
@@ -106,7 +106,7 @@ exports.getUserInfo = function(req, res) {
 
 	//case where user is provided
 	if (user_email) {
-		
+
 		User.find({email: user_email}, function(err, user) {
 
 			if (err) throw err;
@@ -204,12 +204,11 @@ exports.removeUser = function(req, res) {
 
 
 
-//app.post('/logout', users.userLogout); 
+//app.post('/logout', users.userLogout);
 // NEW! logout - TODO complete in routes
 exports.userLogout = function(req, res) {
 
 	console.log("userLogout");
-
 
 	try {
 
@@ -224,7 +223,7 @@ exports.userLogout = function(req, res) {
 			if ((user[0]) && (token == user[0].session_token)) {
 
 				user[0].logged_in = false;
-				user[0].token = "";
+				user[0].session_token = "";
 				user[0].save(function(err) {
 
 					if (err) throw err;
@@ -240,7 +239,6 @@ exports.userLogout = function(req, res) {
 		});
 	}
 	catch(err) {
-
 		res.send("Failure\n");
 	}
 }

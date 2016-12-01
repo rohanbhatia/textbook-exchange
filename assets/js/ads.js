@@ -17,7 +17,6 @@ function getDetailedAd(id) {
 
           // Bid
           $("#currentbid").html("Current Bid: $" + response["ads"][0]["bid"]);
-          console.log(response["ads"][0]["bid_owner"]);
 
           // Owner check
           if(getCookie("email") == response["ads"][0]["owner_email"]){
@@ -196,7 +195,6 @@ function postBidHandler(evt) {
   bidData[queryPieces[0]] = queryPieces[1];
   bidData["token"] = getCookie("token");
   bidData["bid_owner"] = getCookie("email");
-  //console.log(bidData);
   $.ajax({
     url: "/bid",
     type: "POST",

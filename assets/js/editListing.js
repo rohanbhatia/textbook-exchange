@@ -35,14 +35,17 @@ function saveChangesHandler(evt) {
     success: function(res) {
       if (res == "Success") {
         alert("Changes saved!");
+        document.cookie = "ad_id=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
         window.location.href = "viewAd.html?ad_id=" + getCookie("ad_id");
       }
       else {
         alert("You are not permitted to make changes to this ad!");
+        document.cookie = "ad_id=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
         window.location.href = "viewAd.html?ad_id=" + getCookie("ad_id");
       }
     },
     error: function() {
+      document.cookie = "ad_id=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
       displayError("Communication with the server has failed. Please try again later.");
     }
   });
