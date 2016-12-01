@@ -2,6 +2,8 @@ var Ad = require('../models/ad');
 var User = require('../models/user');
 var Comment = require('../models/comment');
 
+var comment_id_generator = 0;
+
 
 // app.post('/newComment', comments.addComment); 
 // post a new comments
@@ -16,7 +18,8 @@ exports.addComment = function(req, res) {
 
 		if (err) throw err;
 
-		generated_id = comments.length;
+		generated_id = comment_id_generator;
+		comment_id_generator += 1;
 
 		//add comment to Comment Database
 		var newComment = Comment({
