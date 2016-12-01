@@ -93,24 +93,44 @@ exports.getUserInfo = function(req, res) {
 
 	console.log('getUserInfo');
 
-	//use req.query
-
 	var user_email = req.query.email;
 
-	User.find({email: user_email}, function(err, user) {
+	//case where user is provided
+	if (user_email) {
+		
+		User.find({email: user_email}, function(err, user) {
 
-		if (err) throw err;
+			if (err) throw err;
 
-		//user found
-		if (user[0]) {
-	    	return res.json({"users": [user[0]]});
-		}
-		//user not found
-		else {
-			res.send("Failure: No such user\n");
-		}
+			//user found
+			if (user[0]) {
+		    	return res.json({"users": [user[0]]});
+			}
+			//user not found
+			else {
+				res.send("Failure: No such user\n");
+			}
 
-	});
+		});
+	}
+	//User not provided
+	else {
+
+		User.find({}, function(err, user) {
+
+			if (err) throw err;
+
+			//user found
+			if (user[0]) {
+		    	return res.json({"users": user});
+			}
+			//user not found
+			else {
+				res.send("Failure\n");
+			}
+
+		});
+	}
 };
 
 // app.post('/editUser', users.editUserInfo);
