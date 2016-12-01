@@ -65,13 +65,22 @@ exports.userLogin = function(req, res) {
 					var token = "" + Math.random();
 					user[0].session_token = token;
 					user[0].logged_in = true;
-					return res.json({"token": user[0].session_token,
-														"adminStatus": user[0].admin_status,
-                        		"email": user[0].email});
+
+					user[0].save(function(err)	{
+
+						if (err) throw err;
+
+						return res.json({"token": user[0].session_token,
+															"adminStatus": user[0].admin_status,
+															"email": user[0].email});
+					});
+
 				}
 				//user already logged in
 				else {
-					res.send("Failure: User is already logged in\n");
+					return res.json({"token": user[0].session_token,
+														"adminStatus": user[0].admin_status,
+														"email": user[0].email});
 				}
 			}
 			//wrong password

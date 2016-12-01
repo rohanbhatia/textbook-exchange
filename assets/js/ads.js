@@ -11,12 +11,13 @@ function getDetailedAd(id) {
           $("#overview").append("<br><b>ISBN: </b>" + response["ads"][0]["isbn"]);
           $("#overview").append("<br><b>Posted Date: </b>" + response["ads"][0]["posted_date"]);
           $("#overview").append("<br><b>Courses: </b>");
-          for (c in response["ads"][0]["courses"]){
-            $("#overview").append(response["ads"][0]["courses"][c] + "  ");
+          for (c in response["ads"][0]["course_code"]){
+            $("#overview").append(response["ads"][0]["course_code"][c] + "  ");
           }
 
           // Bid
           $("#currentbid").html("Current Bid: $" + response["ads"][0]["bid"]);
+          console.log(response["ads"][0]["bid_owner"]);
 
           // Owner check
           if(getCookie("email") == response["ads"][0]["owner_email"]){
@@ -163,7 +164,6 @@ function getComments(id) {
 
 function deleteListing(id) {
   if (confirm("You are about to delete a listing. Are you sure?")){
-    alert(id);
     // Send the info to server
     $.ajax({
         url: '/deleteAd?ad_id=' + id,
@@ -277,7 +277,7 @@ function addModifyBtn() {
         type: 'GET',
         success: function(response) {
             // Check if person viewing is the owner of the ad or an admin
-            let email = response["ads"][0]["email"];
+            let email = response["ads"][0]["owner_email"];
             if (getCookie("email") == email || getCookie("adminStatus") == "admin") {
               let modifyBtn = $("<button type=\"button\" class=\"btn btn-primary\">Make Modifications</button>");
               $("#overview").append($("<br>"));
@@ -289,7 +289,7 @@ function addModifyBtn() {
             }
         },
         error: function() {
-          displayError("OR HERE! Communication with the server has failed. Please try again later.");
+          displayError("Communication with the server has failed. Please try again later.");
         }
     });
   }
