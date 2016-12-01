@@ -4,7 +4,7 @@ var User = require('../models/user');
 
 // app.get('/ads', ads.getAds);
 // Get all the post objects - also get individual post via fname
-// gets ALL ads
+// gets ALL ads if no ad_id provided
 exports.getAds = function(req, res) {
 
 	console.log("getAds");
@@ -66,7 +66,6 @@ exports.getAds = function(req, res) {
 
 // app.post('/bid', ads.postBid);
 // Post A Bid
-//NOT WORKING - TEST
 exports.postBid = function(req, res) {
 
 	console.log("postBid");
@@ -79,7 +78,7 @@ exports.postBid = function(req, res) {
 		if (ads[0].bid < req.body["bid"]) {
 
 			ads[0].bid = req.body["bid"];
-			ads[0].bid_owner = req.body["bid_owner"];
+			ads[0].bid_owner = req.body["email"];
 			ads[0].save(function(err) {
 
 				if (err) throw err;

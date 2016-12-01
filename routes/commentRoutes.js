@@ -79,19 +79,26 @@ exports.getAdComments = function(req, res) {
 
 	console.log("getAdComments");
 
-	//NEED TO TEST
-	Ad.find({ad_id: req.query.ad_id}, function(err, ad) {
+	try {
 
-		if (err) throw err;
+		Ad.find({ad_id: req.query.ad_id}, function(err, ad) {
 
-		//ad found
-		if(ad[0]) {
-			res.send(ad[0].comment_ids);
-		}
-		else {
-			res.send("Failure\n");
-		}
-	});
+			if (err) throw err;
+
+			//ad found
+			if(ad[0]) {
+				res.send(ad[0].comment_ids);
+			}
+			else {
+				res.send("Failure\n");
+			}
+		});
+	}
+	//likely invalid ad ID
+	catch(err) {
+
+		res.send("Failure\n");
+	}
 };
 
 // app.get('/getComment', comments.getComment); 
