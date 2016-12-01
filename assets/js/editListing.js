@@ -1,18 +1,18 @@
 'use strict'
 
 function populateAdForm() {
-  let id = getCookie("id");
+  let id = getCookie("ad_id");
   $.ajax({
       url: '/ads?ad_id=' + id,
       type: 'GET',
       success: function(response) {
-        $("th").text(response["ads"][0]["title"]);
-        $("#title").val(response["ads"][0]["title"]);
+        $("th").text(response["ads"][0]["book_title"]);
+        $("#title").val(response["ads"][0]["book_title"]);
         $("#author").val(response["ads"][0]["author"]);
         $("#isbn").val(response["ads"][0]["isbn"]);
         $("#bid").val(response["ads"][0]["bid"]);
-        $("#courses").val(response["ads"][0]["courses"]);
-        $("#description").val(response["ads"][0]["description"]);
+        $("#courses").val(response["ads"][0]["course_code"]);
+        $("#description").val(response["ads"][0]["desc"]);
       },
       error: function() {
         displayError("Communication with the server has failed. Please try again later.");
@@ -20,14 +20,32 @@ function populateAdForm() {
   });
 }
 
-// On click of "Save Changes" strip out info from form and post to editUser
+// On click of "Save Changes" strip out info from form and post to editAd
 // if bid changes - must change bidOwner bid
 // On successful "Save Changes", delete id cookie
 
 function saveChangesHandler(evt) {
   let updatedListingData = constructFormJson(evt, "listingForm");
   updatedListingData["token"] = getCookie("token");
-
+  updatedListingData["ad_id"] = getCookie("ad_id");
+  $.ajax({
+    url: '/editAd',
+    type: 'POST',
+    data: updatedListingData,
+    success: function(res) {
+      if (res == "Success") {
+        alert("Changes saved!");
+        window.location.href = "viewAd.html?ad_id=" + getCookie("ad_id");
+      }
+      else {
+        alert("You are not permitted to make changes to this ad!");
+        window.location.href = "viewAd.html?ad_id=" + getCookie("ad_id");
+      }
+    },
+    error: function() {
+      displayError("Communication with the server has failed. Please try again later.");
+    }
+  });
 }
 
 function addSaveChangesBtn() {
