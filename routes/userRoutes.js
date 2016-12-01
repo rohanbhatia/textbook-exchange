@@ -192,3 +192,46 @@ exports.removeUser = function(req, res) {
 
 	});
 };
+
+
+
+//app.post('/logout', users.userLogout); 
+// NEW! logout - TODO complete in routes
+exports.userLogout = function(req, res) {
+
+	console.log("userLogout");
+
+
+	try {
+
+		var user_email = req.body.email;
+		var token = req.body.token;
+
+		User.find({email: user_email}, function(err, user) {
+
+			if (err) throw err;
+
+			//user found, token is valid
+			if ((user[0]) && (token == user[0].session_token)) {
+
+				user[0].logged_in = false;
+				user[0].token = "";
+				user[0].save(function(err) {
+
+					if (err) throw err;
+
+					res.send("Successfully logged out\n");
+				});
+			}
+			//user not found or invalid token
+			else {
+				res.send("Failure\n");
+			}
+
+		});
+	}
+	catch(err) {
+
+		res.send("Failure\n");
+	}
+}
