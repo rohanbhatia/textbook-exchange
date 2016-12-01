@@ -93,24 +93,44 @@ exports.getUserInfo = function(req, res) {
 
 	console.log('getUserInfo');
 
-	//use req.query
-
 	var user_email = req.query.email;
 
-	User.find({email: user_email}, function(err, user) {
+	//case where user is provided
+	if (user_email) {
+		
+		User.find({email: user_email}, function(err, user) {
 
-		if (err) throw err;
+			if (err) throw err;
 
-		//user found
-		if (user[0]) {
-	    	return res.json({"users": [user[0]]});
-		}
-		//user not found
-		else {
-			res.send("Failure: No such user\n");
-		}
+			//user found
+			if (user[0]) {
+		    	return res.json({"users": [user[0]]});
+			}
+			//user not found
+			else {
+				res.send("Failure: No such user\n");
+			}
 
-	});
+		});
+	}
+	//User not provided
+	else {
+
+		User.find({}, function(err, user) {
+
+			if (err) throw err;
+
+			//user found
+			if (user[0]) {
+		    	return res.json({"users": user});
+			}
+			//user not found
+			else {
+				res.send("Failure\n");
+			}
+
+		});
+	}
 };
 
 // app.post('/editUser', users.editUserInfo);
@@ -172,3 +192,46 @@ exports.removeUser = function(req, res) {
 
 	});
 };
+
+
+
+//app.post('/logout', users.userLogout); 
+// NEW! logout - TODO complete in routes
+exports.userLogout = function(req, res) {
+
+	console.log("userLogout");
+
+
+	try {
+
+		var user_email = req.body.email;
+		var token = req.body.token;
+
+		User.find({email: user_email}, function(err, user) {
+
+			if (err) throw err;
+
+			//user found, token is valid
+			if ((user[0]) && (token == user[0].session_token)) {
+
+				user[0].logged_in = false;
+				user[0].token = "";
+				user[0].save(function(err) {
+
+					if (err) throw err;
+
+					res.send("Successfully logged out\n");
+				});
+			}
+			//user not found or invalid token
+			else {
+				res.send("Failure\n");
+			}
+
+		});
+	}
+	catch(err) {
+
+		res.send("Failure\n");
+	}
+}
