@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
 // Please DON'T share this with anybody. Even though its just temporary for our project, I don't need google blacklisting me
 var transporter = nodemailer.createTransport('smtps://donotreply_uoftextbook%40timothylock.ca:eDtU;Y;g4}NgBz$M@smtp.zoho.com');
 
-/* Example calling 
+/* Example calling
 // setup e-mail data with unicode symbols
 var mailOptions = {
     from: '"Fred Foo ?" <foo@blurdybloop.com>', // sender address
@@ -47,7 +47,7 @@ app.post('/login', users.userLogin);  // login
 app.get('/user', users.getUserInfo); // Get user info / object
 app.post('/editUser', users.editUserInfo);  // Post new user edit
 app.delete('/removeUser', users.removeUser);  // Remove user
-//app.post('/logout', users.userLogout); // NEW! logout - TODO complete in routes
+app.post('/logout', users.userLogout); // logout 
 
 app.post('/newComment', comments.addComment); // post a new comment
 app.get('/getAdComments', comments.getAdComments); //send all comment ids for 1 ad

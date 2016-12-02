@@ -1,10 +1,11 @@
 var Ad = require('../models/ad');
 var User = require('../models/user');
 
+var ad_id_generator = 0;
 
 // app.get('/ads', ads.getAds);
 // Get all the post objects - also get individual post via fname
-// gets ALL ads
+// gets ALL ads if no ad_id provided
 exports.getAds = function(req, res) {
 
 	console.log("getAds");
@@ -37,7 +38,6 @@ exports.getAds = function(req, res) {
 		Ad.find({ad_id: req.query.ad_id}, function(err, ads) {
 
 			if (err) throw err;
-
 			res.json({"ads": ads});
 		});
 
@@ -66,7 +66,6 @@ exports.getAds = function(req, res) {
 
 // app.post('/bid', ads.postBid);
 // Post A Bid
-//NOT WORKING - TEST
 exports.postBid = function(req, res) {
 
 	console.log("postBid");
@@ -79,7 +78,7 @@ exports.postBid = function(req, res) {
 		if (ads[0].bid < req.body["bid"]) {
 
 			ads[0].bid = req.body["bid"];
-			ads[0].bid_owner = req.body["bid_owner"];
+			ads[0].bid_owner = req.body["email"];
 			ads[0].save(function(err) {
 
 				if (err) throw err;
@@ -110,13 +109,13 @@ exports.deleteAd = function(req, res) {
 
 				if (err) throw err;
 
-				res.send("Success\n");
+				res.send("Ad successfully deleted!");
 
 			});
 		}
 		//ad not found
 		else {
-			res.send("Failure\n");
+			res.send("Unable to delete this ad at this time.");
 		}
 
 	});
@@ -134,11 +133,12 @@ exports.createNewAd = function(req, res) {
 		//add to ad database
 		var newAd = Ad({
 
-			ad_id: ads.length,
+			ad_id: ad_id_generator,
 			book_title: req.body["book_title"],
 			author: req.body["author"],
 			desc: req.body["desc"],
 			bid: req.body["bid"],
+			bid_owner: req.body["email"],
 			isbn: req.body["isbn"],
 			course_code: req.body["course_code"],
 			owner_email: req.body["email"]
@@ -157,7 +157,7 @@ exports.createNewAd = function(req, res) {
 
 			//user found
 			if (user[0]) {
-				(user[0].selling_ad_ids).push(ads.length);
+				(user[0].selling_ad_ids).push(ad_id_generator);
 
 				user[0].save(function(err)	{
 
@@ -165,9 +165,12 @@ exports.createNewAd = function(req, res) {
 				});
 			}
 		});
-	});
 
-	res.send("Success");
+		ad_id_generator += 1;
+
+		res.send("Success\n");
+
+	});
 };
 
 // app.post('/editAd', ads.editAd);
@@ -176,23 +179,45 @@ exports.editAd = function(req, res) {
 
 	console.log("editAd");
 
-	Ad.find({ad_id: req.body["ad_id"]}, function(err, ads) {
+	// Check if user making the req has permissions to make changes
+	User.find({session_token: req.body.token}, function(err, user) {
 
 		if (err) throw err;
 
-		ads[0].book_title = req.body["book_title"];
-		ads[0].author = req.body["author"];
-		ads[0].desc = req.body["desc"];
-		ads[0].bid = req.body["bid"]; //potential bug here
-		ads[0].isbn = req.body["isbn"];
-		ads[0].course_code = req.body["course_code"];
+		if (user[0]) {
+				if (user[0].selling_ad_ids.indexOf(req.body["ad_id"]) != -1
+							|| user[0].admin_status) {
+					Ad.find({ad_id: req.body["ad_id"]}, function(err, ads) {
 
-		ads[0].save(function(err)	{
+						if (err) throw err;
 
-			if (err) throw err;
+						ads[0].book_title = req.body["book_title"];
+						ads[0].author = req.body["author"];
+						ads[0].desc = req.body["desc"];
+						// Update bid only if it has changed, and update bid_owner as well
+						if (ads[0].bid != Number(req.body.bid)) {
+							ads[0].bid = Number(req.body["bid"]);
+							ads[0].bid_owner = user[0].email;
+						}
+						ads[0].isbn = req.body["isbn"];
+						ads[0].course_code = req.body["course_code"];
 
-			res.send("Success");
-		});
+						ads[0].save(function(err)	{
 
+							if (err) throw err;
+
+							res.send("Success");
+						});
+
+					});
+			}
+			else {
+				res.send("You do not have permission to edit this listing.");
+			}
+		}
+		else {
+			res.send("You do not have permission to edit this listing.");
+		}
 	});
+
 };

@@ -1,9 +1,6 @@
 TODO:
-N.B. Change front end var names to match back end - any fns that call the constructformjson -> change the name attribute in the corresponding html to match back end and the data passed will match what backend is expecting
 
-2b. I commented out modify and accept bid buttons (I suspect there's an issue with our requests)
 4. Need logout & acceptBid functions server side
-5. editListing.js to be completed (Liz)
 
 FIXED - 3. Test postBid
 FIXED - 2. view button for an ad doesn't work, nor does delete. 
