@@ -35,17 +35,19 @@ function saveChangesHandler(evt) {
     success: function(res) {
       if (res == "Success") {
         alert("Changes saved!");
-        document.cookie = "ad_id=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-        window.location.href = "viewAd.html?ad_id=" + getCookie("ad_id");
+        //document.cookie = "ad_id=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+        window.location.href = "yourAds.html";
+        // TODO: This line causes an ad_id of "". Above is a temporary patch
+        //window.location.href = "viewAd.html?ad_id=" + getCookie("ad_id");
       }
       else {
         alert("You are not permitted to make changes to this ad!");
-        document.cookie = "ad_id=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-        window.location.href = "viewAd.html?ad_id=" + getCookie("ad_id");
+        //document.cookie = "ad_id=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+        window.location.href = "allAds.html";
       }
     },
     error: function() {
-      document.cookie = "ad_id=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+      //document.cookie = "ad_id=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
       displayError("Communication with the server has failed. Please try again later.");
     }
   });

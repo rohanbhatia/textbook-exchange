@@ -31,29 +31,55 @@ function getDetailedAd(id) {
 }
 
 function getAllAds() {
-  $.ajax({
-      url: '/ads',
-      type: 'GET',
-      success: function(response) {
-        // Start table
-        var table = ('<table class="table table-hover"><thead><tr><th>Title</th><th>Author</th><th>Description</th><th>Posted Date</th><th>Current Bid</th><th>View</th></tr></thead><tbody>');
+  if(getCookie("adminStatus") == "admin"){
+    $.ajax({
+        url: '/ads',
+        type: 'GET',
+        success: function(response) {
+          // Start table
+          var table = ('<table class="table table-hover"><thead><tr><th>Title</th><th>Author</th><th>Description</th><th>Posted Date</th><th>Current Bid</th><th>View</th><th>Delete</th></tr></thead><tbody>');
 
-        // Fill in rows
-        for (ad in response["ads"]){
-          // Details
-          table += ("<tr><td>" + response["ads"][ad]["book_title"] + "</td><td>" + response["ads"][ad]["author"] + "</td><td>" + response["ads"][ad]["desc"] + "</td><td>" + response["ads"][ad]["posted_date"] + "</td><td>$" + response["ads"][ad]["bid"]+ "</td><td><a href='viewAd.html?ad_id=" + response["ads"][ad]["ad_id"] + "' class='btn btn-primary'>View</a></td></tr>");
+          // Fill in rows
+          for (ad in response["ads"]){
+            // Details
+            table += ("<tr><td>" + response["ads"][ad]["book_title"] + "</td><td>" + response["ads"][ad]["author"] + "</td><td>" + response["ads"][ad]["desc"] + "</td><td>" + response["ads"][ad]["posted_date"] + "</td><td>$" + response["ads"][ad]["bid"]+ "</td><td><a href='viewAd.html?ad_id=" + response["ads"][ad]["ad_id"] + "' class='btn btn-primary'>View</a></td><td><a class='btn btn-danger' onclick='deleteListing(" + response["ads"][ad]["ad_id"] + ")'>Delete</a></td></tr>");
+          }
+
+          // End table
+          table += "</table>";
+
+          // Draw to screen
+          $("#AdsTable").html(table);
+        },
+        error: function() {
+          displayError("Communication with the server has failed. Please try again later");
         }
+    });
+  }else{
+    $.ajax({
+        url: '/ads',
+        type: 'GET',
+        success: function(response) {
+          // Start table
+          var table = ('<table class="table table-hover"><thead><tr><th>Title</th><th>Author</th><th>Description</th><th>Posted Date</th><th>Current Bid</th><th>View</th></tr></thead><tbody>');
 
-        // End table
-        table += "</table>";
+          // Fill in rows
+          for (ad in response["ads"]){
+            // Details
+            table += ("<tr><td>" + response["ads"][ad]["book_title"] + "</td><td>" + response["ads"][ad]["author"] + "</td><td>" + response["ads"][ad]["desc"] + "</td><td>" + response["ads"][ad]["posted_date"] + "</td><td>$" + response["ads"][ad]["bid"]+ "</td><td><a href='viewAd.html?ad_id=" + response["ads"][ad]["ad_id"] + "' class='btn btn-primary'>View</a></td></tr>");
+          }
 
-        // Draw to screen
-        $("#AdsTable").html(table);
-      },
-      error: function() {
-        displayError("Communication with the server has failed. Please try again later");
-      }
-  });
+          // End table
+          table += "</table>";
+
+          // Draw to screen
+          $("#AdsTable").html(table);
+        },
+        error: function() {
+          displayError("Communication with the server has failed. Please try again later");
+        }
+    });
+  }
 }
 
 function getAdsByEmail(email) {
@@ -83,29 +109,55 @@ function getAdsByEmail(email) {
 }
 
 function getAdsByCourse(code) {
-  $.ajax({
-      url: '/ads?course_code=' + code,
-      type: 'GET',
-      success: function(response) {
-        // Start table
-        var table = ('<table class="table table-hover"><thead><tr><th>Title</th><th>Author</th><th>Description</th><th>Posted Date</th><th>Current Bid</th><th>View</th></tr></thead><tbody>');
+  if(getCookie("adminStatus") == "admin"){
+    $.ajax({
+        url: '/ads?course_code=' + code,
+        type: 'GET',
+        success: function(response) {
+          // Start table
+          var table = ('<table class="table table-hover"><thead><tr><th>Title</th><th>Author</th><th>Description</th><th>Posted Date</th><th>Current Bid</th><th>View</th><th>Delete</th></tr></thead><tbody>');
 
-        // Fill in rows
-        for (ad in response["ads"]){
-          // Details
-          table += ("<tr><td>" + response["ads"][ad]["book_title"] + "</td><td>" + response["ads"][ad]["author"] + "</td><td>" + response["ads"][ad]["desc"] + "</td><td>" + response["ads"][ad]["posted_date"] + "</td><td>$" + response["ads"][ad]["bid"]+ "</td><td><a href='viewAd.html?ad_id=" + response["ads"][ad]["ad_id"] + "' class='btn btn-primary'>View</a></td></tr>");
+          // Fill in rows
+          for (ad in response["ads"]){
+            // Details
+            table += ("<tr><td>" + response["ads"][ad]["book_title"] + "</td><td>" + response["ads"][ad]["author"] + "</td><td>" + response["ads"][ad]["desc"] + "</td><td>" + response["ads"][ad]["posted_date"] + "</td><td>$" + response["ads"][ad]["bid"]+ "</td><td><a href='viewAd.html?ad_id=" + response["ads"][ad]["ad_id"] + "' class='btn btn-primary'>View</a></td><td><a class='btn btn-danger' onclick='deleteListing(" + response["ads"][ad]["ad_id"] + ")'>Delete</a></td></tr>");
+          }
+
+          // End table
+          table += "</table>";
+
+          // Draw to screen
+          $("#AdsTable").html(table);
+        },
+        error: function() {
+          displayError("Communication with the server has failed. Please try again later");
         }
+    });
+  }else{
+    $.ajax({
+        url: '/ads?course_code=' + code,
+        type: 'GET',
+        success: function(response) {
+          // Start table
+          var table = ('<table class="table table-hover"><thead><tr><th>Title</th><th>Author</th><th>Description</th><th>Posted Date</th><th>Current Bid</th><th>View</th></tr></thead><tbody>');
 
-        // End table
-        table += "</table>";
+          // Fill in rows
+          for (ad in response["ads"]){
+            // Details
+            table += ("<tr><td>" + response["ads"][ad]["book_title"] + "</td><td>" + response["ads"][ad]["author"] + "</td><td>" + response["ads"][ad]["desc"] + "</td><td>" + response["ads"][ad]["posted_date"] + "</td><td>$" + response["ads"][ad]["bid"]+ "</td><td><a href='viewAd.html?ad_id=" + response["ads"][ad]["ad_id"] + "' class='btn btn-primary'>View</a></td></tr>");
+          }
 
-        // Draw to screen
-        $("#AdsTable").html(table);
-      },
-      error: function() {
-        displayError("Communication with the server has failed. Please try again later");
-      }
-  });
+          // End table
+          table += "</table>";
+
+          // Draw to screen
+          $("#AdsTable").html(table);
+        },
+        error: function() {
+          displayError("Communication with the server has failed. Please try again later");
+        }
+    });
+  }
 }
 
 function getAdsByTitle(code) {
@@ -140,6 +192,11 @@ function getComments(id) {
       url: '/getAdComments?ad_id=' + id,
       type: 'GET',
       success: function(response) {
+        // Catch any incoming errors
+        if(response == "Failure\n"){
+          displayError("Book ID is not found");
+          response = "";
+        }
         for (i in response){
           $.ajax({
               url: '/getComment?comment_id=' + response[i],
