@@ -113,9 +113,7 @@ exports.deleteAd = function(req, res) {
 					// user found
 					if (user[0]) {
 						let i = (user[0].selling_ad_ids).indexOf(req.query.ad_id);
-						console.log(JSON.stringify(user[0].selling_ad_ids));
 						user[0].selling_ad_ids.splice(i, 1);
-						console.log(JSON.stringify(user[0].selling_ad_ids));
 						user[0].save(function(err) {
 
 							if (err) throw err;
