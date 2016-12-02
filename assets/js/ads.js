@@ -11,9 +11,7 @@ function getDetailedAd(id) {
           $("#overview").append("<br><b>ISBN: </b>" + response["ads"][0]["isbn"]);
           $("#overview").append("<br><b>Posted Date: </b>" + response["ads"][0]["posted_date"]);
           $("#overview").append("<br><b>Courses: </b>");
-          for (c in response["ads"][0]["course_code"]){
-            $("#overview").append(response["ads"][0]["course_code"][c] + "  ");
-          }
+          $("#overview").append(response["ads"][0]["course_code"]);
 
           // Bid
           $("#currentbid").html("Current Bid: $" + response["ads"][0]["bid"]);
@@ -197,9 +195,11 @@ function getComments(id) {
           displayError("Book ID is not found");
           response = "";
         }
-        for (i in response){
+        var arr = $.map(response, function(el) { return el });
+
+        for (i = 0; i < arr.length; i++){
           $.ajax({
-              url: '/getComment?comment_id=' + response[i],
+              url: '/getComment?comment_id=' + arr[i],
               type: 'GET',
               success: function(response) {
                   $("#comments").val($("#comments").val() + response["posted_date"] + " - " + response["poster_email"] + " - " + response["comment"] + "\n");

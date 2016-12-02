@@ -9,6 +9,10 @@ exports.createUser = function(req, res) {
 
 	var user_email = req.body["email"];
 
+	if(req.body["password"].length <= 5){
+		return res.send(("Your password length must be 5 characters or greater"));
+	}
+
 	User.find({email: user_email}, function(err, user) {
 
 		if (err) throw err;
