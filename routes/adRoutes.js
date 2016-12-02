@@ -38,7 +38,6 @@ exports.getAds = function(req, res) {
 		Ad.find({ad_id: req.query.ad_id}, function(err, ads) {
 
 			if (err) throw err;
-
 			res.json({"ads": ads});
 		});
 
@@ -110,13 +109,13 @@ exports.deleteAd = function(req, res) {
 
 				if (err) throw err;
 
-				res.send("Success\n");
+				res.send("Ad successfully deleted!");
 
 			});
 		}
 		//ad not found
 		else {
-			res.send("Failure\n");
+			res.send("Unable to delete this ad at this time.");
 		}
 
 	});
@@ -139,6 +138,7 @@ exports.createNewAd = function(req, res) {
 			author: req.body["author"],
 			desc: req.body["desc"],
 			bid: req.body["bid"],
+			bid_owner: req.body["email"],
 			isbn: req.body["isbn"],
 			course_code: req.body["course_code"],
 			owner_email: req.body["email"]
@@ -179,23 +179,45 @@ exports.editAd = function(req, res) {
 
 	console.log("editAd");
 
-	Ad.find({ad_id: req.body["ad_id"]}, function(err, ads) {
+	// Check if user making the req has permissions to make changes
+	User.find({session_token: req.body.token}, function(err, user) {
 
 		if (err) throw err;
 
-		ads[0].book_title = req.body["book_title"];
-		ads[0].author = req.body["author"];
-		ads[0].desc = req.body["desc"];
-		ads[0].bid = req.body["bid"]; //potential bug here
-		ads[0].isbn = req.body["isbn"];
-		ads[0].course_code = req.body["course_code"];
+		if (user[0]) {
+				if (user[0].selling_ad_ids.indexOf(req.body["ad_id"]) != -1
+							|| user[0].admin_status) {
+					Ad.find({ad_id: req.body["ad_id"]}, function(err, ads) {
 
-		ads[0].save(function(err)	{
+						if (err) throw err;
 
-			if (err) throw err;
+						ads[0].book_title = req.body["book_title"];
+						ads[0].author = req.body["author"];
+						ads[0].desc = req.body["desc"];
+						// Update bid only if it has changed, and update bid_owner as well
+						if (ads[0].bid != Number(req.body.bid)) {
+							ads[0].bid = Number(req.body["bid"]);
+							ads[0].bid_owner = user[0].email;
+						}
+						ads[0].isbn = req.body["isbn"];
+						ads[0].course_code = req.body["course_code"];
 
-			res.send("Success");
-		});
+						ads[0].save(function(err)	{
 
+							if (err) throw err;
+
+							res.send("Success");
+						});
+
+					});
+			}
+			else {
+				res.send("You do not have permission to edit this listing.");
+			}
+		}
+		else {
+			res.send("You do not have permission to edit this listing.");
+		}
 	});
+
 };

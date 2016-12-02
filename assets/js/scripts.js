@@ -45,13 +45,29 @@ function constructFormJson(evt, formID) {
 
 
 function logout() {
-	let cookies = document.cookie.split(";");
-	for (let i = 0; i < cookies.length; i++) {
-		let cookie = cookies[i];
-		let cookieCrumbs = cookie.split("=");
-		document.cookie = cookieCrumbs[0] +
-												"=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-	}
-	//redirect
-	window.location.href = "index.html";
+	let logoutData = {"token": getCookie("token"), "email": getCookie("email")};
+	$.ajax({
+		url: "/logout",
+		type: "POST",
+		data: logoutData,
+		success: function(response) {
+			if (response == "Successfully logged out\n") {
+				let cookies = document.cookie.split(";");
+				for (let i = 0; i < cookies.length; i++) {
+					let cookie = cookies[i];
+					let cookieCrumbs = cookie.split("=");
+					document.cookie = cookieCrumbs[0] +
+															"=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+				}
+				//redirect
+				window.location.href = "index.html";
+			}
+			else {
+				alert("Error: Unable to logout at this time.");
+			}
+		},
+		error: function() {
+				displayError("Communication with the server has failed. Please try again later.");
+		}
+	});
 }

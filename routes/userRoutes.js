@@ -65,13 +65,22 @@ exports.userLogin = function(req, res) {
 					var token = "" + Math.random();
 					user[0].session_token = token;
 					user[0].logged_in = true;
-					return res.json({"token": user[0].session_token,
-														"adminStatus": user[0].admin_status,
-                        		"email": user[0].email});
+
+					user[0].save(function(err)	{
+
+						if (err) throw err;
+
+						return res.json({"token": user[0].session_token,
+															"adminStatus": user[0].admin_status,
+															"email": user[0].email});
+					});
+
 				}
 				//user already logged in
 				else {
-					res.send("Failure: User is already logged in\n");
+				return res.json({"token": user[0].session_token,
+														"adminStatus": user[0].admin_status,
+														"email": user[0].email});
 				}
 			}
 			//wrong password
@@ -97,7 +106,7 @@ exports.getUserInfo = function(req, res) {
 
 	//case where user is provided
 	if (user_email) {
-		
+
 		User.find({email: user_email}, function(err, user) {
 
 			if (err) throw err;
@@ -195,12 +204,11 @@ exports.removeUser = function(req, res) {
 
 
 
-//app.post('/logout', users.userLogout); 
+//app.post('/logout', users.userLogout);
 // NEW! logout - TODO complete in routes
 exports.userLogout = function(req, res) {
 
 	console.log("userLogout");
-
 
 	try {
 
@@ -215,7 +223,7 @@ exports.userLogout = function(req, res) {
 			if ((user[0]) && (token == user[0].session_token)) {
 
 				user[0].logged_in = false;
-				user[0].token = "";
+				user[0].session_token = "";
 				user[0].save(function(err) {
 
 					if (err) throw err;
@@ -231,7 +239,6 @@ exports.userLogout = function(req, res) {
 		});
 	}
 	catch(err) {
-
 		res.send("Failure\n");
 	}
 }
