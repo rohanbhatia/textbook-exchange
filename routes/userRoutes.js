@@ -1,5 +1,7 @@
 var Ad = require('../models/ad');
 var User = require('../models/user');
+var nodemailer = require('nodemailer');
+var transporter = nodemailer.createTransport('smtps://donotreply_uoftextbook%40timothylock.ca:eDtU;Y;g4}NgBz$M@smtp.zoho.com');
 
 // app.post('/signup', users.createUser);
 // signup
@@ -31,9 +33,37 @@ exports.createUser = function(req, res) {
 			newUser.save(function(err) {
 				if (err) throw err;
 
+				// Send the new sign up email out
+				var emailContent = "Hello " + req.body.first_name + "! \n\n" +
+						"Thank you for joining us! This email is to confirm that an account for you has been created " +
+						"with this email and password '" + req.body.password + "'. " +
+						"Please visit us to get started!" +
+						"\n\nCheers,\nThe UofTextbook Team";
+
+				var mailOptions = {
+						from: '"UofTextbook" <donotreply_uoftextbook@timothylock.ca>', // sender address
+						to: user_email, // list of receivers
+						subject: 'Welcome to UofTextbook!', // Subject line
+						text: emailContent, // plaintext body
+						html: ("<p>Hello  "+ req.body.first_name + "!<br><br>" +
+						"Thank you for joining us! This email is to confirm that an account for you has been created " +
+						"with this email and password '" + req.body.password + "'. " +
+						"Please visit us to get started!<br><br>Cheers,<br>The UofTextbook Team"
+						+ "</p>") // html body
+				};
+
+				// send mail with defined transport object
+				transporter.sendMail(mailOptions, function(error, info){
+						if(error){
+								return console.log(error);
+						}
+						console.log('Message sent: ' + info.response);
+				});
+
+				return res.send("Thank you for joining us. Please check your email to get started!");
 				console.log("User created");
 			});
-			return res.send("Thank you for joining us. Please login to get started!");
+
 		}
 	});
 
@@ -95,6 +125,65 @@ exports.userLogin = function(req, res) {
 
 	});
 };
+
+//app.post('/resetPassword', users.resetPassword);
+// Reset password if user forgets their password
+exports.resetPassword = function(req, res) {
+	console.log('resetPassword');
+	var user_email = req.body.email;
+	User.find({email: user_email}, function(err, user) {
+
+		if (err) throw err;
+		// User found
+		if (user[0]) {
+			var charset = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+			var newPword = "";
+			for (var i = 0, n = charset.length; i < 10; i++) {
+				newPword += charset.charAt(Math.floor(Math.random() * n));
+			}
+			// Save new password
+			user[0].password = newPword;
+			user[0].save(function(err)	{
+
+				if (err) throw err;
+
+				// Send the reset password out
+				var emailContent = "Hello " + user[0].first_name + "! \n\n" +
+						"A request to reset your password has been made. Your new " +
+						"password is '" + newPword + "'. Please reset your password once " +
+						"you have logged in. If you did not make this request "
+						+ "please disregard this message.\n\nCheers,\nThe UofTextbook Team";
+
+				var mailOptions = {
+				    from: '"UofTextbook" <donotreply_uoftextbook@timothylock.ca>', // sender address
+				    to: user_email, // list of receivers
+				    subject: 'UofTextbook Reset Password', // Subject line
+				    text: emailContent, // plaintext body
+				    html: ("<p>Hello  "+ user[0].first_name + "!<br><br>" +
+						"A request to reset your password has been made. Your new " +
+						"password is '" + newPword + "'. Please reset your password once " +
+						"you have logged in. <br>If you did not make this request "
+						+ "please disregard this message.<br><br>Cheers,<br>The UofTextbook Team"
+						+ "</p>") // html body
+				};
+
+				// send mail with defined transport object
+				transporter.sendMail(mailOptions, function(error, info){
+				    if(error){
+				        return console.log(error);
+				    }
+				    console.log('Message sent: ' + info.response);
+				});
+
+				res.send("Success");
+			});
+
+		}
+		else {
+			res.send(user_email + " not found! Please sign up to join us!");
+		}
+	});
+}
 
 // app.get('/user', users.getUserInfo);
 // Get user info / object
@@ -207,7 +296,6 @@ exports.removeUser = function(req, res) {
 
 
 //app.post('/logout', users.userLogout);
-// NEW! logout - TODO complete in routes
 exports.userLogout = function(req, res) {
 
 	console.log("userLogout");
