@@ -24,12 +24,12 @@ function getAllUsers() {
       type: 'GET',
       success: function(response) {
         // Start table
-        var table = ('<table class="table table-hover"><thead><tr><th>First Name</th><th>Last Name</th><th>Email</th><th>User Type</th><th>View</th></tr></thead><tbody>');
+        var table = ('<table class="table table-hover"><thead><tr><th>First Name</th><th>Last Name</th><th>Email</th><th>Admin</th><th>View</th><th>Delete</th></tr></thead><tbody>');
         var user;
         // Fill in rows
         for (user in response["users"]){
           // Details
-          table += ("<tr><td>" + response["users"][user]["firstName"] + "</td><td>" + response["users"][user]["lastName"] + "</td><td>" + response["users"][user]["email"] + "</td><td>" + response["users"][user]["adminStatus"] + "</td><td><a href='editUser.html?email=" + response["users"][user]["email"] + "' class='btn btn-primary'>View</a></td></tr>");
+          table += ("<tr><td>" + response["users"][user]["first_name"] + "</td><td>" + response["users"][user]["last_name"] + "</td><td>" + response["users"][user]["email"] + "</td><td>" + response["users"][user]["admin_status"] + "</td><td><a href='editUser.html?email=" + response["users"][user]["email"] + "' class='btn btn-primary'>View</a></td><td><a class='btn btn-danger' onclick='deleteUser(\"" + response["users"][user]["email"] + "\")'>Delete</a></td></tr>");
         }
 
         // End table
@@ -84,6 +84,22 @@ function updateProfileHandler(evt) {
 
 }
 
+function deleteUser(id) {
+  if (confirm("You are about to delete a user. Are you sure?")){
+    // Send the info to server
+    $.ajax({
+        url: '/removeUser?email=' + id,
+        type: 'DELETE',
+        success: function(response) {
+            alert(response);
+            location.reload(); // Refresh to page to reflect changes
+        },
+        error: function() {
+          displayError("Communication with the server has failed. Please try again later");
+        }
+    });
+  }
+}
 
 /**
  * Add Update Profile Handler to login button.

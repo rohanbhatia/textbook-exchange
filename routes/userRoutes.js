@@ -177,7 +177,9 @@ exports.removeUser = function(req, res) {
 
 	console.log('removeUser');
 
-	var user_email = req.body["email"];
+	console.log(req.query);
+
+	var user_email = req.query.email;
 
 	User.find({email: user_email}, function(err, user) {
 

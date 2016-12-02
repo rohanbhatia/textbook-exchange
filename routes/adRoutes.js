@@ -1,8 +1,6 @@
 var Ad = require('../models/ad');
 var User = require('../models/user');
 
-var ad_id_generator = 0;
-
 // app.get('/ads', ads.getAds);
 // Get all the post objects - also get individual post via fname
 // gets ALL ads if no ad_id provided
@@ -133,7 +131,7 @@ exports.createNewAd = function(req, res) {
 		//add to ad database
 		var newAd = Ad({
 
-			ad_id: ad_id_generator,
+			ad_id: (new Date).getTime(),
 			book_title: req.body["book_title"],
 			author: req.body["author"],
 			desc: req.body["desc"],
@@ -157,7 +155,7 @@ exports.createNewAd = function(req, res) {
 
 			//user found
 			if (user[0]) {
-				(user[0].selling_ad_ids).push(ad_id_generator);
+				(user[0].selling_ad_ids).push((new Date).getTime());
 
 				user[0].save(function(err)	{
 
@@ -165,8 +163,6 @@ exports.createNewAd = function(req, res) {
 				});
 			}
 		});
-
-		ad_id_generator += 1;
 
 		res.send("Success\n");
 

@@ -2,8 +2,6 @@ var Ad = require('../models/ad');
 var User = require('../models/user');
 var Comment = require('../models/comment');
 
-var comment_id_generator = 0;
-
 
 // app.post('/newComment', comments.addComment); 
 // post a new comments
@@ -18,8 +16,7 @@ exports.addComment = function(req, res) {
 
 		if (err) throw err;
 
-		generated_id = comment_id_generator;
-		comment_id_generator += 1;
+		generated_id = (new Date).getTime();
 
 		//add comment to Comment Database
 		var newComment = Comment({
@@ -109,19 +106,25 @@ exports.getAdComments = function(req, res) {
 exports.getComment = function(req, res) {
 
 	console.log("getComment");
+	try {
 
-	Comment.find({comment_id: req.query.comment_id}, function(err, comment) {
+		Comment.find({comment_id: req.query.comment_id}, function(err, comment) {
 
-		if (err) throw err;
+			if (err) throw err;
 
-		//comment found
-		if(comment[0]) {
-			res.send(comment[0]);
-		}
-		else {
-			res.send("Failure\n");
-		}
-	});
+			//comment found
+			if(comment[0]) {
+				res.send(comment[0]);
+			}
+			else {
+				res.send("Failure\n");
+			}
+		});
+	}
+	catch(err) {
+
+		res.send("Failure\n");
+	}
 };
 
 

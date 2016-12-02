@@ -183,7 +183,7 @@
 
 
     // Make the correct calls according to parameters
-    if($.parameters('ad_id') != null){
+    if($.parameters('ad_id') != null && $.parameters('ad_id') != ""){
         getDetailedAd($.parameters('ad_id'));
         getComments($.parameters('ad_id'));
     }else{
