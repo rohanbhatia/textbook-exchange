@@ -107,7 +107,26 @@ exports.deleteAd = function(req, res) {
 
 				if (err) throw err;
 
-				res.send("Ad successfully deleted!");
+				User.find({email: ads[0].owner_email}, function(err, user) {
+					if (err) throw err;
+
+					// user found
+					if (user[0]) {
+						let i = (user[0].selling_ad_ids).indexOf(req.query.ad_id);
+						console.log(JSON.stringify(user[0].selling_ad_ids));
+						user[0].selling_ad_ids.splice(i, 1);
+						console.log(JSON.stringify(user[0].selling_ad_ids));
+						user[0].save(function(err) {
+
+							if (err) throw err;
+
+							res.send("Ad successfully deleted!");
+						});
+					}
+					else {
+						res.send("Unable to delete this ad at this time.");
+					}
+				});
 
 			});
 		}
@@ -164,7 +183,7 @@ exports.createNewAd = function(req, res) {
 			}
 		});
 
-		res.send("Success\n");
+		res.send("Success");
 
 	});
 };
