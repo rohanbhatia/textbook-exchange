@@ -8,6 +8,7 @@
 - User Email: Sign up yourself using REAL EMAIL
 - User Password: Up to you
 __The site does in fact send an email out. The email is coded into the server and is temporary (so don't hack the server please). Also use a real email!__
+NOTE: The email will be coming from donotreply_uoftextbook@timothylock.ca. It WILL appear as unauthenticated mail and will likely be put into spam. 
 
 
 ##Setup (see lab 6 notes for db setup)<BR>
