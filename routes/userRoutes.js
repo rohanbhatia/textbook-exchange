@@ -243,9 +243,6 @@ exports.editUserInfo = function(req, res) {
 
 		if (err) throw err;
 
-		console.log(req.body.token);
-		console.log(req.body.email);
-
 		user[0].email = req.body.email;
 		user[0].first_name = req.body.first_name;
 		user[0].last_name = req.body.last_name;
@@ -265,8 +262,6 @@ exports.editUserInfo = function(req, res) {
 exports.removeUser = function(req, res) {
 
 	console.log('removeUser');
-
-	console.log(req.query);
 
 	var user_email = req.query.email;
 

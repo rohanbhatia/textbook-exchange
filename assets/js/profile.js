@@ -125,7 +125,7 @@ function createUserHandler(evt) {
     type: "POST",
     data: createUserData,
     success: function(response) {
-      if (response == "Thank you for joining us. Please login to get started!"){
+      if (response == "Thank you for joining us. Please check your email to get started!"){
         alert("User created successfully!");
         window.location.href = "searchUser.html";
       }

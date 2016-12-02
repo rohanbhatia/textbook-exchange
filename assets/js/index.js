@@ -93,7 +93,6 @@ function addForgotPassword() {
   let forgotPwordElem = $("#forgotPword");
   forgotPwordElem.click(function() {
       let loginData = {"email": $("#email").val()};
-      console.log(loginData);
       if (loginData == "") {
         alert("Please enter your email!");
       }
