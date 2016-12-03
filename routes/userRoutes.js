@@ -37,32 +37,37 @@ exports.createUser = function(req, res) {
 			newUser.save(function(err) {
 				if (err) throw err;
 
-				// Send the new sign up email out
-				var emailContent = "Hello " + req.body.first_name + "! \n\n" +
-						"Thank you for joining us! This email is to confirm that an account for you has been created " +
-						"with this email and password '" + req.body.password + "'. " +
-						"Please visit us to get started!" +
-						"\n\nCheers,\nThe UofTextbook Team";
+				try {
+					// Send the new sign up email out
+					var emailContent = "Hello " + req.body.first_name + "! \n\n" +
+							"Thank you for joining us! This email is to confirm that an account for you has been created " +
+							"with this email and password '" + req.body.password + "'. " +
+							"Please visit us to get started!" +
+							"\n\nCheers,\nThe UofTextbook Team";
 
-				var mailOptions = {
-						from: '"UofTextbook" <donotreply_uoftextbook@timothylock.ca>', // sender address
-						to: user_email, // list of receivers
-						subject: 'Welcome to UofTextbook!', // Subject line
-						text: emailContent, // plaintext body
-						html: ("<p>Hello  "+ req.body.first_name + "!<br><br>" +
-						"Thank you for joining us! This email is to confirm that an account for you has been created " +
-						"with this email and password '" + req.body.password + "'. " +
-						"Please visit us to get started!<br><br>Cheers,<br>The UofTextbook Team"
-						+ "</p>") // html body
-				};
+					var mailOptions = {
+							from: '"UofTextbook" <donotreply_uoftextbook@timothylock.ca>', // sender address
+							to: user_email, // list of receivers
+							subject: 'Welcome to UofTextbook!', // Subject line
+							text: emailContent, // plaintext body
+							html: ("<p>Hello  "+ req.body.first_name + "!<br><br>" +
+							"Thank you for joining us! This email is to confirm that an account for you has been created " +
+							"with this email and password '" + req.body.password + "'. " +
+							"Please visit us to get started!<br><br>Cheers,<br>The UofTextbook Team"
+							+ "</p>") // html body
+					};
 
-				// send mail with defined transport object
-				transporter.sendMail(mailOptions, function(error, info){
-						if(error){
-								return console.log(error);
-						}
-						console.log('Message sent: ' + info.response);
-				});
+					// send mail with defined transport object
+					transporter.sendMail(mailOptions, function(error, info){
+							if(error){
+									return console.log(error);
+							}
+							console.log('Message sent: ' + info.response);
+					});
+				}
+				catch (err) {
+					console.log("Error Sending Email");
+				}
 
 				return res.send("Thank you for joining us. Please check your email to get started!");
 				console.log("User created");
@@ -149,34 +154,38 @@ exports.resetPassword = function(req, res) {
 			user[0].save(function(err)	{
 
 				if (err) throw err;
+				try {
+					// Send the reset password out
+					var emailContent = "Hello " + user[0].first_name + "! \n\n" +
+							"A request to reset your password has been made. Your new " +
+							"password is '" + newPword + "'. Please reset your password once " +
+							"you have logged in. If you did not make this request "
+							+ "please disregard this message.\n\nCheers,\nThe UofTextbook Team";
 
-				// Send the reset password out
-				var emailContent = "Hello " + user[0].first_name + "! \n\n" +
-						"A request to reset your password has been made. Your new " +
-						"password is '" + newPword + "'. Please reset your password once " +
-						"you have logged in. If you did not make this request "
-						+ "please disregard this message.\n\nCheers,\nThe UofTextbook Team";
+					var mailOptions = {
+					    from: '"UofTextbook" <donotreply_uoftextbook@timothylock.ca>', // sender address
+					    to: user_email, // list of receivers
+					    subject: 'UofTextbook Reset Password', // Subject line
+					    text: emailContent, // plaintext body
+					    html: ("<p>Hello  "+ user[0].first_name + "!<br><br>" +
+							"A request to reset your password has been made. Your new " +
+							"password is '" + newPword + "'. Please reset your password once " +
+							"you have logged in. <br>If you did not make this request "
+							+ "please disregard this message.<br><br>Cheers,<br>The UofTextbook Team"
+							+ "</p>") // html body
+					};
 
-				var mailOptions = {
-				    from: '"UofTextbook" <donotreply_uoftextbook@timothylock.ca>', // sender address
-				    to: user_email, // list of receivers
-				    subject: 'UofTextbook Reset Password', // Subject line
-				    text: emailContent, // plaintext body
-				    html: ("<p>Hello  "+ user[0].first_name + "!<br><br>" +
-						"A request to reset your password has been made. Your new " +
-						"password is '" + newPword + "'. Please reset your password once " +
-						"you have logged in. <br>If you did not make this request "
-						+ "please disregard this message.<br><br>Cheers,<br>The UofTextbook Team"
-						+ "</p>") // html body
-				};
-
-				// send mail with defined transport object
-				transporter.sendMail(mailOptions, function(error, info){
-				    if(error){
-				        return console.log(error);
-				    }
-				    console.log('Message sent: ' + info.response);
-				});
+					// send mail with defined transport object
+					transporter.sendMail(mailOptions, function(error, info){
+					    if(error){
+						return console.log(error);
+					    }
+					    console.log('Message sent: ' + info.response);
+					});
+				}
+				catch (err) {
+					console.log("Error sending email");
+				}
 
 				res.send("Success");
 			});
