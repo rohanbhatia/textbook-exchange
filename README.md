@@ -3,7 +3,7 @@
 ## __NOTE: Please disable AdBlock! We have a script called "ads.js" and Adblock prevents it from running.__
 
 ##Live testing site: [http://timothylock.ca:3000](http://timothylock.ca:3000)
-- Admin Email: user1@gmail.com
+- Admin Email: user1@example.com
 - Admin Password: helloworld
 - User Email: Sign up yourself using REAL EMAIL
 - User Password: Up to you
