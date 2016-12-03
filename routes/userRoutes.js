@@ -70,7 +70,6 @@ exports.createUser = function(req, res) {
 
 		}
 	});
-
 };
 
 // app.post('/login', users.userLogin);
@@ -275,7 +274,20 @@ exports.removeUser = function(req, res) {
 
 		//user found
 		if (user[0]) {
+	
+			Ad.find({owner_email: user_email}, function(err, ads) {
 
+				if (err) throw err;
+
+				for (var index in ads) {
+
+					ads[index].remove(function(err) {
+
+						if (err) throw err;
+					});
+				}
+			});
+			
 			user[0].remove(function(err) {
 
 				if (err) throw err;
@@ -291,8 +303,6 @@ exports.removeUser = function(req, res) {
 
 	});
 };
-
-
 
 //app.post('/logout', users.userLogout);
 exports.userLogout = function(req, res) {
