@@ -63,7 +63,7 @@ function signUpHandler(evt) {
     type: "POST",
     data: signUpData,
     success: function(response) {
-      if (response == "Thank you for joining us. Please login to get started!"){
+      if (response == "Thank you for joining us. Please check your email to get started!"){
         window.location.reload();
         alert(response);
       }
@@ -88,12 +88,42 @@ function addSignUp() {
   signUpElem.submit(signUpHandler);
 }
 
+
+function addForgotPassword() {
+  let forgotPwordElem = $("#forgotPword");
+  forgotPwordElem.click(function() {
+      let loginData = {"email": $("#email").val()};
+      if (loginData == "") {
+        alert("Please enter your email!");
+      }
+      else {
+        $.ajax({
+          url: "/resetPassword",
+          type: "POST",
+          data: loginData,
+          success: function(response) {
+            if (response == "Success") {
+              alert("Your new password has been sent to your email!");
+            }
+            else {
+              alert(response);
+            }
+          },
+          error: function() {
+              displayError("Communication with the server has failed. Please try again later.");
+          }
+        });
+      }
+  });
+}
+
 /**
  * Init Method.
  */
 function init() {
    addLogin();
    addSignUp();
+   addForgotPassword();
  }
 
 $(document).ready(function() {

@@ -38,7 +38,7 @@ function constructFormJson(evt, formID) {
   let formData = $(("#"+formID)).serializeArray();
   let dataSet = {};
   for (let i = 0; i < formData.length; i++) {
-    dataSet[(formData[i])["name"]] = (formData[i])["value"];
+    dataSet[(formData[i])["name"]] = (formData[i])["value"].trim();
   }
   return dataSet;
 }
