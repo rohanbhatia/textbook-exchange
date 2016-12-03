@@ -197,9 +197,12 @@ function getComments(id) {
           displayError("Book ID is not found");
           response = "";
         }
-        for (i in response){
+        var arr = $.map(response, function(el) { return el });
+        console.log(arr);
+        
+        for (i = 0; i < arr.length; i++){
           $.ajax({
-              url: '/getComment?comment_id=' + response[i],
+              url: '/getComment?comment_id=' + arr[i],
               type: 'GET',
               success: function(response) {
                   $("#comments").val($("#comments").val() + response["posted_date"] + " - " + response["poster_email"] + " - " + response["comment"] + "\n");
