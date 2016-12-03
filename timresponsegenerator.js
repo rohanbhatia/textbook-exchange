@@ -62,6 +62,7 @@ function getads(req, res) {
     if(req.query.id != null){
     	if (req.query.id==1234){
     		var testBook = new Object();
+          testBook["email"] = "lukedanes@starshollow.com";
 	        testBook["title"] = "Mary, Did You Know?";
 	        testBook["id"] = "1234";
 	        testBook["author"] = "Pentatonix";
@@ -203,22 +204,36 @@ function getads(req, res) {
     return res.json(result);
 }
 
+
+var comments = {"comments": [{"posteddatetime": "11-11-2016",
+                  "email": "jameds@hotmail.com", "comments": "Hi mom!"},
+            {"posteddatetime": "11-13-2016", "email": "mememaster@hotmail.com",
+             "comments": "What a dank book"}]};
+function getComments(req, res){
+    // Specific queries
+    if(req.query.id != null){
+        return res.json(comments);
+    }
+
+
+}
+/**
 function getComments(req, res){
   // Shared by all queries. Construct structure
-    var result = new Object();
-    var list = [];
+  var result = new Object();
+  var list = [];
 
     // Specific queries
     if(req.query.id != null){
         var testComment = new Object();
-          testComment["posteddatetime"] = "12-13-2016";
+          testComment["posteddatetime"] = "11-11-2016";
           testComment["email"] = "jameds@hotmail.com";
           testComment["comments"] = "Hi mom!";
           list.push(testComment);
 
 
           var testComment = new Object();
-          testComment["posteddatetime"] = "12-11-2016";
+          testComment["posteddatetime"] = "11-13-2016";
           testComment["email"] = "mememaster@hotmail.com";
           testComment["comments"] = "What a dank book";
           list.push(testComment);
@@ -227,6 +242,7 @@ function getComments(req, res){
     return res.json(result);
 
 }
+*/
 
 function deleteAd(req, res){
     return res.send("Success");
@@ -256,7 +272,8 @@ function login(req, res) {
       var token = "A23XD4FG";
       // Add token to the user for tracking.
       user["token"] = token;
-      return res.json({"token": token, "adminStatus": user["adminStatus"]});
+      return res.json({"token": token, "adminStatus": user["adminStatus"],
+                        "email": user["email"]});
     }
     else if (user["email"] == email) {
       validEmail = true;
@@ -300,23 +317,68 @@ function signup(req, res) {
 }
 
 
-//app.post('/login', user.login);  // actual
+function editUser(req, res) {
+  if (req.body.token == "A23XD4FG"){
+        return res.send("Success");
+  }
+  else {
+    return res.send("Failure");
+  }
+
+}
+
+
+function newAd(req, res) {
+  if (req.body.token == "A23XD4FG"){
+        // TODO actual fn must generate the posteddate!
+        return res.send("Success");
+  }
+  else {
+    return res.send("Failure");
+  }
+}
+
+function bid(req, res) {
+  // Use token to determine the email of the bidder and store their email w/ the bid somehow
+  // TODO actual fn must check if req.body.bid is higher than current!
+  if (req.body.bid > 10) {
+    return res.send("Bid submitted!");
+  }
+  else {
+    return res.send("Bid entered is too low!");
+  }
+}
+
+
+function addComment(req, res) {
+  let datetime = new Date();
+  let commentObj = {"id": req.body.id, "posteddatetime": datetime, "email": req.body.email,
+                    "comments": req.body.comment};
+  comments["comments"].push(commentObj);
+  res.send("Success");
+}
+
+
+function acceptBid(req, res) {
+  // server has to verify with token, send emails (poster, bidder) and delete the post
+  res.send("Success");
+}
+
+
 app.post('/login', login); // Login
-//app.post('/signup', user.signup);  // actual
 app.post('/signup', signup);  // signup
 app.get('/user', getUser); // Get user info / object
-//app.post('/editUser', user.editUser);  // Post new user edit
+app.post('/editUser', editUser);  // Post new user edit
 //app.delete('/removeUser', user.removeUser);  // Remove user
 
-//app.get('/ads', ads.getads); // actual
 app.get('/ads', getads);  // Get all the post objects - also get individual post via fname
-//app.post('/bid', ads.bid);        // Bid
-//app.delete('/deleteAd', ads.deleteAd); // actual
+app.post('/bid', bid);        // Bid
 app.delete('/deleteAd', deleteAd); // Delete
-//app.post('/newAd', ads.newAd);     // Bid
+app.post('/newAd', newAd);     // Bid
 //app.post('/editAd', ads.editAd);   // Edit ads
 app.get('/comments', getComments);
-
+app.post('/addComment', addComment);
+app.post('/acceptBid', acceptBid);
 
 
 app.listen(process.env.PORT || 3000);

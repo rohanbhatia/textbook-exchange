@@ -1,15 +1,22 @@
-// Dont put arguments pls
+TODO:
 
-// For ads, I wrapped them in a DIV called id="AdsTable". Delete the table and have the js remake the table inside of the div
+4. Need logout & acceptBid functions server side
+
+FIXED - 3. Test postBid
+FIXED - 2. view button for an ad doesn't work, nor does delete. 
+MOVED - 1. ad_ids that are generated are vulnerable. Imagine a list of 4 ads numbered 0 through 3. We delete the ad with ad_id 2 (so we have 0, 1, 3). Now add a new ad...ads.length gives 3 but this ad_id already exists.
+
+
+
 
 
 
 Cookies Tutorial: http://www.w3schools.com/js/js_cookies.asp
 
-// TO-DO: implement search bar
+DONE -- implement search bar
 
 
-IP -- navigationBar()
+DONE -- navigationBar()
 
 DONE -- getAllAds()
 
@@ -31,26 +38,39 @@ DONE -- checkCookie()
 
 DONE -- getProfile(email)
 
-DONE -- signup(firstname, lastname, email, email, password)
+DONE -- signup(firstname, lastname, email, password)
 
 DONE -- getComments(ID)
 
-IP -- updateProfile(firstname, lastname, email, email, password)
+DONE -- updateProfile(firstname, lastname, email, password)
 
-IP -- login(email, passowrd)
+DONE -- login(email, password)
 
-addListing(title, author, price, description, isbn, course code)
+DONE -- addListing(title, author, price, description, isbn, course code)
 
-postBid(ID, bid)
+DONE -- postBid(ID, bid) TODO: also send along email
 
-acceptBid(ID) - req to server, server has to delete the post and send emails (poster, bidder)
+DONE -- acceptBid(ID) - req to server, server has to delete the post and send emails (poster, bidder)
 
-postComment(ID, comment, email)
+DONE -- postComment(ID, comment, email)
 
-logout() 
+DONE -- logout() 
+
+DONE -- addModifyBtn() - dynamically add Modify btn
+
+DONE -- populateAdForm() - for editing a listing
+
+IP -- saveChangesHandler() - for editing a listing
 	
 
 admin view page
 
-deleteUser(email)
+TODO: deleteUser(email)
 
+DONE -- editListing - make this page 
+
+DONE -- get comments box to autoscroll to the most recent (i.e. the bottom)
+
+Clean lines:
+validation of input (like name etc) to prevent injection
+strip whitespace around inputs

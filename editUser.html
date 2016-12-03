@@ -22,8 +22,8 @@
     <!-- Jquery -->
     <script src="assets/js/jquery-3.1.1.min.js"></script>
     <script src="assets/js/profile.js"></script>
-    <script src="assets/js/cookies.js"></script>  
-    <script src="assets/js/ads.js"></script>  
+    <script src="assets/js/cookies.js"></script>
+    <script src="assets/js/ads.js"></script>
     <script src="assets/js/scripts.js"></script>
 
 </head>
@@ -60,7 +60,7 @@
         </ul>
         <ul class="sidebar-bottom">
             <li>
-                <a class="sub" href="#">Logout</a>
+                <a class="sub" onclick="logout()">Logout</a>
             </li>
         </ul>
     </div>
@@ -95,16 +95,17 @@
                             <!-- The form -->
                             <form id="profileForm">
                                 <h2>First Name</h2>
-                                <input type="text" id="firstName" class="form-control"/>
+                                <input type="text" id="firstName" name="first_name" class="form-control" required/>
                                 <h2>Last Name</h2>
-                                <input type="text" id="lastName" class="form-control"/>
+                                <input type="text" id="lastName" name="last_name" class="form-control" required/>
                                 <h2>Email</h2>
-                                <input type="email" id="email" class="form-control" disabled/>
+                                <input type="email" id="email" name="email" class="form-control" readonly/>
                                 <h2>Password</h2>
-                                <input type="password" id="password" class="form-control"/>
+                                <input type="password" id="password" name="password" class="form-control" required/>
                                 <br>
                                 <input type="submit" class="btn btn-primary" value="Update Profile">
                             </form>
+
                         </td>
 				      </tr>
 				    </tbody>
@@ -115,7 +116,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <!-- Title -->
-                    <h1>Your Ads</h1>
+                    <h1>Their Ads</h1>
                 </div>
             </div>
             <div class="row">
@@ -135,6 +136,7 @@
     });
 
     // Admin Check
+    loginCheck();   
     adminStuff();
     adminStatusCheck();
 
@@ -154,6 +156,6 @@
         populateForm($.parameters('email'));
     }else{
         displayError("Malformed link. Missing parameters");
-    }    
+    }
     </script>
 </body>

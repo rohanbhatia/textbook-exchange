@@ -10,19 +10,21 @@
 function loginHandler(evt) {
   let loginData = constructFormJson(evt, "loginForm");
 
-  //console.log(JSON.stringify(loginData));
-  // TODO
-  // check if user is an admin or not
-
   $.ajax({
     url: "/login",
     type: "POST",
     data: loginData,
     success: function(response) {
-      console.log("signed in");
+
       if ((typeof response) == "object") {
         setCookie("token", response.token, 10000);
-        setCookie("adminStatus", response.adminStatus, 10000);
+        // Convert T / F to admin / user to maintain compatibility with existing front end code
+        if(response.adminStatus){
+          setCookie("adminStatus", "admin", 10000);
+        }else{
+          setCookie("adminStatus", "user", 10000);
+        }
+        setCookie("email", response.email, 10000);
         //redirect
         window.location.href = "allAds.html";
       }
@@ -31,8 +33,7 @@ function loginHandler(evt) {
       }
     },
     error: function() {
-      // TODO: Change this to relevant error handling.
-      alert("Thar be an error round these parts.");
+        displayError("Communication with the server has failed. Please try again later.");
     }
   });
 }
@@ -56,15 +57,12 @@ function addLogin() {
  */
 function signUpHandler(evt) {
   let signUpData = constructFormJson(evt, "signUpForm");
-  console.log(JSON.stringify(signUpData));
 
   $.ajax({
     url: "/signup",
     type: "POST",
     data: signUpData,
     success: function(response) {
-      console.log("GOt here");
-      console.log(response);
       if (response == "Thank you for joining us. Please login to get started!"){
         window.location.reload();
         alert(response);
@@ -76,8 +74,7 @@ function signUpHandler(evt) {
 
     },
     error: function() {
-      // TODO: Change this to relevant error handling.
-      alert("Thar be an error round these parts.");
+      displayError("Communication with the server has failed. Please try again later.");
     }
   });
 }

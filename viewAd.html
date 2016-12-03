@@ -20,11 +20,11 @@
     <link href="assets/css/style.css" rel="stylesheet">
 
     <!-- Jquery -->
-    <script src="assets/js/jquery-3.1.1.min.js"></script>  
+    <script src="assets/js/jquery-3.1.1.min.js"></script>
 
-    <script src="assets/js/ads.js"></script>  
-    <script src="assets/js/scripts.js"></script>  
-    <script src="assets/js/cookies.js"></script>  
+    <script src="assets/js/ads.js"></script>
+    <script src="assets/js/scripts.js"></script>
+    <script src="assets/js/cookies.js"></script>
 
 </head>
 
@@ -60,7 +60,7 @@
         </ul>
         <ul class="sidebar-bottom">
             <li>
-                <a class="sub" href="#">Logout</a>
+                <a class="sub" onclick="logout()">Logout</a>
             </li>
         </ul>
     </div>
@@ -111,16 +111,17 @@
                                               <tr style="background-color: #c1c1c1;">
                                                 <td>
                                                     <!-- The form -->
-                                                    <form>
+                                                    <form id="bidForm">
                                                         <h3 id="currentbid">Current Bid: N/A</h3>
-                                                        <input type="number" min="1" step="any" class="form-control" placeholder="50.00" required/>
-                                                        <input type="submit" class="btn btn-primary" value="Bid">
+                                                        <input type="number" min="1" step="any" name="bid" class="form-control nonowneronly" placeholder="50.00" required/>
+                                                        <input type="submit" class="btn btn-primary nonowneronly" value="Bid">
                                                     </form>
+                                                    <a href="#menu-toggle" class="btn btn-primary owneronly" style="visibility: hidden;" onclick="acceptBid();">Accept Bid</a>
                                                 </td>
                                             </tr>
                                             </tbody>
                                         </table>
-                                        
+
                                     </div>
                                     <!-- Comments -->
                                     <div class="col-lg-8">
@@ -134,13 +135,13 @@
                                               <tr style="background-color: #c1c1c1;">
                                                 <td>
                                                     <div>
-                                                        <textarea class="form-control" rows="6" id="comments" style="resize: none;"></textarea>
+                                                        <textarea class="form-control" rows="6" id="comments" style="resize: none;" disabled></textarea>
                                                         <br>
                                                     </div>
                                                     <!-- The form -->
                                                     <form>
-                                                        <textarea class="form-control" rows="4" placeholder="Cheaper than the bookstore!"></textarea>
-                                                        <input type="submit" class="btn btn-primary" value="Comment">
+                                                        <textarea class="form-control" id="comment" rows="4" placeholder="Cheaper than the bookstore!"></textarea>
+                                                        <button id="commentBtn" type="button" class="btn btn-primary">Comment</button>
                                                     </form>
                                                 </td>
                                             </tr>
@@ -177,13 +178,14 @@
     }
 
     // Admin Check
+    loginCheck();
     adminStuff();
 
 
     // Make the correct calls according to parameters
-    if($.parameters('id') != null){
-        getDetailedAd($.parameters('id'));
-        getComments($.parameters('id'));
+    if($.parameters('ad_id') != null && $.parameters('ad_id') != ""){
+        getDetailedAd($.parameters('ad_id'));
+        getComments($.parameters('ad_id'));
     }else{
         displayError("Malformed link. Missing parameters");
     }

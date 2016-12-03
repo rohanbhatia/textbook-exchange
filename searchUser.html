@@ -20,9 +20,8 @@
     <link href="assets/css/style.css" rel="stylesheet">
 
     <!-- Jquery -->
-    <script src="assets/js/jquery-3.1.1.min.js"></script>  
-    <script src="assets/js/cookies.js"></script>  
-    <script src="assets/js/ads.js"></script>  
+    <script src="assets/js/jquery-3.1.1.min.js"></script>
+    <script src="assets/js/cookies.js"></script>
     <script src="assets/js/scripts.js"></script>
     <script src="assets/js/profile.js"></script>
 
@@ -60,7 +59,7 @@
         </ul>
         <ul class="sidebar-bottom">
             <li>
-                <a class="sub" href="#">Logout</a>
+                <a class="sub" onclick="logout()">Logout</a>
             </li>
         </ul>
     </div>
@@ -77,10 +76,10 @@
             <div class="row">
                 <div class="col-lg-4">
                     <!-- Title -->
-                    <h1>Your Ads</h1>
+                    <h1>All Users</h1>
                 </div>
                 <div class="col-lg-4">
-                    <a href="newListing.html" class="btn btn-primary"><span class=" glyphicon glyphicon-plus"></span> Add New Listing</a>
+                    <a href="addUser.html" class="btn btn-primary"><span class=" glyphicon glyphicon-plus"></span> Add New User</a>
                 </div>
                 <div class="col-lg-4" style="display: inline-block;">
                     <!-- Search Bar -->
@@ -117,6 +116,7 @@
     });
 
     // Admin Check
+    loginCheck();
     adminStuff();
     adminStatusCheck();
     getAllUsers();
