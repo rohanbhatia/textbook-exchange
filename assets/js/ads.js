@@ -198,8 +198,7 @@ function getComments(id) {
           response = "";
         }
         var arr = $.map(response, function(el) { return el });
-        console.log(arr);
-        
+
         for (i = 0; i < arr.length; i++){
           $.ajax({
               url: '/getComment?comment_id=' + arr[i],
