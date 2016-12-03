@@ -11,9 +11,7 @@ function getDetailedAd(id) {
           $("#overview").append("<br><b>ISBN: </b>" + response["ads"][0]["isbn"]);
           $("#overview").append("<br><b>Posted Date: </b>" + response["ads"][0]["posted_date"]);
           $("#overview").append("<br><b>Courses: </b>");
-          for (c in response["ads"][0]["course_code"]){
-            $("#overview").append(response["ads"][0]["course_code"][c] + "  ");
-          }
+          $("#overview").append(response["ads"][0]["course_code"]);
 
           // Bid
           $("#currentbid").html("Current Bid: $" + response["ads"][0]["bid"]);
