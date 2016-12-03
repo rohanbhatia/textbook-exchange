@@ -36,6 +36,7 @@ app.post('/bid', ads.postBid);        // Bid
 app.delete('/deleteAd', ads.deleteAd); // Delete
 app.post('/newAd', ads.createNewAd);     // Create New Ad
 app.post('/editAd', ads.editAd);   // Edit ad
+app.post('/acceptBid', ads.acceptBid); //Accept bid
 
 app.listen(process.env.PORT || 3000);
 console.log('Listening on port 3000');

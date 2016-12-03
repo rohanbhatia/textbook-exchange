@@ -90,6 +90,86 @@ exports.postBid = function(req, res) {
 	});
 };
 
+
+//app.post('/acceptBid', ads.acceptBid); 
+//Accept bid
+exports.acceptBid = function (req, res) {
+
+	var token = req.body.token;
+	
+	Ad.find({ad_id: req.body["ad_id"]}, function(err, ads) {
+
+		if (err) throw err;
+
+		if (ads[0]) {
+
+			//get user
+			var user = ads[0].owner_email;
+
+			User.find({email: user}, function(err, user) {
+
+				if (err) throw err;
+
+				//user found
+				if (user[0]) {
+			    	
+			    	//check validity of token
+					if (token == user[0].session_token) {
+						
+						//send email
+						//delete ad
+						Ad.find({ad_id: req.query.ad_id}, function(err, ads) {
+
+							if (err) throw err;
+
+							//ad found
+							if (ads[0]) {
+
+								ads[0].remove(function(err) {
+
+									if (err) throw err;
+
+									User.find({email: ads[0].owner_email}, function(err, user) {
+										
+										if (err) throw err;
+
+										// user found
+										if (user[0]) {
+											
+											var i = (user[0].selling_ad_ids).indexOf(req.query.ad_id);
+											user[0].selling_ad_ids.splice(i, 1);
+											user[0].save(function(err) {
+
+												if (err) throw err;
+
+												res.send("Success\n");
+
+											});
+										}
+									});
+								});
+							}
+						});
+
+					}
+					//invalid token
+					else {
+						
+						res.send("Failure\n");
+					}
+				}
+				//user not found
+				else {
+					res.send("Failure: ad's owner does not exist\n");
+				}
+			});
+		}
+		else {
+			res.send("Failure: invalid ad_id\n");
+		}
+	});
+};
+
 // app.delete('/deleteAd', ads.deleteAd);
 // Delete
 exports.deleteAd = function(req, res) {
