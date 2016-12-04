@@ -3,10 +3,10 @@ var User = require('../models/user');
 var Comment = require('../models/comment');
 
 
-// app.post('/newComment', comments.addComment); 
+// app.post('/newComment', comments.addComment);
 // post a new comments
 exports.addComment = function(req, res) {
-	
+
 	console.log("addComment");
 
 	//generate comment_id
@@ -27,7 +27,7 @@ exports.addComment = function(req, res) {
 		});
 
 		newComment.save(function(err) {
-			
+
 			if (err) throw err;
 		});
 
@@ -38,11 +38,9 @@ exports.addComment = function(req, res) {
 
 			//ad found
 			if (ads[0]) {
-				
-				console.log("ad comment_ids: " + ads[0].comment_ids);
+
 				(ads[0].comment_ids).push(generated_id);
-				console.log("ad comment_ids: " + ads[0].comment_ids);
-			
+
 				ads[0].save(function(err) {
 
 					if (err) throw err;
@@ -54,16 +52,16 @@ exports.addComment = function(req, res) {
 		//add comment to User database
 		var user_email = req.body["email"];
 		User.find({email: user_email}, function(err, user) {
-		
+
 			if (err) throw err;
-			
+
 			//user found
 			if (user[0]) {
 
 				(user[0].comment_ids).push(generated_id);
 
 				user[0].save(function(err)	{
-			
+
 					if (err) throw err;
 				});
 			}
@@ -73,7 +71,7 @@ exports.addComment = function(req, res) {
 	res.send("Success\n");
 };
 
-// app.get('/getAdComments', comments.getAdComments); 
+// app.get('/getAdComments', comments.getAdComments);
 // get all comment ids for 1 ad
 exports.getAdComments = function(req, res) {
 
@@ -101,7 +99,7 @@ exports.getAdComments = function(req, res) {
 	}
 };
 
-// app.get('/getComment', comments.getComment); 
+// app.get('/getComment', comments.getComment);
 // get all info for 1 comment
 exports.getComment = function(req, res) {
 
@@ -126,5 +124,3 @@ exports.getComment = function(req, res) {
 		res.send("Failure\n");
 	}
 };
-
-

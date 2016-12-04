@@ -1,7 +1,7 @@
 {
   "name": "group10",
   "version": "1.0.0",
-  "description": "Temporary testin links:\r - View index: http://timothylock.ca/csc309\r - Browse as user: http://timothylock.ca/csc309/allAds.html\r - Browse as admin: We'll do it once we figure out how to cookie",
+  "description": "Book exchange website. Testing link:\r http://timothylock.ca:3000",
   "main": "server.js",
   "dependencies": {
     "body-parser": "^1.15.2",
