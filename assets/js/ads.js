@@ -251,7 +251,7 @@ function postBidHandler(evt) {
   let queryPieces = query.split("=");
   bidData[queryPieces[0]] = queryPieces[1];
   bidData["token"] = getCookie("token");
-  bidData["bid_owner"] = getCookie("email");
+  bidData["email"] = getCookie("email");
   $.ajax({
     url: "/bid",
     type: "POST",
