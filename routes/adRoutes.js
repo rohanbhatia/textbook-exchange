@@ -105,6 +105,7 @@ exports.acceptBid = function (req, res) {
 
 			//get user
 			var user = ads[0].owner_email;
+			var buyer = ads[0].bid_owner;
 
 			User.find({email: user}, function(err, user) {
 
@@ -117,38 +118,18 @@ exports.acceptBid = function (req, res) {
 					if (token == user[0].session_token) {
 
 						//send email
-						//delete ad
-						Ad.find({ad_id: req.query.ad_id}, function(err, ads) {
+						
+						//remove the ad from the user's list of ads and then delete the ad
+						var i = (user[0].selling_ad_ids).indexOf(req.query.ad_id);
+						user[0].selling_ad_ids.splice(i, 1);
+						user[0].save(function(err) {
 
 							if (err) throw err;
+							ads[0].remove(function(err) {
 
-							//ad found
-							if (ads[0]) {
-
-								ads[0].remove(function(err) {
-
-									if (err) throw err;
-
-									User.find({email: ads[0].owner_email}, function(err, user) {
-
-										if (err) throw err;
-
-										// user found
-										if (user[0]) {
-
-											var i = (user[0].selling_ad_ids).indexOf(req.query.ad_id);
-											user[0].selling_ad_ids.splice(i, 1);
-											user[0].save(function(err) {
-
-												if (err) throw err;
-
-												res.send("Success\n");
-
-											});
-										}
-									});
-								});
-							}
+								if (err) throw err;
+								res.send("Success");
+							});
 						});
 
 					}
