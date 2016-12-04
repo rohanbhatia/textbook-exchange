@@ -91,12 +91,12 @@ exports.postBid = function(req, res) {
 };
 
 
-//app.post('/acceptBid', ads.acceptBid); 
+//app.post('/acceptBid', ads.acceptBid);
 //Accept bid
 exports.acceptBid = function (req, res) {
 
 	var token = req.body.token;
-	
+
 	Ad.find({ad_id: req.body["ad_id"]}, function(err, ads) {
 
 		if (err) throw err;
@@ -112,10 +112,10 @@ exports.acceptBid = function (req, res) {
 
 				//user found
 				if (user[0]) {
-			    	
+
 			    	//check validity of token
 					if (token == user[0].session_token) {
-						
+
 						//send email
 						//delete ad
 						Ad.find({ad_id: req.query.ad_id}, function(err, ads) {
@@ -130,12 +130,12 @@ exports.acceptBid = function (req, res) {
 									if (err) throw err;
 
 									User.find({email: ads[0].owner_email}, function(err, user) {
-										
+
 										if (err) throw err;
 
 										// user found
 										if (user[0]) {
-											
+
 											var i = (user[0].selling_ad_ids).indexOf(req.query.ad_id);
 											user[0].selling_ad_ids.splice(i, 1);
 											user[0].save(function(err) {
@@ -154,7 +154,7 @@ exports.acceptBid = function (req, res) {
 					}
 					//invalid token
 					else {
-						
+
 						res.send("Failure\n");
 					}
 				}
@@ -226,9 +226,10 @@ exports.createNewAd = function(req, res) {
 
 		if (err) throw err;
 		//add to ad database
+		var newAdId = (new Date).getTime();
 		var newAd = Ad({
 
-			ad_id: (new Date).getTime(),
+			ad_id: newAdId,
 			book_title: req.body["book_title"],
 			author: req.body["author"],
 			desc: req.body["desc"],
@@ -252,7 +253,7 @@ exports.createNewAd = function(req, res) {
 
 			//user found
 			if (user[0]) {
-				(user[0].selling_ad_ids).push((new Date).getTime());
+				(user[0].selling_ad_ids).push(newAdId);
 
 				user[0].save(function(err)	{
 
