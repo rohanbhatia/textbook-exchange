@@ -1,5 +1,7 @@
 var Ad = require('../models/ad');
 var User = require('../models/user');
+var nodemailer = require('nodemailer');
+var transporter2 = nodemailer.createTransport('smtps://donotreply_uoftextbook%40timothylock.ca:eDtU;Y;g4}NgBz$M@smtp.zoho.com');
 
 // app.get('/ads', ads.getAds);
 // Get all the post objects - also get individual post via fname
@@ -105,7 +107,7 @@ exports.acceptBid = function (req, res) {
 
 			//get user
 			var user = ads[0].owner_email;
-			var buyer = ads[0].bid_owner;
+
 
 			User.find({email: user}, function(err, user) {
 
@@ -113,12 +115,47 @@ exports.acceptBid = function (req, res) {
 
 				//user found
 				if (user[0]) {
-
+						var seller_email = user[0].email;
+						var buyer_email = ads[0].bid_owner;
 			    	//check validity of token
 					if (token == user[0].session_token) {
 
 						//send email
-						
+						try {
+							// Send the acceptedBid email out
+							var emailContent = "Hello ! \n\n" + user[0].first_name +
+									" has accepted " + buyer_email + "'s bid of $" + ads[0].bid +
+									" for the book '" + ads[0].book_title + "'. \n" +
+									"Please contact each other via the emails provided to " +
+									"complete the sale! \n\nThank you for using UofTextbook!" +
+									"\n\nCheers,\nThe UofTextbook Team";
+
+							var mailOptions = {
+									from: '"UofTextbook" <donotreply_uoftextbook@timothylock.ca>', // sender address
+									to: (seller_email + ", " + buyer_email), // list of receivers
+									subject: ('UofTextbook - "' + ads[0].book_title + '" completed sale!'), // Subject line
+									text: emailContent, // plaintext body
+									html: ("<p>Hello!<br><br>" + user[0].first_name +
+											" has accepted " + buyer_email + "'s bid of $" + ads[0].bid +
+											" for the book '" + ads[0].book_title + "'. <br>" +
+											"Please contact each other via the emails provided to " +
+											"complete the sale! <br><br>Thank you for using UofTextbook!" +
+											"<br><br>Cheers,<br>The UofTextbook Team"
+									+ "</p>") // html body
+							};
+
+
+							// send mail with defined transport object
+							transporter2.sendMail(mailOptions, function(error, info){
+									if(error){
+											return console.log(error);
+									}
+									console.log('Message sent: ' + info.response);
+							});
+						}
+						catch (err) {
+							console.log("Error Sending Email");
+						}
 						//remove the ad from the user's list of ads and then delete the ad
 						var i = (user[0].selling_ad_ids).indexOf(req.query.ad_id);
 						user[0].selling_ad_ids.splice(i, 1);
